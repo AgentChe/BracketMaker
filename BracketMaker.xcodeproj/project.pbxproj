@@ -79,6 +79,11 @@
 		DE157EAD2E55E71A00365C61 /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE157EAC2E55E71A00365C61 /* Inter-SemiBold.otf */; };
 		DEF900E92E5878AA00DE5679 /* ORoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900E82E5878AA00DE5679 /* ORoleView.swift */; };
 		DEF900EB2E58839B00DE5679 /* Paygate.storekit in Resources */ = {isa = PBXBuildFile; fileRef = DEF900EA2E58839B00DE5679 /* Paygate.storekit */; };
+		DEF900EF2E588C8B00DE5679 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900EE2E588C8B00DE5679 /* MainViewController.swift */; };
+		DEF900F12E588C9400DE5679 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900F02E588C9400DE5679 /* MainView.swift */; };
+		DEF900F32E588C9B00DE5679 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900F22E588C9B00DE5679 /* MainCoordinator.swift */; };
+		DEF900F72E588CDC00DE5679 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900F62E588CDC00DE5679 /* MainTabView.swift */; };
+		DEF900F92E588CE200DE5679 /* MainTabItemButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900F82E588CE200DE5679 /* MainTabItemButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -158,6 +163,11 @@
 		DE157EAC2E55E71A00365C61 /* Inter-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.otf"; sourceTree = "<group>"; };
 		DEF900E82E5878AA00DE5679 /* ORoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORoleView.swift; sourceTree = "<group>"; };
 		DEF900EA2E58839B00DE5679 /* Paygate.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Paygate.storekit; sourceTree = "<group>"; };
+		DEF900EE2E588C8B00DE5679 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		DEF900F02E588C9400DE5679 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		DEF900F22E588C9B00DE5679 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		DEF900F62E588CDC00DE5679 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		DEF900F82E588CE200DE5679 /* MainTabItemButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabItemButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -429,6 +439,7 @@
 		DE157D642E55E18A00365C61 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				DEF900EC2E588C7A00DE5679 /* Main */,
 				DE157D4A2E55E18A00365C61 /* Splash */,
 			);
 			path = Presentation;
@@ -500,6 +511,42 @@
 				DE157EA42E55E70D00365C61 /* Inter-Bold.otf */,
 			);
 			path = Inter;
+			sourceTree = "<group>";
+		};
+		DEF900EC2E588C7A00DE5679 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				DEF900ED2E588C7F00DE5679 /* Main */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		DEF900ED2E588C7F00DE5679 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				DEF900F42E588C9F00DE5679 /* Views */,
+				DEF900EE2E588C8B00DE5679 /* MainViewController.swift */,
+				DEF900F02E588C9400DE5679 /* MainView.swift */,
+				DEF900F22E588C9B00DE5679 /* MainCoordinator.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		DEF900F42E588C9F00DE5679 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DEF900F52E588CA400DE5679 /* Tab */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DEF900F52E588CA400DE5679 /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				DEF900F62E588CDC00DE5679 /* MainTabView.swift */,
+				DEF900F82E588CE200DE5679 /* MainTabItemButton.swift */,
+			);
+			path = Tab;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -587,9 +634,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BracketMaker/Pods-BracketMaker-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BracketMaker/Pods-BracketMaker-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -626,9 +677,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BracketMaker/Pods-BracketMaker-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BracketMaker/Pods-BracketMaker-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -647,10 +702,13 @@
 				DE157DAE2E55E18B00365C61 /* PaygateActionsView.swift in Sources */,
 				DE157DB62E55E18B00365C61 /* UIView+RxExtension.swift in Sources */,
 				DE157DBC2E55E18B00365C61 /* Fonts.swift in Sources */,
+				DEF900F72E588CDC00DE5679 /* MainTabView.swift in Sources */,
+				DEF900F92E588CE200DE5679 /* MainTabItemButton.swift in Sources */,
 				DE157DC92E55E18B00365C61 /* Appearance.swift in Sources */,
 				DE157DCA2E55E18B00365C61 /* TakePhoto.swift in Sources */,
 				DE157DCB2E55E18B00365C61 /* PaygateViewModel.swift in Sources */,
 				DE157DCF2E55E18B00365C61 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
+				DEF900F12E588C9400DE5679 /* MainView.swift in Sources */,
 				DE157DD02E55E18B00365C61 /* ObservableRetrySingle.swift in Sources */,
 				DE157DD12E55E18B00365C61 /* Collection+Extension.swift in Sources */,
 				DE157DDF2E55E18B00365C61 /* OSlideView.swift in Sources */,
@@ -664,6 +722,7 @@
 				DE157DFB2E55E18B00365C61 /* IAPProduct.swift in Sources */,
 				DE157E012E55E18B00365C61 /* Weak.swift in Sources */,
 				DE157E072E55E18B00365C61 /* PaddingLabel.swift in Sources */,
+				DEF900F32E588C9B00DE5679 /* MainCoordinator.swift in Sources */,
 				DE157E092E55E18B00365C61 /* NavigationControllerSettings.swift in Sources */,
 				DE157E0B2E55E18B00365C61 /* OnboardingViewController.swift in Sources */,
 				DE157E122E55E18B00365C61 /* PurchaseValidationObserver.swift in Sources */,
@@ -684,6 +743,7 @@
 				DE157E502E55E18B00365C61 /* ChoosePhotoFromGallery.swift in Sources */,
 				DE157E522E55E18B00365C61 /* PaddingTextField.swift in Sources */,
 				DE157E572E55E18B00365C61 /* SessionManager.swift in Sources */,
+				DEF900EF2E588C8B00DE5679 /* MainViewController.swift in Sources */,
 				DE157E5A2E55E18B00365C61 /* PaygateInfoView.swift in Sources */,
 				DE157E5B2E55E18B00365C61 /* TextAttributes.swift in Sources */,
 				DE157E5D2E55E18B00365C61 /* SplashView.swift in Sources */,

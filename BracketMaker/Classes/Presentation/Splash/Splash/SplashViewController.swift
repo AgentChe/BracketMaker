@@ -52,10 +52,10 @@ private extension SplashViewController {
                 window?.rootViewController = OnboardingViewController.make()
             } else {
                 if SessionManager().hasActiveSubscriptions() {
-                    // TODO: main
+                    window?.rootViewController = MainViewController.make(requestReview: false)
                 } else {
                     let vc = PaygateViewController.make { [weak window] in
-                        // TODO: main
+                        window?.rootViewController = MainViewController.make(requestReview: false)
                     }
                     self?.present(vc, animated: true)
                 }
