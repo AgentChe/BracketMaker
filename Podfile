@@ -12,7 +12,6 @@ target 'BracketMaker' do
   pod 'RxSwift'
   pod 'RxCocoa'
   
-  pod 'Alamofire'
   pod 'GRDB.swift'
   
   pod 'SwiftyStoreKit'

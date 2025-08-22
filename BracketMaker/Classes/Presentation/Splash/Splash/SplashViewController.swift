@@ -6,17 +6,11 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
 
 final class SplashViewController: UIViewController {
     private lazy var mainView = SplashView()
     
-    private lazy var disposeBag = DisposeBag()
-    
     private lazy var sdkInitialize = SplashReceiptValidationObserver()
-    
-    private lazy var didSDKConfiguredTrigger = PublishRelay<Void>()
     
     override func loadView() {
         view = mainView
@@ -26,12 +20,12 @@ final class SplashViewController: UIViewController {
         super.viewDidLoad()
         
         sdkInitialize.observe { [weak self] in
-            self?.didSDKConfiguredTrigger.accept(Void())
+            self?.route()
         }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
+        .darkContent
     }
 }
 
@@ -39,5 +33,33 @@ final class SplashViewController: UIViewController {
 extension SplashViewController {
     static func make() -> SplashViewController {
         SplashViewController()
+    }
+}
+
+// MARK: Private
+private extension SplashViewController {
+    func route() {
+        guard let window = UIApplication.shared.window else {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) { [weak self] in
+                self?.route()
+            }
+            
+            return
+        }
+        
+        DispatchQueue.main.async { [weak self, weak window] in
+            if !OnboardingViewController.wasViewed() {
+                window?.rootViewController = OnboardingViewController.make()
+            } else {
+                if SessionManager().hasActiveSubscriptions() {
+                    // TODO: main
+                } else {
+                    let vc = PaygateViewController.make { [weak window] in
+                        // TODO: main
+                    }
+                    self?.present(vc, animated: true)
+                }
+            }
+        }
     }
 }

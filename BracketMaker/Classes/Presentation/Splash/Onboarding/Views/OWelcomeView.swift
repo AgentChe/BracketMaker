@@ -1,22 +1,19 @@
 //
-//  Onstruction2View.swift
+//  OWelcomeView.swift
 //  InventoryManagement
 //
 //  Created by Андрей Чернышев on 08.04.2025.
 //
 
 import UIKit
-import RiveRuntime
 
-final class Onstruction2View: OSlideView {
-    lazy var animationView = makeAnimationView()
+final class OWelcomeView: OSlideView {
+    lazy var imageView = makeImageView()
     lazy var titleLabel = makeTitleLabel()
     lazy var subTitleLabel = makeSubTitleLabel()
     lazy var continueButton = makeContinueButton()
     
     private let onContinue: () -> Void
-    
-    private lazy var animationVM = RiveViewModel(fileName: "Onboarding.Instruction2")
     
     init(onContinue: @escaping () -> Void) {
         self.onContinue = onContinue
@@ -30,18 +27,14 @@ final class Onstruction2View: OSlideView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func moveToThis() {
-        super.moveToThis()
-        
-        animationVM.setView(animationView)
-    }
 }
 
 // MARK: Private
-private extension Onstruction2View {
+private extension OWelcomeView {
     func initialize() {
-        backgroundColor = Appearance.mono100
+        gradientLayer.colors = Appearance.mono900.map { $0.cgColor }
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
     }
     
     @objc
@@ -51,40 +44,42 @@ private extension Onstruction2View {
 }
 
 // MARK: Make constraints
-private extension Onstruction2View {
+private extension OWelcomeView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            animationView.widthAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 469.scale : 250.scale),
-            animationView.heightAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 469.scale : 250.scale),
-            animationView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            animationView.topAnchor.constraint(equalTo: topAnchor, constant: 78.scale)
+            imageView.widthAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 390.scale : 300.scale),
+            imageView.heightAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 577.scale : 443.scale),
+            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            imageView.topAnchor.constraint(equalTo: topAnchor)
         ])
         
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
-            titleLabel.topAnchor.constraint(equalTo: animationView.bottomAnchor, constant: 27.scale)
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8.scale)
         ])
         
         NSLayoutConstraint.activate([
             subTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
             subTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
-            subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10.scale)
+            subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12.scale)
         ])
         
         NSLayoutConstraint.activate([
             continueButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
             continueButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
-            continueButton.heightAnchor.constraint(equalToConstant: 60.scale),
-            continueButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -29.scale)
+            continueButton.heightAnchor.constraint(equalToConstant: 56.scale),
+            continueButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -28.scale)
         ])
     }
 }
 
 // MARK: Lazy initialization
-private extension Onstruction2View {
-    func makeAnimationView() -> RiveView {
-        let view = RiveView()
+private extension OWelcomeView {
+    func makeImageView() -> UIImageView {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
+        view.image = UIImage(named: "Onboarding.Welcome")
         view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -93,13 +88,13 @@ private extension Onstruction2View {
     
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
-            .textColor(Appearance.mono200)
-            .font(Fonts.Inter.bold(size: 32.scale))
-            .lineHeight(40.scale)
-            .textAlignment(.left)
+            .textColor(Appearance.mono100)
+            .font(Fonts.Inter.semiBold(size: 28.scale))
+            .lineHeight(34.scale)
+            .textAlignment(.center)
         
         let view = UILabel()
-        view.attributedText = "Onboarding.Instruction2.Title".localized.attributed(with: attrs)
+        view.attributedText = "Onboarding.Welcome.Title".localized.attributed(with: attrs)
         view.numberOfLines = 0
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -108,13 +103,13 @@ private extension Onstruction2View {
     
     func makeSubTitleLabel() -> UILabel {
         let attrs = TextAttributes()
-            .textColor(Appearance.mono200)
-            .font(Fonts.Inter.regular(size: 17.scale))
-            .lineHeight(20.scale)
-            .textAlignment(.left)
+            .textColor(Appearance.mono100)
+            .font(Fonts.Inter.regular(size: 16.scale))
+            .lineHeight(21.scale)
+            .textAlignment(.center)
         
         let view = UILabel()
-        view.attributedText = "Onboarding.Instruction2.SubTitle".localized.attributed(with: attrs)
+        view.attributedText = "Onboarding.Welcome.SubTitle".localized.attributed(with: attrs)
         view.numberOfLines = 0
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -123,13 +118,13 @@ private extension Onstruction2View {
     
     func makeContinueButton() -> UIButton {
         let attrs = TextAttributes()
-            .textColor(Appearance.mono100)
-            .font(Fonts.Inter.regular(size: 17.scale))
+            .textColor(Appearance.mono200)
+            .font(Fonts.Inter.semiBold(size: 16.scale))
         
         let view = UIButton()
-        view.setAttributedTitle("Continue".localized.attributed(with: attrs), for: .normal)
-        view.layer.cornerRadius = 20.scale
-        view.backgroundColor = Appearance.main200
+        view.setAttributedTitle("Next".localized.attributed(with: attrs), for: .normal)
+        view.layer.cornerRadius = 19.scale
+        view.backgroundColor = Appearance.main100
         view.addTarget(self, action: #selector(continueTapped), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)

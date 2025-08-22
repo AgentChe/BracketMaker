@@ -7,6 +7,6 @@
 
 import UIKit
 
-class OSlideView: UIView {
+class OSlideView: GradientView {
     func moveToThis() {}
 }

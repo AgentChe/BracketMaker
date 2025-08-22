@@ -44,15 +44,14 @@ private extension OnboardingViewController {
             return
         }
         
-        // TODO
-//        if SessionManager().hasActiveSubscriptions() {
-//            window.rootViewController = MainViewController.make(requestReview: true)
-//        } else {
-//            let vc = PaygateViewController.make {
-//                window.rootViewController = MainViewController.make(requestReview: true)
-//            }
-//            present(vc, animated: true)
-//        }
+        if SessionManager().hasActiveSubscriptions() {
+//            window.rootViewController = MainViewController.make(requestReview: true) // TODO
+        } else {
+            let vc = PaygateViewController.make {
+//                window.rootViewController = MainViewController.make(requestReview: true) TODO
+            }
+            present(vc, animated: true)
+        }
     }
     
     func markAsViewed() {

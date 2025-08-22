@@ -29,9 +29,7 @@
 		DE157DEA2E55E18B00365C61 /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C392E55E18A00365C61 /* AmplitudeManager.swift */; };
 		DE157DEB2E55E18B00365C61 /* IAPErrorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D902E55E18A00365C61 /* IAPErrorHelper.swift */; };
 		DE157DED2E55E18B00365C61 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D442E55E18A00365C61 /* SplashViewController.swift */; };
-		DE157DEF2E55E18B00365C61 /* APIFormDataRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C552E55E18A00365C61 /* APIFormDataRequestBody.swift */; };
 		DE157DF02E55E18B00365C61 /* UIEdgeInsets+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C512E55E18A00365C61 /* UIEdgeInsets+Extension.swift */; };
-		DE157DF12E55E18B00365C61 /* TryAgainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D482E55E18A00365C61 /* TryAgainViewController.swift */; };
 		DE157DFB2E55E18B00365C61 /* IAPProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D932E55E18A00365C61 /* IAPProduct.swift */; };
 		DE157E012E55E18B00365C61 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C632E55E18A00365C61 /* Weak.swift */; };
 		DE157E072E55E18B00365C61 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C462E55E18A00365C61 /* PaddingLabel.swift */; };
@@ -42,22 +40,18 @@
 		DE157E182E55E18B00365C61 /* SplashReceiptValidationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D412E55E18A00365C61 /* SplashReceiptValidationObserver.swift */; };
 		DE157E222E55E18B00365C61 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C4F2E55E18A00365C61 /* UIColor+Extension.swift */; };
 		DE157E242E55E18B00365C61 /* IAPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D8F2E55E18A00365C61 /* IAPError.swift */; };
-		DE157E262E55E18B00365C61 /* Onstruction1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D262E55E18A00365C61 /* Onstruction1View.swift */; };
+		DE157E262E55E18B00365C61 /* OInstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D262E55E18A00365C61 /* OInstructionView.swift */; };
 		DE157E292E55E18B00365C61 /* ObservableAndSingle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C4C2E55E18A00365C61 /* ObservableAndSingle+Extension.swift */; };
 		DE157E2A2E55E18B00365C61 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C692E55E18A00365C61 /* SceneDelegate.swift */; };
 		DE157E302E55E18B00365C61 /* PaygateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D3E2E55E18A00365C61 /* PaygateViewController.swift */; };
 		DE157E312E55E18B00365C61 /* SignError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C5B2E55E18A00365C61 /* SignError.swift */; };
-		DE157E332E55E18B00365C61 /* OAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D232E55E18A00365C61 /* OAccountView.swift */; };
 		DE157E352E55E18B00365C61 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C412E55E18A00365C61 /* NavigationController.swift */; };
 		DE157E372E55E18B00365C61 /* ContentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C592E55E18A00365C61 /* ContentError.swift */; };
 		DE157E392E55E18B00365C61 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C4D2E55E18A00365C61 /* String+Extension.swift */; };
-		DE157E3A2E55E18B00365C61 /* Onstruction2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D292E55E18A00365C61 /* Onstruction2View.swift */; };
 		DE157E422E55E18B00365C61 /* RxActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C3E2E55E18A00365C61 /* RxActivityIndicator.swift */; };
 		DE157E4A2E55E18B00365C61 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D302E55E18A00365C61 /* OnboardingView.swift */; };
 		DE157E502E55E18B00365C61 /* ChoosePhotoFromGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C3C2E55E18A00365C61 /* ChoosePhotoFromGallery.swift */; };
-		DE157E512E55E18B00365C61 /* APIRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C562E55E18A00365C61 /* APIRequestBody.swift */; };
 		DE157E522E55E18B00365C61 /* PaddingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C472E55E18A00365C61 /* PaddingTextField.swift */; };
-		DE157E552E55E18B00365C61 /* RestAPITransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C572E55E18A00365C61 /* RestAPITransport.swift */; };
 		DE157E572E55E18B00365C61 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D982E55E18A00365C61 /* SessionManager.swift */; };
 		DE157E5A2E55E18B00365C61 /* PaygateInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D3A2E55E18A00365C61 /* PaygateInfoView.swift */; };
 		DE157E5B2E55E18B00365C61 /* TextAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C622E55E18A00365C61 /* TextAttributes.swift */; };
@@ -73,21 +67,18 @@
 		DE157E832E55E18B00365C61 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C4E2E55E18A00365C61 /* UIApplication+Extension.swift */; };
 		DE157E852E55E18B00365C61 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C442E55E18A00365C61 /* GradientView.swift */; };
 		DE157E8D2E55E18B00365C61 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D332E55E18A00365C61 /* Currency.swift */; };
-		DE157E922E55E18B00365C61 /* TryAgainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D472E55E18A00365C61 /* TryAgainView.swift */; };
 		DE157E932E55E18B00365C61 /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C612E55E18A00365C61 /* ScreenSize.swift */; };
 		DE157E942E55E18B00365C61 /* PaygateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D3D2E55E18A00365C61 /* PaygateView.swift */; };
 		DE157E952E55E18B00365C61 /* GlobalDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C682E55E18A00365C61 /* GlobalDefinitions.swift */; };
 		DE157E992E55E18B00365C61 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D952E55E18A00365C61 /* IAPManager.swift */; };
 		DE157E9D2E55E18B00365C61 /* OWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D2C2E55E18A00365C61 /* OWelcomeView.swift */; };
-		DE157E9F2E55E18B00365C61 /* OAccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D212E55E18A00365C61 /* OAccountButton.swift */; };
-		DE157EA02E55E18B00365C61 /* Onboarding.Welcome.riv in Resources */ = {isa = PBXBuildFile; fileRef = DE157D2B2E55E18A00365C61 /* Onboarding.Welcome.riv */; };
-		DE157EA12E55E18B00365C61 /* Onboarding.Instruction2.riv in Resources */ = {isa = PBXBuildFile; fileRef = DE157D282E55E18A00365C61 /* Onboarding.Instruction2.riv */; };
-		DE157EA22E55E18B00365C61 /* Onboarding.Instruction1.riv in Resources */ = {isa = PBXBuildFile; fileRef = DE157D252E55E18A00365C61 /* Onboarding.Instruction1.riv */; };
 		DE157EA52E55E70D00365C61 /* Inter-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE157EA42E55E70D00365C61 /* Inter-Bold.otf */; };
 		DE157EA72E55E71200365C61 /* Inter-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE157EA62E55E71200365C61 /* Inter-ExtraBold.otf */; };
 		DE157EA92E55E71600365C61 /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE157EA82E55E71600365C61 /* Inter-Medium.otf */; };
 		DE157EAB2E55E71800365C61 /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE157EAA2E55E71800365C61 /* Inter-Regular.otf */; };
 		DE157EAD2E55E71A00365C61 /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE157EAC2E55E71A00365C61 /* Inter-SemiBold.otf */; };
+		DEF900E92E5878AA00DE5679 /* ORoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900E82E5878AA00DE5679 /* ORoleView.swift */; };
+		DEF900EB2E58839B00DE5679 /* Paygate.storekit in Resources */ = {isa = PBXBuildFile; fileRef = DEF900EA2E58839B00DE5679 /* Paygate.storekit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,9 +111,6 @@
 		DE157C512E55E18A00365C61 /* UIEdgeInsets+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Extension.swift"; sourceTree = "<group>"; };
 		DE157C522E55E18A00365C61 /* UITapGestureRecognizer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITapGestureRecognizer+Extension.swift"; sourceTree = "<group>"; };
 		DE157C532E55E18A00365C61 /* UIView+RxExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+RxExtension.swift"; sourceTree = "<group>"; };
-		DE157C552E55E18A00365C61 /* APIFormDataRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFormDataRequestBody.swift; sourceTree = "<group>"; };
-		DE157C562E55E18A00365C61 /* APIRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestBody.swift; sourceTree = "<group>"; };
-		DE157C572E55E18A00365C61 /* RestAPITransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPITransport.swift; sourceTree = "<group>"; };
 		DE157C592E55E18A00365C61 /* ContentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentError.swift; sourceTree = "<group>"; };
 		DE157C5A2E55E18A00365C61 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		DE157C5B2E55E18A00365C61 /* SignError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignError.swift; sourceTree = "<group>"; };
@@ -137,13 +125,7 @@
 		DE157C672E55E18A00365C61 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		DE157C682E55E18A00365C61 /* GlobalDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalDefinitions.swift; sourceTree = "<group>"; };
 		DE157C692E55E18A00365C61 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DE157D212E55E18A00365C61 /* OAccountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAccountButton.swift; sourceTree = "<group>"; };
-		DE157D232E55E18A00365C61 /* OAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAccountView.swift; sourceTree = "<group>"; };
-		DE157D252E55E18A00365C61 /* Onboarding.Instruction1.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = Onboarding.Instruction1.riv; sourceTree = "<group>"; };
-		DE157D262E55E18A00365C61 /* Onstruction1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onstruction1View.swift; sourceTree = "<group>"; };
-		DE157D282E55E18A00365C61 /* Onboarding.Instruction2.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = Onboarding.Instruction2.riv; sourceTree = "<group>"; };
-		DE157D292E55E18A00365C61 /* Onstruction2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onstruction2View.swift; sourceTree = "<group>"; };
-		DE157D2B2E55E18A00365C61 /* Onboarding.Welcome.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = Onboarding.Welcome.riv; sourceTree = "<group>"; };
+		DE157D262E55E18A00365C61 /* OInstructionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OInstructionView.swift; sourceTree = "<group>"; };
 		DE157D2C2E55E18A00365C61 /* OWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OWelcomeView.swift; sourceTree = "<group>"; };
 		DE157D2E2E55E18A00365C61 /* OSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSlideView.swift; sourceTree = "<group>"; };
 		DE157D302E55E18A00365C61 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -162,8 +144,6 @@
 		DE157D412E55E18A00365C61 /* SplashReceiptValidationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashReceiptValidationObserver.swift; sourceTree = "<group>"; };
 		DE157D432E55E18A00365C61 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		DE157D442E55E18A00365C61 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
-		DE157D472E55E18A00365C61 /* TryAgainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TryAgainView.swift; sourceTree = "<group>"; };
-		DE157D482E55E18A00365C61 /* TryAgainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TryAgainViewController.swift; sourceTree = "<group>"; };
 		DE157D8F2E55E18A00365C61 /* IAPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPError.swift; sourceTree = "<group>"; };
 		DE157D902E55E18A00365C61 /* IAPErrorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPErrorHelper.swift; sourceTree = "<group>"; };
 		DE157D922E55E18A00365C61 /* IAPActionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPActionResult.swift; sourceTree = "<group>"; };
@@ -176,6 +156,8 @@
 		DE157EA82E55E71600365C61 /* Inter-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.otf"; sourceTree = "<group>"; };
 		DE157EAA2E55E71800365C61 /* Inter-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.otf"; sourceTree = "<group>"; };
 		DE157EAC2E55E71A00365C61 /* Inter-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.otf"; sourceTree = "<group>"; };
+		DEF900E82E5878AA00DE5679 /* ORoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORoleView.swift; sourceTree = "<group>"; };
+		DEF900EA2E58839B00DE5679 /* Paygate.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Paygate.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,16 +301,6 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		DE157C582E55E18A00365C61 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				DE157C552E55E18A00365C61 /* APIFormDataRequestBody.swift */,
-				DE157C562E55E18A00365C61 /* APIRequestBody.swift */,
-				DE157C572E55E18A00365C61 /* RestAPITransport.swift */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
 		DE157C5C2E55E18A00365C61 /* Error */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,7 +333,6 @@
 				DE157C402E55E18A00365C61 /* Components */,
 				DE157C4A2E55E18A00365C61 /* CustomViews */,
 				DE157C542E55E18A00365C61 /* Extension */,
-				DE157C582E55E18A00365C61 /* Network */,
 				DE157C652E55E18A00365C61 /* Utils */,
 				DE157C662E55E18A00365C61 /* AppDelegate.swift */,
 				DE157C672E55E18A00365C61 /* Appearance.swift */,
@@ -371,57 +342,12 @@
 			path = Misc;
 			sourceTree = "<group>";
 		};
-		DE157D222E55E18A00365C61 /* Atoms */ = {
-			isa = PBXGroup;
-			children = (
-				DE157D212E55E18A00365C61 /* OAccountButton.swift */,
-			);
-			path = Atoms;
-			sourceTree = "<group>";
-		};
-		DE157D242E55E18A00365C61 /* Account */ = {
-			isa = PBXGroup;
-			children = (
-				DE157D222E55E18A00365C61 /* Atoms */,
-				DE157D232E55E18A00365C61 /* OAccountView.swift */,
-			);
-			path = Account;
-			sourceTree = "<group>";
-		};
-		DE157D272E55E18A00365C61 /* Instruction1 */ = {
-			isa = PBXGroup;
-			children = (
-				DE157D252E55E18A00365C61 /* Onboarding.Instruction1.riv */,
-				DE157D262E55E18A00365C61 /* Onstruction1View.swift */,
-			);
-			path = Instruction1;
-			sourceTree = "<group>";
-		};
-		DE157D2A2E55E18A00365C61 /* Instruction2 */ = {
-			isa = PBXGroup;
-			children = (
-				DE157D282E55E18A00365C61 /* Onboarding.Instruction2.riv */,
-				DE157D292E55E18A00365C61 /* Onstruction2View.swift */,
-			);
-			path = Instruction2;
-			sourceTree = "<group>";
-		};
-		DE157D2D2E55E18A00365C61 /* Welcome */ = {
-			isa = PBXGroup;
-			children = (
-				DE157D2B2E55E18A00365C61 /* Onboarding.Welcome.riv */,
-				DE157D2C2E55E18A00365C61 /* OWelcomeView.swift */,
-			);
-			path = Welcome;
-			sourceTree = "<group>";
-		};
 		DE157D2F2E55E18A00365C61 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DE157D242E55E18A00365C61 /* Account */,
-				DE157D272E55E18A00365C61 /* Instruction1 */,
-				DE157D2A2E55E18A00365C61 /* Instruction2 */,
-				DE157D2D2E55E18A00365C61 /* Welcome */,
+				DE157D2C2E55E18A00365C61 /* OWelcomeView.swift */,
+				DE157D262E55E18A00365C61 /* OInstructionView.swift */,
+				DEF900E82E5878AA00DE5679 /* ORoleView.swift */,
 				DE157D2E2E55E18A00365C61 /* OSlideView.swift */,
 			);
 			path = Views;
@@ -431,8 +357,8 @@
 			isa = PBXGroup;
 			children = (
 				DE157D2F2E55E18A00365C61 /* Views */,
-				DE157D302E55E18A00365C61 /* OnboardingView.swift */,
 				DE157D312E55E18A00365C61 /* OnboardingViewController.swift */,
+				DE157D302E55E18A00365C61 /* OnboardingView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -464,9 +390,10 @@
 			children = (
 				DE157D352E55E18A00365C61 /* Utils */,
 				DE157D3C2E55E18A00365C61 /* Views */,
-				DE157D3D2E55E18A00365C61 /* PaygateView.swift */,
 				DE157D3E2E55E18A00365C61 /* PaygateViewController.swift */,
 				DE157D3F2E55E18A00365C61 /* PaygateViewModel.swift */,
+				DE157D3D2E55E18A00365C61 /* PaygateView.swift */,
+				DEF900EA2E58839B00DE5679 /* Paygate.storekit */,
 			);
 			path = Paygate;
 			sourceTree = "<group>";
@@ -489,22 +416,12 @@
 			path = Splash;
 			sourceTree = "<group>";
 		};
-		DE157D492E55E18A00365C61 /* TryAgain */ = {
-			isa = PBXGroup;
-			children = (
-				DE157D472E55E18A00365C61 /* TryAgainView.swift */,
-				DE157D482E55E18A00365C61 /* TryAgainViewController.swift */,
-			);
-			path = TryAgain;
-			sourceTree = "<group>";
-		};
 		DE157D4A2E55E18A00365C61 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
 				DE157D322E55E18A00365C61 /* Onboarding */,
 				DE157D402E55E18A00365C61 /* Paygate */,
 				DE157D462E55E18A00365C61 /* Splash */,
-				DE157D492E55E18A00365C61 /* TryAgain */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -649,12 +566,10 @@
 			files = (
 				DE157C1F2E55DD9500365C61 /* Assets.xcassets in Resources */,
 				DE157EAB2E55E71800365C61 /* Inter-Regular.otf in Resources */,
+				DEF900EB2E58839B00DE5679 /* Paygate.storekit in Resources */,
 				DE157EAD2E55E71A00365C61 /* Inter-SemiBold.otf in Resources */,
 				DE157EA52E55E70D00365C61 /* Inter-Bold.otf in Resources */,
 				DE157C212E55DD9500365C61 /* LaunchScreen.storyboard in Resources */,
-				DE157EA02E55E18B00365C61 /* Onboarding.Welcome.riv in Resources */,
-				DE157EA12E55E18B00365C61 /* Onboarding.Instruction2.riv in Resources */,
-				DE157EA22E55E18B00365C61 /* Onboarding.Instruction1.riv in Resources */,
 				DE157EA72E55E71200365C61 /* Inter-ExtraBold.otf in Resources */,
 				DE157EA92E55E71600365C61 /* Inter-Medium.otf in Resources */,
 				DE157C382E55E18500365C61 /* Localizable.strings in Resources */,
@@ -672,13 +587,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BracketMaker/Pods-BracketMaker-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BracketMaker/Pods-BracketMaker-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -715,13 +626,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BracketMaker/Pods-BracketMaker-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BracketMaker/Pods-BracketMaker-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -753,9 +660,7 @@
 				DE157DEA2E55E18B00365C61 /* AmplitudeManager.swift in Sources */,
 				DE157DEB2E55E18B00365C61 /* IAPErrorHelper.swift in Sources */,
 				DE157DED2E55E18B00365C61 /* SplashViewController.swift in Sources */,
-				DE157DEF2E55E18B00365C61 /* APIFormDataRequestBody.swift in Sources */,
 				DE157DF02E55E18B00365C61 /* UIEdgeInsets+Extension.swift in Sources */,
-				DE157DF12E55E18B00365C61 /* TryAgainViewController.swift in Sources */,
 				DE157DFB2E55E18B00365C61 /* IAPProduct.swift in Sources */,
 				DE157E012E55E18B00365C61 /* Weak.swift in Sources */,
 				DE157E072E55E18B00365C61 /* PaddingLabel.swift in Sources */,
@@ -766,26 +671,23 @@
 				DE157E182E55E18B00365C61 /* SplashReceiptValidationObserver.swift in Sources */,
 				DE157E222E55E18B00365C61 /* UIColor+Extension.swift in Sources */,
 				DE157E242E55E18B00365C61 /* IAPError.swift in Sources */,
-				DE157E262E55E18B00365C61 /* Onstruction1View.swift in Sources */,
+				DE157E262E55E18B00365C61 /* OInstructionView.swift in Sources */,
 				DE157E292E55E18B00365C61 /* ObservableAndSingle+Extension.swift in Sources */,
 				DE157E2A2E55E18B00365C61 /* SceneDelegate.swift in Sources */,
 				DE157E302E55E18B00365C61 /* PaygateViewController.swift in Sources */,
 				DE157E312E55E18B00365C61 /* SignError.swift in Sources */,
-				DE157E332E55E18B00365C61 /* OAccountView.swift in Sources */,
 				DE157E352E55E18B00365C61 /* NavigationController.swift in Sources */,
 				DE157E372E55E18B00365C61 /* ContentError.swift in Sources */,
 				DE157E392E55E18B00365C61 /* String+Extension.swift in Sources */,
-				DE157E3A2E55E18B00365C61 /* Onstruction2View.swift in Sources */,
 				DE157E422E55E18B00365C61 /* RxActivityIndicator.swift in Sources */,
 				DE157E4A2E55E18B00365C61 /* OnboardingView.swift in Sources */,
 				DE157E502E55E18B00365C61 /* ChoosePhotoFromGallery.swift in Sources */,
-				DE157E512E55E18B00365C61 /* APIRequestBody.swift in Sources */,
 				DE157E522E55E18B00365C61 /* PaddingTextField.swift in Sources */,
-				DE157E552E55E18B00365C61 /* RestAPITransport.swift in Sources */,
 				DE157E572E55E18B00365C61 /* SessionManager.swift in Sources */,
 				DE157E5A2E55E18B00365C61 /* PaygateInfoView.swift in Sources */,
 				DE157E5B2E55E18B00365C61 /* TextAttributes.swift in Sources */,
 				DE157E5D2E55E18B00365C61 /* SplashView.swift in Sources */,
+				DEF900E92E5878AA00DE5679 /* ORoleView.swift in Sources */,
 				DE157E6E2E55E18B00365C61 /* TapAreaButton.swift in Sources */,
 				DE157E6F2E55E18B00365C61 /* PaygateEnableTrialButton.swift in Sources */,
 				DE157E732E55E18B00365C61 /* AppDelegate.swift in Sources */,
@@ -797,13 +699,11 @@
 				DE157E832E55E18B00365C61 /* UIApplication+Extension.swift in Sources */,
 				DE157E852E55E18B00365C61 /* GradientView.swift in Sources */,
 				DE157E8D2E55E18B00365C61 /* Currency.swift in Sources */,
-				DE157E922E55E18B00365C61 /* TryAgainView.swift in Sources */,
 				DE157E932E55E18B00365C61 /* ScreenSize.swift in Sources */,
 				DE157E942E55E18B00365C61 /* PaygateView.swift in Sources */,
 				DE157E952E55E18B00365C61 /* GlobalDefinitions.swift in Sources */,
 				DE157E992E55E18B00365C61 /* IAPManager.swift in Sources */,
 				DE157E9D2E55E18B00365C61 /* OWelcomeView.swift in Sources */,
-				DE157E9F2E55E18B00365C61 /* OAccountButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,6 +737,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2GY8CB289H;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BracketMaker/Info.plist;
@@ -871,6 +772,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2GY8CB289H;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BracketMaker/Info.plist;

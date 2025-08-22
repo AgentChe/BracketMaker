@@ -22,17 +22,14 @@
 "TryAgain.Button" = "Try again";
 "TryAgain.Contact" = "Contact support";
 
-// MARK: Splash
-"Splash.Preloader" = "‍Loading...";
-
 // MARK: Paygate
 "Paygate.Error.Title" = "Error";
 "Paygate.Error.Text" = "An error occurred during execution. Try later.";
 "Paygate.Error.Button" = "OK";
-"Paygate.Title" = "Upgrade for Premium";
-"Paygate.Info1" = "95% weight detection accuracy";
-"Paygate.Info2" = "Unlimited measurements";
-"Paygate.Info3" = "Instant, precise results";
+"Paygate.Title" = "Upgrade Premium";
+"Paygate.Info1" = "Unlimited brackets";
+"Paygate.Info2" = "Own team managment";
+"Paygate.Info3" = "All presets for your tournaments";
 "Paygate.EnableFreeTrial" = "Enable Free Trial";
 "Paygate.FreeTrialEnabled" = "Free Trial Enabled";
 "Paygate.Yearly" = "Yearly";
@@ -48,3 +45,17 @@
 "Paygate.PrivacyPolicy" = "Privacy Policy";
 "Paygate.RestorePurchases" = "Restore Purchases";
 "Paygate.BestOffer" = "⭐ Best Offer";
+
+// MARK: Onboarding
+"Onboarding.Welcome.Title" = "Create your personal bracket";
+"Onboarding.Welcome.SubTitle" = "Personal and unique presets for your tournaments bracket";
+"Onboarding.Instruction.Tournament.Title" = "One-Click tournament\nsetup";
+"Onboarding.Instruction.Tournament.SubTitle" = "Personal and unique presets for your tournaments bracket";
+"Onboarding.Instruction.Teams.Title" = "Create and Manage\nTeams";
+"Onboarding.Instruction.Teams.SubTitle" = "Easily build your teams and add them to your brackets in just a few taps";
+"Onboarding.Instruction.Organized.Title" = "Stay Organized with\nBrackets";
+"Onboarding.Instruction.Organized.SubTitle" = "Track progress, sort, and filter your brackets easily — everything you need in one place";
+"Onboarding.Role.Title" = "Select your role";
+"Onboarding.Role.SubTitle" = "Are you coaching a team or competing as a player?";
+"Onboarding.Role.Trainer" = "Trainer";
+"Onboarding.Role.Player" = "Player";

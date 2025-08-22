@@ -41,8 +41,8 @@ final class PaygateProductButton: UIButton {
 // MARK: Private
 private extension PaygateProductButton {
     func initialize() {
-        backgroundColor = Appearance.mono100
-        layer.cornerRadius = 20.scale
+        layer.borderWidth = 1.scale
+        layer.cornerRadius = 16.scale
     }
     
     func update() {
@@ -61,14 +61,14 @@ private extension PaygateProductButton {
         switch isYearly {
         case true:
             let nameAttrs = TextAttributes()
-                .textColor(Appearance.mono200)
+                .textColor(marked ? Appearance.mono100 : Appearance.mono200)
                 .font(Fonts.Inter.regular(size: 14.scale))
                 .lineHeight(20.scale)
             let name = "Paygate.Yearly".localized + "\n"
             result.append(name.attributed(with: nameAttrs))
             
             let bottomAttrs = TextAttributes()
-                .textColor(Appearance.mono200)
+                .textColor(marked ? Appearance.mono100 : Appearance.mono200)
                 .font(Fonts.Inter.semiBold(size: 16.scale))
                 .lineHeight(22.scale)
             let price = Currency(iapProduct: product).formatted() ?? ""
@@ -76,7 +76,7 @@ private extension PaygateProductButton {
             result.append(bottom.attributed(with: bottomAttrs))
         case false:
             let attrs = TextAttributes()
-                .textColor(Appearance.mono200)
+                .textColor(marked ? Appearance.mono100 : Appearance.mono200)
                 .font(Fonts.Inter.semiBold(size: 16.scale))
                 .lineHeight(22.scale)
             result.append("Paygate.FreeTrialDays".localized.uppercased().attributed(with: attrs))
@@ -95,27 +95,27 @@ private extension PaygateProductButton {
         switch isYearly {
         case true:
             let priceAttrs = TextAttributes()
-                .textColor(Appearance.mono200)
+                .textColor(marked ? Appearance.mono100 : Appearance.mono200)
                 .font(Fonts.Inter.regular(size: 16.scale))
                 .lineHeight(22.scale)
             let price = Currency(iapProduct: product, div: 52).formatted() ?? ""
             result.append((price + "\n").attributed(with: priceAttrs))
             
             let periodAttrs = TextAttributes()
-                .textColor(Appearance.mono200)
+                .textColor(marked ? Appearance.mono100 : Appearance.mono200)
                 .font(Fonts.Inter.regular(size: 14.scale))
                 .lineHeight(20.scale)
             result.append("Paygate.PerWeek".localized.attributed(with: periodAttrs))
         case false:
             let priceAttrs = TextAttributes()
-                .textColor(Appearance.mono200)
+                .textColor(marked ? Appearance.mono100 : Appearance.mono200)
                 .font(Fonts.Inter.semiBold(size: 16.scale))
                 .lineHeight(22.scale)
             let price = Currency(iapProduct: product).formatted() ?? ""
             result.append(String(format: "Paygate.Then".localized, price).attributed(with: priceAttrs))
             
             let periodAttrs = TextAttributes()
-                .textColor(Appearance.mono200)
+                .textColor(marked ? Appearance.mono100 : Appearance.mono200)
                 .font(Fonts.Inter.regular(size: 14.scale))
                 .lineHeight(20.scale)
             result.append("Paygate.PerWeek".localized.attributed(with: periodAttrs))
@@ -132,13 +132,9 @@ private extension PaygateProductButton {
         let imageName = marked ? "Paygate.Marker.S" : "Paygate.Marker.D"
         markerView.image = UIImage(named: imageName)
         
-        layer.borderWidth = marked ? 2.scale : 0
-        layer.borderColor = marked ? Appearance.mono200.cgColor : UIColor.clear.cgColor
+        layer.borderColor = marked ? Appearance.mono200.cgColor : UIColor.white.withAlphaComponent(0.3).cgColor
         
-        layer.shadowColor = marked ? UIColor.clear.cgColor : Appearance.mono200.withAlphaComponent(0.4).cgColor
-        layer.shadowOpacity = marked ? 0 : 0.1
-        layer.shadowOffset = .zero
-        layer.shadowRadius = marked ? 0 : 4.scale
+        backgroundColor = marked ? Appearance.main700 : UIColor.clear
     }
 }
 

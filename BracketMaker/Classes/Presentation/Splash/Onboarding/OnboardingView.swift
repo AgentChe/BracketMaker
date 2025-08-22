@@ -7,25 +7,29 @@
 
 import UIKit
 
-final class OnboardingView: UIView {
+final class OnboardingView: GradientView {
     enum Slide: Hashable {
         case welcome
-        case instruction1
-        case instruction2
-        case account
+        case instructionTournament
+        case instructionTeams
+        case instructionOrganized
+        case role
     }
     
     private lazy var slidesViews: [Slide: OSlideView] = [
         .welcome: OWelcomeView { [weak self] in
-            self?.scroll(from: .welcome, to: .instruction1)
+            self?.scroll(from: .welcome, to: .instructionTournament)
         },
-        .instruction1: Onstruction1View { [weak self] in
-            self?.scroll(from: .instruction1, to: .instruction2)
+        .instructionTournament: OInstructionView(instruction: .tournament) { [weak self] in
+            self?.scroll(from: .instructionTournament, to: .instructionTeams)
         },
-        .instruction2: Onstruction2View { [weak self] in
-            self?.scroll(from: .instruction2, to: .account)
+        .instructionTeams: OInstructionView(instruction: .teams) { [weak self] in
+            self?.scroll(from: .instructionTeams, to: .instructionOrganized)
         },
-        .account: OAccountView { [weak self] in
+        .instructionOrganized: OInstructionView(instruction: .organized) { [weak self] in
+            self?.scroll(from: .instructionOrganized, to: .role)
+        },
+        .role: ORoleView { [weak self] in
             self?.finish()
         }
     ]
@@ -56,7 +60,9 @@ final class OnboardingView: UIView {
 // MARK: Private
 private extension OnboardingView {
     func initialize() {
-        backgroundColor = Appearance.mono200
+        gradientLayer.colors = Appearance.mono900.map { $0.cgColor }
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
         
         if let view = slidesViews[.welcome] {
             view.frame.origin = CGPoint.zero

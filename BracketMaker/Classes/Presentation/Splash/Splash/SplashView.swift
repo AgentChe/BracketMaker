@@ -7,9 +7,8 @@
 
 import UIKit
 
-final class SplashView: UIView {
+final class SplashView: GradientView {
     lazy var imageView = makeImageView()
-    lazy var preloaderLabel = makePreloaderLabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,7 +25,9 @@ final class SplashView: UIView {
 // MARK: Private
 private extension SplashView {
     func initialize() {
-        backgroundColor = Appearance.mono100
+        gradientLayer.colors = Appearance.mono900.map { $0.cgColor }
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
     }
 }
 
@@ -36,14 +37,8 @@ private extension SplashView {
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 128.scale),
-            imageView.heightAnchor.constraint(equalToConstant: 128.scale)
-        ])
-        
-        NSLayoutConstraint.activate([
-            preloaderLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
-            preloaderLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
-            preloaderLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -29.scale)
+            imageView.widthAnchor.constraint(equalToConstant: 390.scale),
+            imageView.heightAnchor.constraint(equalToConstant: 390.scale)
         ])
     }
 }
@@ -55,20 +50,6 @@ private extension SplashView {
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
         view.image = UIImage(named: "Splash.Image")
-        view.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(view)
-        return view
-    }
-    
-    func makePreloaderLabel() -> UILabel {
-        let attrs = TextAttributes()
-            .textColor(Appearance.main200)
-            .font(Fonts.Inter.regular(size: 17.scale))
-            .lineHeight(23.scale)
-            .textAlignment(.center)
-        
-        let view = UILabel()
-        view.attributedText = "Splash.Preloader".localized.attributed(with: attrs)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
