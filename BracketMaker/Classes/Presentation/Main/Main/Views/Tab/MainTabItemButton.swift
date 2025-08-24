@@ -37,7 +37,7 @@ private extension MainTabView {
         backgroundColor = Appearance.main600
         layer.cornerRadius = 32.scale
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        layer.shadowColor = Appearance.mono200.withAlphaComponent(0.4).cgColor
+        layer.shadowColor = Appearance.mono100.withAlphaComponent(0.4).cgColor
         layer.shadowOpacity = 0.1
         layer.shadowOffset = .zero
         layer.shadowRadius = 4.scale

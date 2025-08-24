@@ -84,6 +84,11 @@
 		DEF900F32E588C9B00DE5679 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900F22E588C9B00DE5679 /* MainCoordinator.swift */; };
 		DEF900F72E588CDC00DE5679 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900F62E588CDC00DE5679 /* MainTabView.swift */; };
 		DEF900F92E588CE200DE5679 /* MainTabItemButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900F82E588CE200DE5679 /* MainTabItemButton.swift */; };
+		DEF900FC2E58931900DE5679 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900FB2E58931900DE5679 /* SettingsViewController.swift */; };
+		DEF900FE2E58932100DE5679 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900FD2E58932100DE5679 /* SettingsViewModel.swift */; };
+		DEF901002E58932500DE5679 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900FF2E58932500DE5679 /* SettingsView.swift */; };
+		DEF901032E58938700DE5679 /* SettingsRouteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF901022E58938700DE5679 /* SettingsRouteButton.swift */; };
+		DEF901052E5B03B800DE5679 /* SettingsPaygateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF901042E5B03B800DE5679 /* SettingsPaygateButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -168,6 +173,11 @@
 		DEF900F22E588C9B00DE5679 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		DEF900F62E588CDC00DE5679 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		DEF900F82E588CE200DE5679 /* MainTabItemButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabItemButton.swift; sourceTree = "<group>"; };
+		DEF900FB2E58931900DE5679 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		DEF900FD2E58932100DE5679 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		DEF900FF2E58932500DE5679 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		DEF901022E58938700DE5679 /* SettingsRouteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouteButton.swift; sourceTree = "<group>"; };
+		DEF901042E5B03B800DE5679 /* SettingsPaygateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPaygateButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -516,6 +526,7 @@
 		DEF900EC2E588C7A00DE5679 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				DEF900FA2E58930500DE5679 /* Settings */,
 				DEF900ED2E588C7F00DE5679 /* Main */,
 			);
 			path = Main;
@@ -547,6 +558,26 @@
 				DEF900F82E588CE200DE5679 /* MainTabItemButton.swift */,
 			);
 			path = Tab;
+			sourceTree = "<group>";
+		};
+		DEF900FA2E58930500DE5679 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				DEF901012E58936F00DE5679 /* Views */,
+				DEF900FB2E58931900DE5679 /* SettingsViewController.swift */,
+				DEF900FD2E58932100DE5679 /* SettingsViewModel.swift */,
+				DEF900FF2E58932500DE5679 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		DEF901012E58936F00DE5679 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DEF901022E58938700DE5679 /* SettingsRouteButton.swift */,
+				DEF901042E5B03B800DE5679 /* SettingsPaygateButton.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -708,6 +739,7 @@
 				DE157DCA2E55E18B00365C61 /* TakePhoto.swift in Sources */,
 				DE157DCB2E55E18B00365C61 /* PaygateViewModel.swift in Sources */,
 				DE157DCF2E55E18B00365C61 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
+				DEF901032E58938700DE5679 /* SettingsRouteButton.swift in Sources */,
 				DEF900F12E588C9400DE5679 /* MainView.swift in Sources */,
 				DE157DD02E55E18B00365C61 /* ObservableRetrySingle.swift in Sources */,
 				DE157DD12E55E18B00365C61 /* Collection+Extension.swift in Sources */,
@@ -726,12 +758,14 @@
 				DE157E092E55E18B00365C61 /* NavigationControllerSettings.swift in Sources */,
 				DE157E0B2E55E18B00365C61 /* OnboardingViewController.swift in Sources */,
 				DE157E122E55E18B00365C61 /* PurchaseValidationObserver.swift in Sources */,
+				DEF901052E5B03B800DE5679 /* SettingsPaygateButton.swift in Sources */,
 				DE157E162E55E18B00365C61 /* Scalable.swift in Sources */,
 				DE157E182E55E18B00365C61 /* SplashReceiptValidationObserver.swift in Sources */,
 				DE157E222E55E18B00365C61 /* UIColor+Extension.swift in Sources */,
 				DE157E242E55E18B00365C61 /* IAPError.swift in Sources */,
 				DE157E262E55E18B00365C61 /* OInstructionView.swift in Sources */,
 				DE157E292E55E18B00365C61 /* ObservableAndSingle+Extension.swift in Sources */,
+				DEF901002E58932500DE5679 /* SettingsView.swift in Sources */,
 				DE157E2A2E55E18B00365C61 /* SceneDelegate.swift in Sources */,
 				DE157E302E55E18B00365C61 /* PaygateViewController.swift in Sources */,
 				DE157E312E55E18B00365C61 /* SignError.swift in Sources */,
@@ -744,6 +778,7 @@
 				DE157E522E55E18B00365C61 /* PaddingTextField.swift in Sources */,
 				DE157E572E55E18B00365C61 /* SessionManager.swift in Sources */,
 				DEF900EF2E588C8B00DE5679 /* MainViewController.swift in Sources */,
+				DEF900FE2E58932100DE5679 /* SettingsViewModel.swift in Sources */,
 				DE157E5A2E55E18B00365C61 /* PaygateInfoView.swift in Sources */,
 				DE157E5B2E55E18B00365C61 /* TextAttributes.swift in Sources */,
 				DE157E5D2E55E18B00365C61 /* SplashView.swift in Sources */,
@@ -760,6 +795,7 @@
 				DE157E852E55E18B00365C61 /* GradientView.swift in Sources */,
 				DE157E8D2E55E18B00365C61 /* Currency.swift in Sources */,
 				DE157E932E55E18B00365C61 /* ScreenSize.swift in Sources */,
+				DEF900FC2E58931900DE5679 /* SettingsViewController.swift in Sources */,
 				DE157E942E55E18B00365C61 /* PaygateView.swift in Sources */,
 				DE157E952E55E18B00365C61 /* GlobalDefinitions.swift in Sources */,
 				DE157E992E55E18B00365C61 /* IAPManager.swift in Sources */,

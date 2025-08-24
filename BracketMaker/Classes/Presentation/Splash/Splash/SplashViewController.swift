@@ -39,20 +39,20 @@ extension SplashViewController {
 // MARK: Private
 private extension SplashViewController {
     func route() {
-        guard let window = UIApplication.shared.window else {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) { [weak self] in
-                self?.route()
+        DispatchQueue.main.async { [weak self] in
+            guard let window = UIApplication.shared.window else {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) { [weak self] in
+                    self?.route()
+                }
+                
+                return
             }
             
-            return
-        }
-        
-        DispatchQueue.main.async { [weak self, weak window] in
             if !OnboardingViewController.wasViewed() {
-                window?.rootViewController = OnboardingViewController.make()
+                window.rootViewController = OnboardingViewController.make()
             } else {
                 if SessionManager().hasActiveSubscriptions() {
-                    window?.rootViewController = MainViewController.make(requestReview: false)
+                    window.rootViewController = MainViewController.make(requestReview: false)
                 } else {
                     let vc = PaygateViewController.make { [weak window] in
                         window?.rootViewController = MainViewController.make(requestReview: false)

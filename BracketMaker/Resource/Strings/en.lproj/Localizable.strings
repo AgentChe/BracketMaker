@@ -59,3 +59,10 @@
 "Onboarding.Role.SubTitle" = "Are you coaching a team or competing as a player?";
 "Onboarding.Role.Trainer" = "Trainer";
 "Onboarding.Role.Player" = "Player";
+
+// MARK: Settings
+"Settings.Title" = "Settings";
+"Settings.TermsOfUse" = "Terms of use";
+"Settings.PrivacyPolicy" = "Privacy Policy";
+"Settings.ContactSupport" = "Contact support";
+"Settings.UnlimitedBrackets" = "Unlimited brackets";
