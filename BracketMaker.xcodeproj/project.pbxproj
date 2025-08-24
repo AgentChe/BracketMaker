@@ -89,6 +89,20 @@
 		DEF901002E58932500DE5679 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900FF2E58932500DE5679 /* SettingsView.swift */; };
 		DEF901032E58938700DE5679 /* SettingsRouteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF901022E58938700DE5679 /* SettingsRouteButton.swift */; };
 		DEF901052E5B03B800DE5679 /* SettingsPaygateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF901042E5B03B800DE5679 /* SettingsPaygateButton.swift */; };
+		DEF9010A2E5B2D0F00DE5679 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF901092E5B2D0F00DE5679 /* Team.swift */; };
+		DEF9010C2E5B2D1500DE5679 /* TeamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF9010B2E5B2D1500DE5679 /* TeamManager.swift */; };
+		DEF9010E2E5B2D1D00DE5679 /* TeamMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF9010D2E5B2D1D00DE5679 /* TeamMediator.swift */; };
+		DEF901112E5B2F9000DE5679 /* TeamsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF901102E5B2F9000DE5679 /* TeamsViewController.swift */; };
+		DEF901132E5B2F9900DE5679 /* TeamsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF901122E5B2F9900DE5679 /* TeamsViewModel.swift */; };
+		DEF901152E5B2F9E00DE5679 /* TeamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF901142E5B2F9E00DE5679 /* TeamsView.swift */; };
+		DEF901182E5B316D00DE5679 /* TeamsPaygateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF901172E5B316D00DE5679 /* TeamsPaygateButton.swift */; };
+		DEF9011B2E5B332B00DE5679 /* TeamsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF9011A2E5B332B00DE5679 /* TeamsTableView.swift */; };
+		DEF9011D2E5B333200DE5679 /* TeamsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF9011C2E5B333200DE5679 /* TeamsTableCell.swift */; };
+		DEF901202E5B3D9600DE5679 /* TeamTableElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF9011F2E5B3D9600DE5679 /* TeamTableElement.swift */; };
+		DEF901222E5B3E6F00DE5679 /* TeamTableTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF901212E5B3E6F00DE5679 /* TeamTableTitleCell.swift */; };
+		DEF901242E5B3FEE00DE5679 /* TeamsCreateField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF901232E5B3FEE00DE5679 /* TeamsCreateField.swift */; };
+		DEF901272E5B54F400DE5679 /* ConfirmDeleteTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF901262E5B54F400DE5679 /* ConfirmDeleteTeamViewController.swift */; };
+		DEF901292E5B54F900DE5679 /* ConfirmDeleteTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF901282E5B54F900DE5679 /* ConfirmDeleteTeamView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -178,6 +192,20 @@
 		DEF900FF2E58932500DE5679 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		DEF901022E58938700DE5679 /* SettingsRouteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouteButton.swift; sourceTree = "<group>"; };
 		DEF901042E5B03B800DE5679 /* SettingsPaygateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPaygateButton.swift; sourceTree = "<group>"; };
+		DEF901092E5B2D0F00DE5679 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		DEF9010B2E5B2D1500DE5679 /* TeamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamManager.swift; sourceTree = "<group>"; };
+		DEF9010D2E5B2D1D00DE5679 /* TeamMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamMediator.swift; sourceTree = "<group>"; };
+		DEF901102E5B2F9000DE5679 /* TeamsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsViewController.swift; sourceTree = "<group>"; };
+		DEF901122E5B2F9900DE5679 /* TeamsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsViewModel.swift; sourceTree = "<group>"; };
+		DEF901142E5B2F9E00DE5679 /* TeamsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsView.swift; sourceTree = "<group>"; };
+		DEF901172E5B316D00DE5679 /* TeamsPaygateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsPaygateButton.swift; sourceTree = "<group>"; };
+		DEF9011A2E5B332B00DE5679 /* TeamsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsTableView.swift; sourceTree = "<group>"; };
+		DEF9011C2E5B333200DE5679 /* TeamsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsTableCell.swift; sourceTree = "<group>"; };
+		DEF9011F2E5B3D9600DE5679 /* TeamTableElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamTableElement.swift; sourceTree = "<group>"; };
+		DEF901212E5B3E6F00DE5679 /* TeamTableTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamTableTitleCell.swift; sourceTree = "<group>"; };
+		DEF901232E5B3FEE00DE5679 /* TeamsCreateField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsCreateField.swift; sourceTree = "<group>"; };
+		DEF901262E5B54F400DE5679 /* ConfirmDeleteTeamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteTeamViewController.swift; sourceTree = "<group>"; };
+		DEF901282E5B54F900DE5679 /* ConfirmDeleteTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteTeamView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -449,6 +477,7 @@
 		DE157D642E55E18A00365C61 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				DEF9010F2E5B2F8200DE5679 /* Teams */,
 				DEF900EC2E588C7A00DE5679 /* Main */,
 				DE157D4A2E55E18A00365C61 /* Splash */,
 			);
@@ -495,6 +524,7 @@
 		DE157DA22E55E18A00365C61 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				DEF901062E5B2D0000DE5679 /* Team */,
 				DE157D972E55E18A00365C61 /* Purchase */,
 				DE157D992E55E18A00365C61 /* Session */,
 			);
@@ -578,6 +608,74 @@
 				DEF901042E5B03B800DE5679 /* SettingsPaygateButton.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		DEF901062E5B2D0000DE5679 /* Team */ = {
+			isa = PBXGroup;
+			children = (
+				DEF901082E5B2D0900DE5679 /* Model */,
+				DEF9010B2E5B2D1500DE5679 /* TeamManager.swift */,
+				DEF9010D2E5B2D1D00DE5679 /* TeamMediator.swift */,
+			);
+			path = Team;
+			sourceTree = "<group>";
+		};
+		DEF901082E5B2D0900DE5679 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DEF901092E5B2D0F00DE5679 /* Team.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DEF9010F2E5B2F8200DE5679 /* Teams */ = {
+			isa = PBXGroup;
+			children = (
+				DEF901162E5B316300DE5679 /* Views */,
+				DEF901102E5B2F9000DE5679 /* TeamsViewController.swift */,
+				DEF901122E5B2F9900DE5679 /* TeamsViewModel.swift */,
+				DEF901142E5B2F9E00DE5679 /* TeamsView.swift */,
+			);
+			path = Teams;
+			sourceTree = "<group>";
+		};
+		DEF901162E5B316300DE5679 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DEF901252E5B54E300DE5679 /* ConfirmDelete */,
+				DEF901192E5B332300DE5679 /* TableView */,
+				DEF901172E5B316D00DE5679 /* TeamsPaygateButton.swift */,
+				DEF901232E5B3FEE00DE5679 /* TeamsCreateField.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DEF901192E5B332300DE5679 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				DEF9011E2E5B36F300DE5679 /* Cells */,
+				DEF9011A2E5B332B00DE5679 /* TeamsTableView.swift */,
+				DEF9011F2E5B3D9600DE5679 /* TeamTableElement.swift */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		DEF9011E2E5B36F300DE5679 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				DEF901212E5B3E6F00DE5679 /* TeamTableTitleCell.swift */,
+				DEF9011C2E5B333200DE5679 /* TeamsTableCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		DEF901252E5B54E300DE5679 /* ConfirmDelete */ = {
+			isa = PBXGroup;
+			children = (
+				DEF901262E5B54F400DE5679 /* ConfirmDeleteTeamViewController.swift */,
+				DEF901282E5B54F900DE5679 /* ConfirmDeleteTeamView.swift */,
+			);
+			path = ConfirmDelete;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -729,6 +827,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE157DA92E55E18B00365C61 /* UITapGestureRecognizer+Extension.swift in Sources */,
+				DEF901132E5B2F9900DE5679 /* TeamsViewModel.swift in Sources */,
 				DE157DAD2E55E18B00365C61 /* IAPActionResult.swift in Sources */,
 				DE157DAE2E55E18B00365C61 /* PaygateActionsView.swift in Sources */,
 				DE157DB62E55E18B00365C61 /* UIView+RxExtension.swift in Sources */,
@@ -736,15 +835,21 @@
 				DEF900F72E588CDC00DE5679 /* MainTabView.swift in Sources */,
 				DEF900F92E588CE200DE5679 /* MainTabItemButton.swift in Sources */,
 				DE157DC92E55E18B00365C61 /* Appearance.swift in Sources */,
+				DEF901152E5B2F9E00DE5679 /* TeamsView.swift in Sources */,
 				DE157DCA2E55E18B00365C61 /* TakePhoto.swift in Sources */,
+				DEF901242E5B3FEE00DE5679 /* TeamsCreateField.swift in Sources */,
 				DE157DCB2E55E18B00365C61 /* PaygateViewModel.swift in Sources */,
 				DE157DCF2E55E18B00365C61 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				DEF901032E58938700DE5679 /* SettingsRouteButton.swift in Sources */,
+				DEF901202E5B3D9600DE5679 /* TeamTableElement.swift in Sources */,
+				DEF9010A2E5B2D0F00DE5679 /* Team.swift in Sources */,
 				DEF900F12E588C9400DE5679 /* MainView.swift in Sources */,
 				DE157DD02E55E18B00365C61 /* ObservableRetrySingle.swift in Sources */,
 				DE157DD12E55E18B00365C61 /* Collection+Extension.swift in Sources */,
 				DE157DDF2E55E18B00365C61 /* OSlideView.swift in Sources */,
 				DE157DE52E55E18B00365C61 /* PaygateProductButton.swift in Sources */,
+				DEF901222E5B3E6F00DE5679 /* TeamTableTitleCell.swift in Sources */,
+				DEF901292E5B54F900DE5679 /* ConfirmDeleteTeamView.swift in Sources */,
 				DE157DE62E55E18B00365C61 /* PaygateInteractor.swift in Sources */,
 				DE157DE72E55E18B00365C61 /* PaygateBestOfferView.swift in Sources */,
 				DE157DEA2E55E18B00365C61 /* AmplitudeManager.swift in Sources */,
@@ -761,14 +866,20 @@
 				DEF901052E5B03B800DE5679 /* SettingsPaygateButton.swift in Sources */,
 				DE157E162E55E18B00365C61 /* Scalable.swift in Sources */,
 				DE157E182E55E18B00365C61 /* SplashReceiptValidationObserver.swift in Sources */,
+				DEF9010C2E5B2D1500DE5679 /* TeamManager.swift in Sources */,
 				DE157E222E55E18B00365C61 /* UIColor+Extension.swift in Sources */,
 				DE157E242E55E18B00365C61 /* IAPError.swift in Sources */,
+				DEF901112E5B2F9000DE5679 /* TeamsViewController.swift in Sources */,
 				DE157E262E55E18B00365C61 /* OInstructionView.swift in Sources */,
 				DE157E292E55E18B00365C61 /* ObservableAndSingle+Extension.swift in Sources */,
+				DEF901182E5B316D00DE5679 /* TeamsPaygateButton.swift in Sources */,
 				DEF901002E58932500DE5679 /* SettingsView.swift in Sources */,
+				DEF9011D2E5B333200DE5679 /* TeamsTableCell.swift in Sources */,
+				DEF9011B2E5B332B00DE5679 /* TeamsTableView.swift in Sources */,
 				DE157E2A2E55E18B00365C61 /* SceneDelegate.swift in Sources */,
 				DE157E302E55E18B00365C61 /* PaygateViewController.swift in Sources */,
 				DE157E312E55E18B00365C61 /* SignError.swift in Sources */,
+				DEF9010E2E5B2D1D00DE5679 /* TeamMediator.swift in Sources */,
 				DE157E352E55E18B00365C61 /* NavigationController.swift in Sources */,
 				DE157E372E55E18B00365C61 /* ContentError.swift in Sources */,
 				DE157E392E55E18B00365C61 /* String+Extension.swift in Sources */,
@@ -784,6 +895,7 @@
 				DE157E5D2E55E18B00365C61 /* SplashView.swift in Sources */,
 				DEF900E92E5878AA00DE5679 /* ORoleView.swift in Sources */,
 				DE157E6E2E55E18B00365C61 /* TapAreaButton.swift in Sources */,
+				DEF901272E5B54F400DE5679 /* ConfirmDeleteTeamViewController.swift in Sources */,
 				DE157E6F2E55E18B00365C61 /* PaygateEnableTrialButton.swift in Sources */,
 				DE157E732E55E18B00365C61 /* AppDelegate.swift in Sources */,
 				DE157E762E55E18B00365C61 /* UIDevice+Extension.swift in Sources */,

@@ -66,3 +66,13 @@
 "Settings.PrivacyPolicy" = "Privacy Policy";
 "Settings.ContactSupport" = "Contact support";
 "Settings.UnlimitedBrackets" = "Unlimited brackets";
+
+// MARK: Teams
+"Teams.Title" = "Team";
+"Teams.UnlimitedTeams" = "Unlimited teams";
+"Teams.TeamsTitle" = "Your teams";
+"Teams.Create.Placeholder" = "Add team";
+"Teams.ConfirmDelete.Title" = "Delete team";
+"Teams.ConfirmDelete.SubTitle" = "Are you sure want to delete this team?";
+"Teams.ConfirmDelete.No" = "No";
+"Teams.ConfirmDelete.Yes" = "Yes";

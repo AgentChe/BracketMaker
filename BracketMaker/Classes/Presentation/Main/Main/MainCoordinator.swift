@@ -9,7 +9,7 @@ import UIKit
 
 final class MainViewCoordinator {
     lazy var homeVC = UIViewController()
-    lazy var teamsVC = UIViewController()
+    lazy var teamsVC = TeamsViewController.make()
     lazy var settingsVC = SettingsViewController.make()
     
     private weak var parentVC: UIViewController?
