@@ -52,7 +52,7 @@ private extension TeamsView {
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: createField.bottomAnchor,),
+            tableView.topAnchor.constraint(equalTo: createField.bottomAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         

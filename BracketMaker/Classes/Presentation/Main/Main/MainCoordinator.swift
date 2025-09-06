@@ -8,7 +8,7 @@
 import UIKit
 
 final class MainViewCoordinator {
-    lazy var homeVC = UIViewController()
+    lazy var homeVC = HomeViewController.make()
     lazy var teamsVC = TeamsViewController.make()
     lazy var settingsVC = SettingsViewController.make()
     

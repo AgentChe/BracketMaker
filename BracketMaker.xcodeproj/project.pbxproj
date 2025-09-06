@@ -85,6 +85,22 @@
 		DEEB114F2E6B0D480069CE9E /* SingleEliminationTournamentRound.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB114E2E6B0D480069CE9E /* SingleEliminationTournamentRound.swift */; };
 		DEEB11512E6B130D0069CE9E /* SingleEliminationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11502E6B130D0069CE9E /* SingleEliminationResult.swift */; };
 		DEEB11532E6B15970069CE9E /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11522E6B15970069CE9E /* Database.swift */; };
+		DEEB11552E6B4A780069CE9E /* TournamentPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11542E6B4A780069CE9E /* TournamentPreset.swift */; };
+		DEEB11582E6B4BC10069CE9E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11572E6B4BC10069CE9E /* HomeViewController.swift */; };
+		DEEB115A2E6B4BC60069CE9E /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11592E6B4BC60069CE9E /* HomeViewModel.swift */; };
+		DEEB115C2E6B4BCB0069CE9E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB115B2E6B4BCB0069CE9E /* HomeView.swift */; };
+		DEEB11612E6B4DDF0069CE9E /* HomePaygateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11602E6B4DDF0069CE9E /* HomePaygateButton.swift */; };
+		DEEB11642E6B506F0069CE9E /* HomeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11632E6B506F0069CE9E /* HomeTableView.swift */; };
+		DEEB11662E6B50750069CE9E /* HomeTableElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11652E6B50750069CE9E /* HomeTableElement.swift */; };
+		DEEB11692E6B50CB0069CE9E /* HomeTablePresetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11682E6B50CB0069CE9E /* HomeTablePresetsCell.swift */; };
+		DEEB116B2E6C4FE60069CE9E /* HomeTableAddFirstBracketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB116A2E6C4FE60069CE9E /* HomeTableAddFirstBracketCell.swift */; };
+		DEEB116D2E6C52E70069CE9E /* HomeTableTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB116C2E6C52E70069CE9E /* HomeTableTitleCell.swift */; };
+		DEEB11702E6C54880069CE9E /* HomeTableDemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB116F2E6C54880069CE9E /* HomeTableDemoCell.swift */; };
+		DEEB11722E6C549E0069CE9E /* HomeDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11712E6C549E0069CE9E /* HomeDemoView.swift */; };
+		DEEB11752E6C59210069CE9E /* HomeTableFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11742E6C59210069CE9E /* HomeTableFilterCell.swift */; };
+		DEEB11772E6C59330069CE9E /* HomeFilterItemButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11762E6C59330069CE9E /* HomeFilterItemButton.swift */; };
+		DEEB11792E6C737E0069CE9E /* HomeTableInProgressBracketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11782E6C737E0069CE9E /* HomeTableInProgressBracketCell.swift */; };
+		DEEB117B2E6C76320069CE9E /* HomeTableCompletedBracketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB117A2E6C76320069CE9E /* HomeTableCompletedBracketCell.swift */; };
 		DEF900E92E5878AA00DE5679 /* ORoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900E82E5878AA00DE5679 /* ORoleView.swift */; };
 		DEF900EB2E58839B00DE5679 /* Paygate.storekit in Resources */ = {isa = PBXBuildFile; fileRef = DEF900EA2E58839B00DE5679 /* Paygate.storekit */; };
 		DEF900EF2E588C8B00DE5679 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900EE2E588C8B00DE5679 /* MainViewController.swift */; };
@@ -196,6 +212,22 @@
 		DEEB114E2E6B0D480069CE9E /* SingleEliminationTournamentRound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleEliminationTournamentRound.swift; sourceTree = "<group>"; };
 		DEEB11502E6B130D0069CE9E /* SingleEliminationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleEliminationResult.swift; sourceTree = "<group>"; };
 		DEEB11522E6B15970069CE9E /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		DEEB11542E6B4A780069CE9E /* TournamentPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentPreset.swift; sourceTree = "<group>"; };
+		DEEB11572E6B4BC10069CE9E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		DEEB11592E6B4BC60069CE9E /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		DEEB115B2E6B4BCB0069CE9E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		DEEB11602E6B4DDF0069CE9E /* HomePaygateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePaygateButton.swift; sourceTree = "<group>"; };
+		DEEB11632E6B506F0069CE9E /* HomeTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableView.swift; sourceTree = "<group>"; };
+		DEEB11652E6B50750069CE9E /* HomeTableElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableElement.swift; sourceTree = "<group>"; };
+		DEEB11682E6B50CB0069CE9E /* HomeTablePresetsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTablePresetsCell.swift; sourceTree = "<group>"; };
+		DEEB116A2E6C4FE60069CE9E /* HomeTableAddFirstBracketCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableAddFirstBracketCell.swift; sourceTree = "<group>"; };
+		DEEB116C2E6C52E70069CE9E /* HomeTableTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableTitleCell.swift; sourceTree = "<group>"; };
+		DEEB116F2E6C54880069CE9E /* HomeTableDemoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableDemoCell.swift; sourceTree = "<group>"; };
+		DEEB11712E6C549E0069CE9E /* HomeDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDemoView.swift; sourceTree = "<group>"; };
+		DEEB11742E6C59210069CE9E /* HomeTableFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableFilterCell.swift; sourceTree = "<group>"; };
+		DEEB11762E6C59330069CE9E /* HomeFilterItemButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFilterItemButton.swift; sourceTree = "<group>"; };
+		DEEB11782E6C737E0069CE9E /* HomeTableInProgressBracketCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableInProgressBracketCell.swift; sourceTree = "<group>"; };
+		DEEB117A2E6C76320069CE9E /* HomeTableCompletedBracketCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableCompletedBracketCell.swift; sourceTree = "<group>"; };
 		DEF900E82E5878AA00DE5679 /* ORoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORoleView.swift; sourceTree = "<group>"; };
 		DEF900EA2E58839B00DE5679 /* Paygate.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Paygate.storekit; sourceTree = "<group>"; };
 		DEF900EE2E588C8B00DE5679 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -589,13 +621,77 @@
 				DEEB11482E6B07400069CE9E /* SingleElimination.swift */,
 				DEEB114E2E6B0D480069CE9E /* SingleEliminationTournamentRound.swift */,
 				DEEB11502E6B130D0069CE9E /* SingleEliminationResult.swift */,
+				DEEB11542E6B4A780069CE9E /* TournamentPreset.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		DEEB11562E6B4BB80069CE9E /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				DEEB115F2E6B4D9A0069CE9E /* Views */,
+				DEEB11572E6B4BC10069CE9E /* HomeViewController.swift */,
+				DEEB11592E6B4BC60069CE9E /* HomeViewModel.swift */,
+				DEEB115B2E6B4BCB0069CE9E /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		DEEB115F2E6B4D9A0069CE9E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DEEB11622E6B505E0069CE9E /* TableView */,
+				DEEB11602E6B4DDF0069CE9E /* HomePaygateButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DEEB11622E6B505E0069CE9E /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				DEEB11672E6B50790069CE9E /* Cells */,
+				DEEB11632E6B506F0069CE9E /* HomeTableView.swift */,
+				DEEB11652E6B50750069CE9E /* HomeTableElement.swift */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		DEEB11672E6B50790069CE9E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				DEEB11732E6C59140069CE9E /* Filter */,
+				DEEB116E2E6C547E0069CE9E /* Demo */,
+				DEEB11682E6B50CB0069CE9E /* HomeTablePresetsCell.swift */,
+				DEEB116A2E6C4FE60069CE9E /* HomeTableAddFirstBracketCell.swift */,
+				DEEB116C2E6C52E70069CE9E /* HomeTableTitleCell.swift */,
+				DEEB11782E6C737E0069CE9E /* HomeTableInProgressBracketCell.swift */,
+				DEEB117A2E6C76320069CE9E /* HomeTableCompletedBracketCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		DEEB116E2E6C547E0069CE9E /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				DEEB116F2E6C54880069CE9E /* HomeTableDemoCell.swift */,
+				DEEB11712E6C549E0069CE9E /* HomeDemoView.swift */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		DEEB11732E6C59140069CE9E /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				DEEB11742E6C59210069CE9E /* HomeTableFilterCell.swift */,
+				DEEB11762E6C59330069CE9E /* HomeFilterItemButton.swift */,
+			);
+			path = Filter;
 			sourceTree = "<group>";
 		};
 		DEF900EC2E588C7A00DE5679 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				DEEB11562E6B4BB80069CE9E /* Home */,
 				DEF900FA2E58930500DE5679 /* Settings */,
 				DEF900ED2E588C7F00DE5679 /* Main */,
 			);
@@ -893,8 +989,11 @@
 				DEF901292E5B54F900DE5679 /* ConfirmDeleteTeamView.swift in Sources */,
 				DE157DE62E55E18B00365C61 /* PaygateInteractor.swift in Sources */,
 				DE157DE72E55E18B00365C61 /* PaygateBestOfferView.swift in Sources */,
+				DEEB11612E6B4DDF0069CE9E /* HomePaygateButton.swift in Sources */,
 				DE157DEA2E55E18B00365C61 /* AmplitudeManager.swift in Sources */,
 				DE157DEB2E55E18B00365C61 /* IAPErrorHelper.swift in Sources */,
+				DEEB115C2E6B4BCB0069CE9E /* HomeView.swift in Sources */,
+				DEEB11772E6C59330069CE9E /* HomeFilterItemButton.swift in Sources */,
 				DEEB11512E6B130D0069CE9E /* SingleEliminationResult.swift in Sources */,
 				DE157DED2E55E18B00365C61 /* SplashViewController.swift in Sources */,
 				DE157DF02E55E18B00365C61 /* UIEdgeInsets+Extension.swift in Sources */,
@@ -904,7 +1003,10 @@
 				DEF900F32E588C9B00DE5679 /* MainCoordinator.swift in Sources */,
 				DE157E092E55E18B00365C61 /* NavigationControllerSettings.swift in Sources */,
 				DE157E0B2E55E18B00365C61 /* OnboardingViewController.swift in Sources */,
+				DEEB116B2E6C4FE60069CE9E /* HomeTableAddFirstBracketCell.swift in Sources */,
 				DE157E122E55E18B00365C61 /* PurchaseValidationObserver.swift in Sources */,
+				DEEB115A2E6B4BC60069CE9E /* HomeViewModel.swift in Sources */,
+				DEEB11552E6B4A780069CE9E /* TournamentPreset.swift in Sources */,
 				DEF901052E5B03B800DE5679 /* SettingsPaygateButton.swift in Sources */,
 				DEEB11532E6B15970069CE9E /* Database.swift in Sources */,
 				DE157E162E55E18B00365C61 /* Scalable.swift in Sources */,
@@ -923,10 +1025,14 @@
 				DE157E2A2E55E18B00365C61 /* SceneDelegate.swift in Sources */,
 				DE157E302E55E18B00365C61 /* PaygateViewController.swift in Sources */,
 				DE157E312E55E18B00365C61 /* SignError.swift in Sources */,
+				DEEB11662E6B50750069CE9E /* HomeTableElement.swift in Sources */,
 				DEEB11472E6B07070069CE9E /* TournamentMediator.swift in Sources */,
+				DEEB11582E6B4BC10069CE9E /* HomeViewController.swift in Sources */,
 				DEF9010E2E5B2D1D00DE5679 /* TeamMediator.swift in Sources */,
+				DEEB11702E6C54880069CE9E /* HomeTableDemoCell.swift in Sources */,
 				DE157E352E55E18B00365C61 /* NavigationController.swift in Sources */,
 				DE157E372E55E18B00365C61 /* ContentError.swift in Sources */,
+				DEEB11642E6B506F0069CE9E /* HomeTableView.swift in Sources */,
 				DE157E392E55E18B00365C61 /* String+Extension.swift in Sources */,
 				DE157E422E55E18B00365C61 /* RxActivityIndicator.swift in Sources */,
 				DEEB114F2E6B0D480069CE9E /* SingleEliminationTournamentRound.swift in Sources */,
@@ -945,11 +1051,14 @@
 				DEF901272E5B54F400DE5679 /* ConfirmDeleteTeamViewController.swift in Sources */,
 				DE157E6F2E55E18B00365C61 /* PaygateEnableTrialButton.swift in Sources */,
 				DE157E732E55E18B00365C61 /* AppDelegate.swift in Sources */,
+				DEEB11692E6B50CB0069CE9E /* HomeTablePresetsCell.swift in Sources */,
 				DE157E762E55E18B00365C61 /* UIDevice+Extension.swift in Sources */,
 				DE157E7B2E55E18B00365C61 /* PaygateInfoCell.swift in Sources */,
+				DEEB117B2E6C76320069CE9E /* HomeTableCompletedBracketCell.swift in Sources */,
 				DE157E7E2E55E18B00365C61 /* NetworkError.swift in Sources */,
 				DE157E7F2E55E18B00365C61 /* NumberLaunches.swift in Sources */,
 				DE157E802E55E18B00365C61 /* RequestReview.swift in Sources */,
+				DEEB11722E6C549E0069CE9E /* HomeDemoView.swift in Sources */,
 				DE157E832E55E18B00365C61 /* UIApplication+Extension.swift in Sources */,
 				DE157E852E55E18B00365C61 /* GradientView.swift in Sources */,
 				DE157E8D2E55E18B00365C61 /* Currency.swift in Sources */,
@@ -957,8 +1066,11 @@
 				DEF900FC2E58931900DE5679 /* SettingsViewController.swift in Sources */,
 				DE157E942E55E18B00365C61 /* PaygateView.swift in Sources */,
 				DE157E952E55E18B00365C61 /* GlobalDefinitions.swift in Sources */,
+				DEEB11792E6C737E0069CE9E /* HomeTableInProgressBracketCell.swift in Sources */,
+				DEEB11752E6C59210069CE9E /* HomeTableFilterCell.swift in Sources */,
 				DEEB11452E6B07010069CE9E /* TournamentManager.swift in Sources */,
 				DE157E992E55E18B00365C61 /* IAPManager.swift in Sources */,
+				DEEB116D2E6C52E70069CE9E /* HomeTableTitleCell.swift in Sources */,
 				DE157E9D2E55E18B00365C61 /* OWelcomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

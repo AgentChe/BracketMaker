@@ -76,3 +76,23 @@
 "Teams.ConfirmDelete.SubTitle" = "Are you sure want to delete this team?";
 "Teams.ConfirmDelete.No" = "No";
 "Teams.ConfirmDelete.Yes" = "Yes";
+
+// MARK: Home
+"Home.Title" = "Home";
+"Home.UnlimitedBrackets" = "Unlimited brackets";
+"Home.Presents.Title" = "One-Click tournament setup";
+"Home.AddFirstBracket.Title" = "Add your first\nbrackets";
+"Home.AddFirstBracket.Create" = "Create";
+"Home.TitleCell" = "Brackets";
+"Home.Demo.RoundRobin.Title" = "Round Robin";
+"Home.Demo.RoundRobin.Name" = "Baseball club #1";
+"Home.Demo.SingleElimination.Title" = "Single elimination";
+"Home.Demo.SingleElimination.Name" = "Football";
+"Home.Demo.Label" = "Demo";
+"Home.Filter.All" = "All";
+"Home.Filter.InProgress" = "In progress";
+"Home.Filter.Completed" = "Completed";
+"Home.Bracket.InProgress" = "In progress";
+"Home.Bracket.Completed" = "Completed";
+"Home.SingleElimination" = "Single Elimination";
+"Home.Winner" = "Winner: %@";

@@ -25,7 +25,8 @@ protocol TournamentManagerProtocol {
     
     func createSingleElimination(
         name: String,
-        teamsIds: [String]
+        teamsIds: [String],
+        preset: String?
     ) -> Single<SingleElimination>
     func fetchSingleEliminations() -> Single<[SingleElimination]>
     
@@ -34,6 +35,7 @@ protocol TournamentManagerProtocol {
         winner: String
     ) -> Single<SingleEliminationResult>
     func fetchSingleEliminationResult(singleEliminationId: String) -> Single<SingleEliminationResult?>
+    func fetchSingleEliminationsResults(singleEliminationsIds: [String]) -> Single<[SingleEliminationResult]>
     
     func createSingleEliminationTournamentRound(
         singleEliminationId: String,
@@ -189,7 +191,8 @@ extension TournamentManager: TournamentManagerProtocol {
 
     func createSingleElimination(
         name: String,
-        teamsIds: [String]
+        teamsIds: [String],
+        preset: String?
     ) -> Single<SingleElimination> {
         Single.create { [weak self] single in
             guard let self, let dbQueue = self.dbQueue else {
@@ -201,6 +204,7 @@ extension TournamentManager: TournamentManagerProtocol {
                 id: UUID().uuidString,
                 name: name,
                 teamsIds: teamsIds,
+                preset: preset,
                 createdAt: Date().timeIntervalSince1970
             )
             
@@ -287,6 +291,30 @@ extension TournamentManager: TournamentManagerProtocol {
                         .fetchOne(db)
                 }
                 single(.success(res))
+            } catch {
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    func fetchSingleEliminationsResults(singleEliminationsIds: [String]) -> Single<[SingleEliminationResult]> {
+        if singleEliminationsIds.isEmpty { return .just([]) }
+        
+        return Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+            
+            do {
+                let results = try dbQueue.read { db -> [SingleEliminationResult] in
+                    try SingleEliminationResult
+                        .filter(singleEliminationsIds.contains(Column("singleEliminationId")))
+                        .fetchAll(db)
+                }
+                single(.success(results))
             } catch {
                 single(.failure(error))
             }
