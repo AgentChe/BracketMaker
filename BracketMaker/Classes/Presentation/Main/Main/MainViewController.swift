@@ -59,7 +59,8 @@ final class MainViewController: UIViewController {
         
         mainView.tabView.createBracketButton.rx.tap
             .bind(to: Binder(self) { base, void in
-                print("create bracket") // TODO
+                let vc = CreateBracketViewController.make()
+                base.navigationController?.pushViewController(vc, animated: true)
             })
             .disposed(by: disposeBag)
         

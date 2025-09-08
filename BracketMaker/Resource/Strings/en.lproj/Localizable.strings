@@ -96,3 +96,11 @@
 "Home.Bracket.Completed" = "Completed";
 "Home.SingleElimination" = "Single Elimination";
 "Home.Winner" = "Winner: %@";
+
+// MARK: CreateBracket
+"CreateBracket.Title" = "Add bracket";
+"CreateBracket.Name.Placeholder" = "Name";
+
+// MARK: Presets
+"Presets.Title" = "Presets";
+"Presets.Select" = "Select";

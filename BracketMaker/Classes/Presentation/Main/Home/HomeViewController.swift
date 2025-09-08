@@ -80,6 +80,9 @@ private extension HomeViewController {
         case .openPaygate:
             let vc = PaygateViewController.make()
             present(vc, animated: true)
+        case .createBracket(let preset):
+            let vc = CreateBracketViewController.make(preset: preset)
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

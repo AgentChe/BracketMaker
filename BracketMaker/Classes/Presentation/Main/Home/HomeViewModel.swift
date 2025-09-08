@@ -11,6 +11,7 @@ import RxCocoa
 final class HomeViewModel {
     enum Action {
         case openPaygate
+        case createBracket(TournamentPreset?)
     }
     
     private lazy var tournamentManager = TournamentManager()
@@ -52,7 +53,11 @@ extension HomeViewModel {
                 currentFilter: currentFilter,
                 bracketsElements: bracketsElements
             ),
-            action: makeAction(didTapPaygate: input.didTapPaygate),
+            action: makeAction(
+                didTapPaygate: input.didTapPaygate,
+                didTapAddFirstBracket: input.didTapAddFirstBracket,
+                didTapPreset: input.didTapPreset
+            ),
             activeSubscription: makeActiveSubscription()
         )
     }
@@ -147,14 +152,25 @@ private extension HomeViewModel {
     }
     
     func makeAction(
-        didTapPaygate: Signal<Void>
+        didTapPaygate: Signal<Void>,
+        didTapAddFirstBracket: Signal<Void>,
+        didTapPreset: Signal<TournamentPreset>
     ) -> Driver<Action> {
         let openPaygate = didTapPaygate
             .map { Action.openPaygate }
             .asDriver(onErrorDriveWith: .never())
         
+        let createBracket = Signal
+            .merge(
+                didTapAddFirstBracket
+                    .map { Action.createBracket(nil) },
+                didTapPreset
+                    .map { Action.createBracket($0) }
+            )
+            .asDriver(onErrorDriveWith: .never())
+        
         return Driver
-            .merge(openPaygate)
+            .merge(openPaygate, createBracket)
     }
     
     func makeActiveSubscription() -> Driver<Bool> {
