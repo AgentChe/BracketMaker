@@ -108,6 +108,12 @@
 		DEEB118E2E6D71E00069CE9E /* PresetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB118D2E6D71E00069CE9E /* PresetsViewController.swift */; };
 		DEEB11922E6D71F70069CE9E /* PresetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11912E6D71F70069CE9E /* PresetsView.swift */; };
 		DEEB11952E6D740D0069CE9E /* PresetsItemButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11942E6D740D0069CE9E /* PresetsItemButton.swift */; };
+		DEEB11992E6EEBFC0069CE9E /* BracketInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11982E6EEBFC0069CE9E /* BracketInfoViewController.swift */; };
+		DEEB119D2E6EEC080069CE9E /* BracketInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB119C2E6EEC080069CE9E /* BracketInfoView.swift */; };
+		DEEB11A02E6EED350069CE9E /* BISingleEliminationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB119F2E6EED350069CE9E /* BISingleEliminationView.swift */; };
+		DEEB11A22E6EF4B30069CE9E /* BIDoubleEliminationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11A12E6EF4B30069CE9E /* BIDoubleEliminationView.swift */; };
+		DEEB11A42E6EF7690069CE9E /* BIRoundRobinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11A32E6EF7690069CE9E /* BIRoundRobinView.swift */; };
+		DEEB11A62E6EF9780069CE9E /* BIPresetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11A52E6EF9780069CE9E /* BIPresetsView.swift */; };
 		DEF900E92E5878AA00DE5679 /* ORoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900E82E5878AA00DE5679 /* ORoleView.swift */; };
 		DEF900EB2E58839B00DE5679 /* Paygate.storekit in Resources */ = {isa = PBXBuildFile; fileRef = DEF900EA2E58839B00DE5679 /* Paygate.storekit */; };
 		DEF900EF2E588C8B00DE5679 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900EE2E588C8B00DE5679 /* MainViewController.swift */; };
@@ -242,6 +248,12 @@
 		DEEB118D2E6D71E00069CE9E /* PresetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsViewController.swift; sourceTree = "<group>"; };
 		DEEB11912E6D71F70069CE9E /* PresetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsView.swift; sourceTree = "<group>"; };
 		DEEB11942E6D740D0069CE9E /* PresetsItemButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsItemButton.swift; sourceTree = "<group>"; };
+		DEEB11982E6EEBFC0069CE9E /* BracketInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketInfoViewController.swift; sourceTree = "<group>"; };
+		DEEB119C2E6EEC080069CE9E /* BracketInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketInfoView.swift; sourceTree = "<group>"; };
+		DEEB119F2E6EED350069CE9E /* BISingleEliminationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BISingleEliminationView.swift; sourceTree = "<group>"; };
+		DEEB11A12E6EF4B30069CE9E /* BIDoubleEliminationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIDoubleEliminationView.swift; sourceTree = "<group>"; };
+		DEEB11A32E6EF7690069CE9E /* BIRoundRobinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIRoundRobinView.swift; sourceTree = "<group>"; };
+		DEEB11A52E6EF9780069CE9E /* BIPresetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIPresetsView.swift; sourceTree = "<group>"; };
 		DEF900E82E5878AA00DE5679 /* ORoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORoleView.swift; sourceTree = "<group>"; };
 		DEF900EA2E58839B00DE5679 /* Paygate.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Paygate.storekit; sourceTree = "<group>"; };
 		DEF900EE2E588C8B00DE5679 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -706,6 +718,7 @@
 		DEEB117C2E6C7C630069CE9E /* Brackets */ = {
 			isa = PBXGroup;
 			children = (
+				DEEB11972E6EEBF20069CE9E /* BracketInfo */,
 				DEEB118C2E6D71D50069CE9E /* Presets */,
 				DEEB117D2E6C7C6B0069CE9E /* Create */,
 			);
@@ -745,6 +758,27 @@
 			isa = PBXGroup;
 			children = (
 				DEEB11942E6D740D0069CE9E /* PresetsItemButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DEEB11972E6EEBF20069CE9E /* BracketInfo */ = {
+			isa = PBXGroup;
+			children = (
+				DEEB119E2E6EED200069CE9E /* Views */,
+				DEEB11982E6EEBFC0069CE9E /* BracketInfoViewController.swift */,
+				DEEB119C2E6EEC080069CE9E /* BracketInfoView.swift */,
+			);
+			path = BracketInfo;
+			sourceTree = "<group>";
+		};
+		DEEB119E2E6EED200069CE9E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DEEB119F2E6EED350069CE9E /* BISingleEliminationView.swift */,
+				DEEB11A12E6EF4B30069CE9E /* BIDoubleEliminationView.swift */,
+				DEEB11A32E6EF7690069CE9E /* BIRoundRobinView.swift */,
+				DEEB11A52E6EF9780069CE9E /* BIPresetsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1070,6 +1104,7 @@
 				DE157E092E55E18B00365C61 /* NavigationControllerSettings.swift in Sources */,
 				DE157E0B2E55E18B00365C61 /* OnboardingViewController.swift in Sources */,
 				DEEB116B2E6C4FE60069CE9E /* HomeTableAddFirstBracketCell.swift in Sources */,
+				DEEB11992E6EEBFC0069CE9E /* BracketInfoViewController.swift in Sources */,
 				DE157E122E55E18B00365C61 /* PurchaseValidationObserver.swift in Sources */,
 				DEEB115A2E6B4BC60069CE9E /* HomeViewModel.swift in Sources */,
 				DEEB11552E6B4A780069CE9E /* TournamentPreset.swift in Sources */,
@@ -1083,6 +1118,7 @@
 				DEF901112E5B2F9000DE5679 /* TeamsViewController.swift in Sources */,
 				DEEB11922E6D71F70069CE9E /* PresetsView.swift in Sources */,
 				DE157E262E55E18B00365C61 /* OInstructionView.swift in Sources */,
+				DEEB11A22E6EF4B30069CE9E /* BIDoubleEliminationView.swift in Sources */,
 				DE157E292E55E18B00365C61 /* ObservableAndSingle+Extension.swift in Sources */,
 				DEF901182E5B316D00DE5679 /* TeamsPaygateButton.swift in Sources */,
 				DEF901002E58932500DE5679 /* SettingsView.swift in Sources */,
@@ -1101,6 +1137,7 @@
 				DE157E372E55E18B00365C61 /* ContentError.swift in Sources */,
 				DEEB11642E6B506F0069CE9E /* HomeTableView.swift in Sources */,
 				DE157E392E55E18B00365C61 /* String+Extension.swift in Sources */,
+				DEEB11A62E6EF9780069CE9E /* BIPresetsView.swift in Sources */,
 				DE157E422E55E18B00365C61 /* RxActivityIndicator.swift in Sources */,
 				DEEB114F2E6B0D480069CE9E /* SingleEliminationTournamentRound.swift in Sources */,
 				DE157E4A2E55E18B00365C61 /* OnboardingView.swift in Sources */,
@@ -1119,6 +1156,7 @@
 				DEF901272E5B54F400DE5679 /* ConfirmDeleteTeamViewController.swift in Sources */,
 				DE157E6F2E55E18B00365C61 /* PaygateEnableTrialButton.swift in Sources */,
 				DE157E732E55E18B00365C61 /* AppDelegate.swift in Sources */,
+				DEEB11A02E6EED350069CE9E /* BISingleEliminationView.swift in Sources */,
 				DEEB11692E6B50CB0069CE9E /* HomeTablePresetsCell.swift in Sources */,
 				DE157E762E55E18B00365C61 /* UIDevice+Extension.swift in Sources */,
 				DE157E7B2E55E18B00365C61 /* PaygateInfoCell.swift in Sources */,
@@ -1129,9 +1167,11 @@
 				DEEB11722E6C549E0069CE9E /* HomeDemoView.swift in Sources */,
 				DE157E832E55E18B00365C61 /* UIApplication+Extension.swift in Sources */,
 				DE157E852E55E18B00365C61 /* GradientView.swift in Sources */,
+				DEEB119D2E6EEC080069CE9E /* BracketInfoView.swift in Sources */,
 				DE157E8D2E55E18B00365C61 /* Currency.swift in Sources */,
 				DE157E932E55E18B00365C61 /* ScreenSize.swift in Sources */,
 				DEF900FC2E58931900DE5679 /* SettingsViewController.swift in Sources */,
+				DEEB11A42E6EF7690069CE9E /* BIRoundRobinView.swift in Sources */,
 				DE157E942E55E18B00365C61 /* PaygateView.swift in Sources */,
 				DE157E952E55E18B00365C61 /* GlobalDefinitions.swift in Sources */,
 				DEEB11792E6C737E0069CE9E /* HomeTableInProgressBracketCell.swift in Sources */,

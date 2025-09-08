@@ -11,6 +11,7 @@ import RxCocoa
 final class CreateBracketViewModel {
     enum Action {
         case selectPreset(TournamentPreset)
+        case openInfo
     }
     
     private let initialPreset: Driver<TournamentPreset?>
@@ -25,6 +26,7 @@ extension CreateBracketViewModel {
     struct Input {
         let didTapSelectPreset: Signal<Void>
         let didSelectPreset: Signal<TournamentPreset>
+        let didTapInfo: Signal<Void>
     }
     
     struct Output {
@@ -42,7 +44,8 @@ extension CreateBracketViewModel {
             preset: currentPreset,
             action: makeAction(
                 didTapSelectPreset: input.didTapSelectPreset,
-                currentPreset: currentPreset
+                currentPreset: currentPreset,
+                didTapInfo: input.didTapInfo
             )
         )
     }
@@ -63,13 +66,19 @@ private extension CreateBracketViewModel {
     
     func makeAction(
         didTapSelectPreset: Signal<Void>,
-        currentPreset: Driver<TournamentPreset>
+        currentPreset: Driver<TournamentPreset>,
+        didTapInfo: Signal<Void>
     ) -> Driver<Action> {
         let selectPreset = didTapSelectPreset
             .asDriver(onErrorDriveWith: .never())
             .withLatestFrom(currentPreset)
             .map { Action.selectPreset($0) }
         
-        return selectPreset
+        let openInfo = didTapInfo
+            .map { Action.openInfo }
+            .asDriver(onErrorDriveWith: .never())
+        
+        return Driver
+            .merge(selectPreset, openInfo)
     }
 }

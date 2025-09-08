@@ -41,7 +41,8 @@ final class CreateBracketViewController: UIViewController {
         
         let output = viewModel.configure(input: CreateBracketViewModel.Input(
             didTapSelectPreset: mainView.presetButton.rx.tap.asSignal(),
-            didSelectPreset: didSelectPresetTrigger.asSignal()
+            didSelectPreset: didSelectPresetTrigger.asSignal(),
+            didTapInfo: infoButton.rx.tap.asSignal()
         ))
         
         output.preset
@@ -90,6 +91,9 @@ private extension CreateBracketViewController {
                 self?.didSelectPresetTrigger.accept(selected)
             }
             present(vc, animated: false)
+        case .openInfo:
+            let vc = BracketInfoViewController.make()
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

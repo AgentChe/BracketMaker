@@ -104,3 +104,31 @@
 // MARK: Presets
 "Presets.Title" = "Presets";
 "Presets.Select" = "Select";
+
+// MARK: BracketInfo
+"BracketInfo.Title" = "Info";
+"BracketInfo.SingleElimination.Title" = "Single Elimination";
+"BracketInfo.SingleElimination.Text1" = "Each team is eliminated after one loss.\n";
+"BracketInfo.SingleElimination.Text2" = "  •  Simple and fast format.\n";
+"BracketInfo.SingleElimination.Text3" = "  •  Example: 8 teams → Quarterfinals → Semifinals → Final.\n";
+"BracketInfo.SingleElimination.Text4" = "  •  Loser is out, winner moves on.";
+"BracketInfo.DoubleElimination.Title" = "Double Elimination";
+"BracketInfo.DoubleElimination.Text1" = "Teams are eliminated after two losses.\n";
+"BracketInfo.DoubleElimination.Text2.1" = "  •  Includes a ";
+"BracketInfo.DoubleElimination.Text2.2" = "winners";
+"BracketInfo.DoubleElimination.Text2.3" = " and a ";
+"BracketInfo.DoubleElimination.Text2.4" = "losers";
+"BracketInfo.DoubleElimination.Text2.5" = " bracket.\n";
+"BracketInfo.DoubleElimination.Text3" = "  •  Example: If Team A loses once, they move to the losers bracket. If they lose again, they’re out.\n";
+"BracketInfo.DoubleElimination.Text4" = "  •  More fair, but takes longer.";
+"BracketInfo.RoundRobin.Title" = "Round Robin";
+"BracketInfo.RoundRobin.Text1" = "Every team plays against all other teams.\n";
+"BracketInfo.RoundRobin.Text2" = "  •  No elimination until all matches are played.\n";
+"BracketInfo.RoundRobin.Text3" = "  •  Example: 4 teams → each team plays 3 matches.\n";
+"BracketInfo.RoundRobin.Text4" = "  •  Best for fairness and ranking accuracy.";
+"BracketInfo.Presets.Title" = "Presets";
+"BracketInfo.Presets.Text1" = "Each preset has ready-made settings for the standings.\nFor example preset “Football”:\n";
+"BracketInfo.Presets.Text2" = "Type of standings: ";
+"BracketInfo.Presets.Text3" = "Single Elimination\n";
+"BracketInfo.Presets.Text4" = "Teams: ";
+"BracketInfo.Presets.Text5" = "16 teams (this is most often used)";
