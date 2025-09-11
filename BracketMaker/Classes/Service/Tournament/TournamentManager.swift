@@ -25,8 +25,7 @@ protocol TournamentManagerProtocol {
     
     func createSingleElimination(
         name: String,
-        teamsIds: [String],
-        preset: String?
+        teamsIds: [String]
     ) -> Single<SingleElimination>
     func fetchSingleEliminations() -> Single<[SingleElimination]>
     
@@ -192,7 +191,6 @@ extension TournamentManager: TournamentManagerProtocol {
     func createSingleElimination(
         name: String,
         teamsIds: [String],
-        preset: String?
     ) -> Single<SingleElimination> {
         Single.create { [weak self] single in
             guard let self, let dbQueue = self.dbQueue else {
@@ -204,7 +202,6 @@ extension TournamentManager: TournamentManagerProtocol {
                 id: UUID().uuidString,
                 name: name,
                 teamsIds: teamsIds,
-                preset: preset,
                 createdAt: Date().timeIntervalSince1970
             )
             

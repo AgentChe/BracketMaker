@@ -66,7 +66,6 @@ private extension Database {
                 t.column("id", .text).primaryKey()
                 t.column("name", .text).notNull()
                 t.column("teamsIds", .blob).notNull()
-                t.column("preset", .text)
                 t.column("createdAt", .double).notNull()
             }
             

@@ -1,56 +1,47 @@
 //
-//  TeamsViewModel.swift
+//  SelectTeamViewModel.swift
 //  BracketMaker
 //
-//  Created by Андрей Чернышев on 24.08.2025.
+//  Created by Андрей Чернышев on 10.09.2025.
 //
 
 import RxSwift
 import RxCocoa
 
-final class TeamsViewModel {
+final class SelectTeamViewModel {
     enum Action {
         case openPaygate
-        case confirmDelete(String)
+        case selected(Team)
     }
     
     private lazy var teamManager = TeamManager()
 }
 
 // MARK: Public
-extension TeamsViewModel {
+extension SelectTeamViewModel {
     struct Input {
-        let didTapPaygate: Signal<Void>
-        let didDeleteTeam: Signal<String>
-        let didConfirmDeleteTeam: Signal<String>
         let didCreateTeam: Signal<String>
         let didAttemptCreateWhenLockPaygate: Signal<Void>
+        let didSelectTeam: Signal<Team>
     }
     
     struct Output {
         let action: Driver<Action>
-        let activeSubscription: Driver<Bool>
         let elements: Driver<[TeamTableElement]>
         let canCreateTeam: Driver<Bool>
     }
     
     func configure(input: Input) -> Output {
-        let teams = makeTeams(
-            didCreateTeam: input.didCreateTeam,
-            didConfirmDeleteTeam: input.didConfirmDeleteTeam
-        )
-        let activeSubscription = makeActiveSubscription()
+        let teams = makeTeams(didCreateTeam: input.didCreateTeam)
         
         return Output(
             action: makeAction(
-                didTapPaygate: input.didTapPaygate,
-                didDeleteTeam: input.didDeleteTeam,
-                didAttemptCreateWhenLockPaygate: input.didAttemptCreateWhenLockPaygate
+                didAttemptCreateWhenLockPaygate: input.didAttemptCreateWhenLockPaygate,
+                didSelectTeam: input.didSelectTeam
             ),
-            activeSubscription: activeSubscription,
             elements: makeElements(teams: teams),
             canCreateTeam: makeCanCreateTeam(
-                activeSubscription: activeSubscription,
+                activeSubscription:  makeActiveSubscription(),
                 teams: teams
             )
         )
@@ -58,7 +49,7 @@ extension TeamsViewModel {
 }
 
 // MARK: Private
-private extension TeamsViewModel {
+private extension SelectTeamViewModel {
     func makeCanCreateTeam(
         activeSubscription: Driver<Bool>,
         teams: Driver<[Team]>
@@ -75,21 +66,19 @@ private extension TeamsViewModel {
     }
     
     func makeAction(
-        didTapPaygate: Signal<Void>,
-        didDeleteTeam: Signal<String>,
-        didAttemptCreateWhenLockPaygate: Signal<Void>
+        didAttemptCreateWhenLockPaygate: Signal<Void>,
+        didSelectTeam: Signal<Team>
     ) -> Driver<Action> {
-        let openPaygate = Signal
-            .merge(didTapPaygate, didAttemptCreateWhenLockPaygate)
+        let openPaygate = didAttemptCreateWhenLockPaygate
             .map { Action.openPaygate }
             .asDriver(onErrorDriveWith: .never())
         
-        let confirmDelete = didDeleteTeam
-            .map { Action.confirmDelete($0) }
+        let selectedTeam = didSelectTeam
+            .map { Action.selected($0) }
             .asDriver(onErrorDriveWith: .never())
         
         return Driver
-            .merge(openPaygate, confirmDelete)
+            .merge(openPaygate, selectedTeam)
     }
     
     func makeElements(teams: Driver<[Team]>) -> Driver<[TeamTableElement]> {
@@ -103,14 +92,10 @@ private extension TeamsViewModel {
             }
     }
     
-    func makeTeams(
-        didCreateTeam: Signal<String>,
-        didConfirmDeleteTeam: Signal<String>
-    ) -> Driver<[Team]> {
+    func makeTeams(didCreateTeam: Signal<String>) -> Driver<[Team]> {
         enum Action {
             case initial([Team])
             case created(Team)
-            case deleted(String)
         }
         
         let initial = teamManager
@@ -129,18 +114,7 @@ private extension TeamsViewModel {
                             .map { Action.created($0) }
                     }
                 
-                let deleted = didConfirmDeleteTeam
-                    .flatMapLatest { [weak self] id -> Driver<Action> in
-                        guard let self else { return .never() }
-                        
-                        return teamManager
-                            .delete(teamId: id)
-                            .asDriver(onErrorDriveWith: .never())
-                            .map { Action.deleted($0) }
-                    }
-                
-                return Driver
-                    .merge(created, deleted)
+                return created
                     .startWith(.initial(initialTeams))
                     .scan(initialTeams) { teams, action -> [Team] in
                         switch action {
@@ -149,10 +123,6 @@ private extension TeamsViewModel {
                         case .created(let team):
                             var result = teams
                             result.append(team)
-                            return result
-                        case .deleted(let id):
-                            var result = teams
-                            result.removeAll(where: { $0.id == id })
                             return result
                         }
                     }

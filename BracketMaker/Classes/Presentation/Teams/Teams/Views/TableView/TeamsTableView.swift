@@ -10,9 +10,12 @@ import RxSwift
 import RxCocoa
 
 final class TeamsTableView: UITableView {
+    var canDelete = true
+    
     private lazy var elements = [TeamTableElement]()
     
     private lazy var didDeleteTrigger = PublishRelay<String>()
+    private lazy var didSelectTeamTrigger = PublishRelay<Team>()
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -35,6 +38,10 @@ extension TeamsTableView {
     
     var didDelete: Signal<String> {
         didDeleteTrigger.asSignal()
+    }
+    
+    var didSelectTeam: Signal<Team> {
+        didSelectTeamTrigger.asSignal()
     }
 }
 
@@ -63,7 +70,7 @@ extension TeamsTableView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard case .team = elements[indexPath.row] else { return nil }
+        guard canDelete, case .team = elements[indexPath.row] else { return nil }
         
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] action, view, completion in
             guard let self else { return }
@@ -84,6 +91,12 @@ extension TeamsTableView: UITableViewDelegate {
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
         configuration.performsFirstActionWithFullSwipe = true
         return configuration
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard case let .team(team) = elements[indexPath.row] else { return }
+        
+        didSelectTeamTrigger.accept(team)
     }
 }
 

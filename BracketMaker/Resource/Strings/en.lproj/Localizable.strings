@@ -100,6 +100,16 @@
 // MARK: CreateBracket
 "CreateBracket.Title" = "Add bracket";
 "CreateBracket.Name.Placeholder" = "Name";
+"CreateBracket.BracketType.SingleElimination" = "Single";
+"CreateBracket.BracketType.DoubleElimination" = "Double";
+"CreateBracket.BracketType.RoundRobin" = "Round Robin";
+"CreateBracket.NumberTeams.Title" = "Number of teams";
+"CreateBracket.Teams" = "Teams";
+"CreateBracket.Shuffle" = "Shuffle";
+"CreateBracket.Create" = "Create";
+"CreateBracket.TeamIndex" = "Team %i";
+"CreateBracket.Bye" = "bye";
+"CreateBracket.VS" = "vs";
 
 // MARK: Presets
 "Presets.Title" = "Presets";
@@ -132,3 +142,6 @@
 "BracketInfo.Presets.Text3" = "Single Elimination\n";
 "BracketInfo.Presets.Text4" = "Teams: ";
 "BracketInfo.Presets.Text5" = "16 teams (this is most often used)";
+
+// MARK: SelectTeam
+"SelectTeam.Title" = "Add team";

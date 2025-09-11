@@ -19,6 +19,7 @@ final class CreateBracketViewController: UIViewController {
     private lazy var infoButton = TapAreaButton()
     
     private lazy var didSelectPresetTrigger = PublishRelay<TournamentPreset>()
+    private lazy var didSelectTeamTrigger = PublishRelay<(Team, TeamPosition)>()
     
     private init(preset: TournamentPreset?) {
         viewModel = CreateBracketViewModel(preset: preset)
@@ -42,7 +43,15 @@ final class CreateBracketViewController: UIViewController {
         let output = viewModel.configure(input: CreateBracketViewModel.Input(
             didTapSelectPreset: mainView.presetButton.rx.tap.asSignal(),
             didSelectPreset: didSelectPresetTrigger.asSignal(),
-            didTapInfo: infoButton.rx.tap.asSignal()
+            didTapInfo: infoButton.rx.tap.asSignal(),
+            didSelectBracketType: mainView.bracketTypesView.didSelect,
+            didChangeNumberTeams: mainView.numberTeamsView.didChange,
+            didChangeName: mainView.nameField.rx.text
+                .compactMap { $0 }
+                .asSignal(onErrorSignalWith: .never()),
+            didTapShuffle: mainView.teamsHeaderView.shuffleButton.rx.tap.asSignal(),
+            didTapTeamPosition: mainView.tableView.didSelect,
+            didSelectTeam: didSelectTeamTrigger.asSignal()
         ))
         
         output.preset
@@ -51,9 +60,33 @@ final class CreateBracketViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        output.currentBracketType
+            .drive(Binder(mainView.bracketTypesView) { base, bracketType in
+                base.setup(bracketType: bracketType)
+            })
+            .disposed(by: disposeBag)
+        
         output.action
             .drive(Binder(self) { base, action in
                 base.action(action)
+            })
+            .disposed(by: disposeBag)
+        
+        output.canCreate
+            .drive(Binder(mainView) { base, canCreate in
+                base.setup(canCreate: canCreate)
+            })
+            .disposed(by: disposeBag)
+        
+        output.canShuffle
+            .drive(Binder(mainView.teamsHeaderView) { base, canShuffle in
+                base.shuffleButton.isHidden = !canShuffle
+            })
+            .disposed(by: disposeBag)
+        
+        output.elements
+            .drive(Binder(mainView.tableView) { base, elements in
+                base.setup(elements: elements)
             })
             .disposed(by: disposeBag)
     }
@@ -94,6 +127,11 @@ private extension CreateBracketViewController {
         case .openInfo:
             let vc = BracketInfoViewController.make()
             navigationController?.pushViewController(vc, animated: true)
+        case .selectTeam(let teamPosition):
+            let vc = SelectTeamViewController.make { [weak self] team in
+                self?.didSelectTeamTrigger.accept((team, teamPosition))
+            }
+            present(vc, animated: true)
         }
     }
 }

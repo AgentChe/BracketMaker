@@ -11,6 +11,5 @@ struct SingleElimination: Codable, Identifiable, FetchableRecord, PersistableRec
     let id: String
     let name: String
     let teamsIds: [String]
-    let preset: String?
     let createdAt: TimeInterval
 }
