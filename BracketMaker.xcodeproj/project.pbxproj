@@ -131,6 +131,7 @@
 		DEEB11D22E71A4400069CE9E /* SelectTeamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11D12E71A4400069CE9E /* SelectTeamViewModel.swift */; };
 		DEEB11D42E71A4440069CE9E /* SelectTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11D32E71A4440069CE9E /* SelectTeamView.swift */; };
 		DEEB11D72E71AE2A0069CE9E /* TeamPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11D62E71AE2A0069CE9E /* TeamPosition.swift */; };
+		DEEB11DA2E73318D0069CE9E /* PresetConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11D92E73318D0069CE9E /* PresetConfig.swift */; };
 		DEF900E92E5878AA00DE5679 /* ORoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900E82E5878AA00DE5679 /* ORoleView.swift */; };
 		DEF900EB2E58839B00DE5679 /* Paygate.storekit in Resources */ = {isa = PBXBuildFile; fileRef = DEF900EA2E58839B00DE5679 /* Paygate.storekit */; };
 		DEF900EF2E588C8B00DE5679 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF900EE2E588C8B00DE5679 /* MainViewController.swift */; };
@@ -288,6 +289,7 @@
 		DEEB11D12E71A4400069CE9E /* SelectTeamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTeamViewModel.swift; sourceTree = "<group>"; };
 		DEEB11D32E71A4440069CE9E /* SelectTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTeamView.swift; sourceTree = "<group>"; };
 		DEEB11D62E71AE2A0069CE9E /* TeamPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamPosition.swift; sourceTree = "<group>"; };
+		DEEB11D92E73318D0069CE9E /* PresetConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetConfig.swift; sourceTree = "<group>"; };
 		DEF900E82E5878AA00DE5679 /* ORoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORoleView.swift; sourceTree = "<group>"; };
 		DEF900EA2E58839B00DE5679 /* Paygate.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Paygate.storekit; sourceTree = "<group>"; };
 		DEF900EE2E588C8B00DE5679 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -762,6 +764,7 @@
 		DEEB117D2E6C7C6B0069CE9E /* Create */ = {
 			isa = PBXGroup;
 			children = (
+				DEEB11D82E73316E0069CE9E /* Utils */,
 				DEEB11D52E71AE220069CE9E /* Model */,
 				DEEB11842E6C806E0069CE9E /* Views */,
 				DEEB117E2E6C7C770069CE9E /* CreateBracketViewController.swift */,
@@ -836,7 +839,6 @@
 			children = (
 				DEEB11B12E6F09B70069CE9E /* Picker */,
 				DEEB11AD2E6F04930069CE9E /* CBNumberTeamsView.swift */,
-				DEEB11AF2E6F07060069CE9E /* HorizontalNumberPicker.swift */,
 			);
 			path = NumberTeams;
 			sourceTree = "<group>";
@@ -844,6 +846,7 @@
 		DEEB11B12E6F09B70069CE9E /* Picker */ = {
 			isa = PBXGroup;
 			children = (
+				DEEB11AF2E6F07060069CE9E /* HorizontalNumberPicker.swift */,
 				DEEB11B42E6F09D90069CE9E /* HorizontalNumberPickerCell.swift */,
 				DEEB11B62E6F0DBE0069CE9E /* HorizontalNumberPickerCollectionLayout.swift */,
 			);
@@ -914,6 +917,14 @@
 				DEEB11D62E71AE2A0069CE9E /* TeamPosition.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		DEEB11D82E73316E0069CE9E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				DEEB11D92E73318D0069CE9E /* PresetConfig.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		DEF900EC2E588C7A00DE5679 /* Main */ = {
@@ -1256,6 +1267,7 @@
 				DEF901112E5B2F9000DE5679 /* TeamsViewController.swift in Sources */,
 				DEEB11922E6D71F70069CE9E /* PresetsView.swift in Sources */,
 				DE157E262E55E18B00365C61 /* OInstructionView.swift in Sources */,
+				DEEB11DA2E73318D0069CE9E /* PresetConfig.swift in Sources */,
 				DEEB11A22E6EF4B30069CE9E /* BIDoubleEliminationView.swift in Sources */,
 				DE157E292E55E18B00365C61 /* ObservableAndSingle+Extension.swift in Sources */,
 				DEF901182E5B316D00DE5679 /* TeamsPaygateButton.swift in Sources */,

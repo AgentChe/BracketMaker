@@ -52,7 +52,10 @@ extension CreateBracketViewModel {
             initialPreset: initialPreset,
             didSelectPreset: input.didSelectPreset
         )
-        let currentBracketType = makeCurrentBracketType(didSelectBracketType: input.didSelectBracketType)
+        let currentBracketType = makeCurrentBracketType(
+            preset: currentPreset,
+            didSelectBracketType: input.didSelectBracketType
+        )
         let elements = makeTableElements(
             currentBracketType: currentBracketType,
             numberTeams: numberTeams,
@@ -95,10 +98,19 @@ private extension CreateBracketViewModel {
             )
     }
     
-    func makeCurrentBracketType(didSelectBracketType: Signal<CBBracketTypeItemButton.BracketType>) -> Driver<CBBracketTypeItemButton.BracketType> {
-        didSelectBracketType
+    func makeCurrentBracketType(
+        preset: Driver<TournamentPreset>,
+        didSelectBracketType: Signal<CBBracketTypeItemButton.BracketType>
+    ) -> Driver<CBBracketTypeItemButton.BracketType> {
+        let initial = preset
+            .compactMap { PresetConfig().config[$0]?.0 }
             .asDriver(onErrorDriveWith: .never())
-            .startWith(.singleElimination)
+        
+        let updated = didSelectBracketType
+            .asDriver(onErrorDriveWith: .never())
+        
+        return Driver
+            .merge(initial, updated)
     }
     
     func makeAction(

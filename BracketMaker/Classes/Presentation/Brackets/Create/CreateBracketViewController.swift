@@ -55,8 +55,12 @@ final class CreateBracketViewController: UIViewController {
         ))
         
         output.preset
-            .drive(Binder(mainView.presetButton) { base, preset in
-                base.setup(preset: preset)
+            .drive(Binder(mainView) { base, preset in
+                base.presetButton.setup(preset: preset)
+                
+                if let numberItems = PresetConfig().config[preset]?.1 {
+                    base.numberTeamsView.numberPicker.selectValue(numberItems, animated: false)
+                }
             })
             .disposed(by: disposeBag)
         

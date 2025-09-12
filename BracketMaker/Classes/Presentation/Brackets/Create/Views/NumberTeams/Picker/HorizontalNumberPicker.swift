@@ -10,6 +10,8 @@ import UIKit
 final class HorizontalNumberPicker: UIView {
     var onValueChanged: ((Int) -> Void)?
     
+    private var isSelectingProgrammatically = false
+    
     private(set) lazy var selectedValue: Int = numbers.first ?? 1 {
         didSet { if selectedValue != oldValue { onValueChanged?(selectedValue) } }
     }
@@ -32,17 +34,24 @@ final class HorizontalNumberPicker: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         let side = max(0, (bounds.width - itemWidth) / 2)
-        
         if collectionView.contentInset.left != side {
             collectionView.contentInset = UIEdgeInsets(horizontal: side)
             collectionView.scrollIndicatorInsets = collectionView.contentInset
-            
+
+            // Держим текущий selectedValue в центре
             scrollToValue(selectedValue, animated: false)
+            collectionView.reloadData()
+
+            // Дадим лайауту примениться прежде чем возвращать авто-выбор
+            DispatchQueue.main.async { [weak self] in
+                self?.isSelectingProgrammatically = false
+                self?.updateAesthetics()
+            }
+        } else {
+            updateAesthetics()
         }
-        
-        updateAesthetics()
     }
 }
 
@@ -50,7 +59,18 @@ final class HorizontalNumberPicker: UIView {
 extension HorizontalNumberPicker {
     func selectValue(_ value: Int, animated: Bool) {
         guard numbers.contains(value) else { return }
+        isSelectingProgrammatically = true
+
+        selectedValue = value
         scrollToValue(value, animated: animated)
+
+        // Обновим вид сразу, чтобы рамка не отставала
+        collectionView.reloadData()
+        updateAesthetics()
+
+        if !animated {
+            isSelectingProgrammatically = false
+        }
     }
 }
 
@@ -62,7 +82,8 @@ extension HorizontalNumberPicker: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HorizontalNumberPickerCell.self), for: indexPath) as! HorizontalNumberPickerCell
         cell.setup(text: String(numbers[indexPath.row]))
-        cell.setup(isSelected: false)
+        cell.setup(isSelected: numbers[indexPath.row] == selectedValue)
+
         return cell
     }
 }
@@ -87,30 +108,19 @@ extension HorizontalNumberPicker: UIScrollViewDelegate {
         updateAesthetics()
     }
 
-    func scrollViewWillEndDragging(
-        _ scrollView: UIScrollView,
-        withVelocity velocity: CGPoint,
-        targetContentOffset: UnsafeMutablePointer<CGPoint>)
-    {
-        guard let layout = collectionView.collectionViewLayout as? HorizontalNumberPickerCollectionLayout else { return }
-        
-        targetContentOffset.pointee = layout.targetContentOffset(
-            forProposedContentOffset: targetContentOffset.pointee,
-            withScrollingVelocity: velocity,
-            in: collectionView
-        )
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        isSelectingProgrammatically = false
+        updateAesthetics()
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        isSelectingProgrammatically = false
+        updateAesthetics()
     }
 }
 
 // MARK: Private
 private extension HorizontalNumberPicker {
-    func reloadAndCenter(value: Int) {
-        collectionView.reloadData()
-        layoutIfNeeded()
-        scrollToValue(value, animated: false)
-        updateAesthetics()
-    }
-
     func scrollToValue(_ value: Int, animated: Bool) {
         guard let idx = numbers.firstIndex(of: value) else { return }
         
@@ -127,43 +137,35 @@ private extension HorizontalNumberPicker {
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
         }
     }
-    
-    func indexPathClosestToCenter() -> IndexPath? {
-        let center = convert(centerPoint(), to: collectionView)
-        let visible = collectionView.indexPathsForVisibleItems
-        
-        guard !visible.isEmpty else { return nil }
-        
-        return visible.min(by: { lhs, rhs in
-            let l = collectionView.layoutAttributesForItem(at: lhs)?.center ?? .zero
-            let r = collectionView.layoutAttributesForItem(at: rhs)?.center ?? .zero
-            return abs(l.x - center.x) < abs(r.x - center.x)
-        })
-    }
-
-    func centerPoint() -> CGPoint {
-        CGPoint(x: bounds.midX, y: bounds.midY)
-    }
 
     func updateAesthetics() {
-        let centerX = convert(centerPoint(), to: collectionView).x
+        // Было: let centerX = convert(centerPoint(), to: collectionView).x
+        let centerX = collectionView.contentOffset.x + collectionView.bounds.width / 2
         let halfWidth = collectionView.bounds.width / 2
-        
+
         for cell in collectionView.visibleCells {
             guard let numberCell = cell as? HorizontalNumberPickerCell else { continue }
-            
             let dx = abs(cell.center.x - centerX)
-            let t = min(dx / halfWidth, 1)
-            let alpha = (1 - 0.9 * t)
-            numberCell.setup(alpha: alpha)
-
+            let t = min(dx / max(halfWidth, 1), 1) // защита от деления на 0
+            numberCell.setup(alpha: (1 - 0.9 * t))
             let isCenter = dx < (itemWidth / 2)
             numberCell.setup(isSelected: isCenter)
         }
 
-        if let ip = indexPathClosestToCenter() {
+        // Не затираем выбранное значение, пока идёт программный выбор
+        if !isSelectingProgrammatically, let ip = indexPathClosestToCenter(centerX: centerX) {
             let newValue = numbers[ip.item]
             if newValue != selectedValue { selectedValue = newValue }
+        }
+    }
+
+    func indexPathClosestToCenter(centerX: CGFloat) -> IndexPath? {
+        let visible = collectionView.indexPathsForVisibleItems
+        guard !visible.isEmpty else { return nil }
+        return visible.min { lhs, rhs in
+            let l = collectionView.layoutAttributesForItem(at: lhs)?.center.x ?? .zero
+            let r = collectionView.layoutAttributesForItem(at: rhs)?.center.x ?? .zero
+            return abs(l - centerX) < abs(r - centerX)
         }
     }
 }
