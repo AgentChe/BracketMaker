@@ -15,33 +15,55 @@ protocol TournamentManagerProtocol {
         sort: Int
     ) -> Single<Game>
     func fetchGames(ids: [String]) -> Single<[Game]>
-    func createGameResult(
-        gameId: String,
-        winnerTeamId: String,
-        loserTeamId: String?
-    ) -> Single<GameResult>
-    func fetchGameResult(gameId: String) -> Single<GameResult?>
-    func fetchGamesResults(gamesIds: [String]) -> Single<[GameResult]>
     
     func createSingleElimination(
         name: String,
         teamsIds: [String]
     ) -> Single<SingleElimination>
     func fetchSingleEliminations() -> Single<[SingleElimination]>
-    
     func createSingleEliminationResult(
         singleEliminationId: String,
         winner: String
     ) -> Single<SingleEliminationResult>
     func fetchSingleEliminationResult(singleEliminationId: String) -> Single<SingleEliminationResult?>
     func fetchSingleEliminationsResults(singleEliminationsIds: [String]) -> Single<[SingleEliminationResult]>
-    
     func createSingleEliminationTournamentRound(
         singleEliminationId: String,
         gamesIds: [String],
         round: Int
     ) -> Single<SingleEliminationTournamentRound>
     func fetchSingleEliminationTournamentRounds(singleEliminationId: String) -> Single<[SingleEliminationTournamentRound]>
+    func createSingleEliminationGameResult(
+        gameId: String,
+        winnerTeamId: String,
+        loserTeamId: String?
+    ) -> Single<SingleEliminationGameResult>
+    func fetchSingleEliminationGamesResults(gamesIds: [String]) -> Single<[SingleEliminationGameResult]>
+    
+    func createRoundRobin(
+        name: String,
+        teamsIds: [String]
+    ) -> Single<RoundRobin>
+    func fetchRoundRobins() -> Single<[RoundRobin]>
+    func createRoundRobinGames(
+        roundRobinId: String,
+        gamesIds: [String]
+    ) -> Single<RoundRobinGames>
+    func fetchRoundRobinGames(roundRobinId: String) -> Single<RoundRobinGames>
+    func createRoundRobinGameResult(
+        gameId: String,
+        team1GoalsFor: Int,
+        team1GoalsAgainst: Int,
+        team2GoalsFor: Int,
+        team2GoalsAgainst: Int
+    ) -> Single<RoundRobinGameResult>
+    func fetchRoundRobinGamesResults(gamesIds: [String]) -> Single<[RoundRobinGameResult]>
+    func create(
+        roundRobinId: String,
+        winner: String
+    ) -> Single<RoundRobinResult>
+    func fetchRoundRobinResult(roundRobinId: String) -> Single<RoundRobinResult?>
+    func fetchRoundRobinsResults(roundRobinsIds: [String]) -> Single<[RoundRobinResult]>
 }
 
 final class TournamentManager {
@@ -99,87 +121,6 @@ extension TournamentManager: TournamentManagerProtocol {
                         .fetchAll(db)
                 }
                 single(.success(games))
-            } catch {
-                single(.failure(error))
-            }
-            
-            return Disposables.create()
-        }
-    }
-
-    func createGameResult(
-        gameId: String,
-        winnerTeamId: String,
-        loserTeamId: String?
-    ) -> Single<GameResult> {
-        Single.create { [weak self] single in
-            guard let self, let dbQueue = self.dbQueue else {
-                single(.failure(ContentError(.notContent)))
-                return Disposables.create()
-            }
-            
-            let result = GameResult(
-                id: UUID().uuidString,
-                gameId: gameId,
-                winnerTeamId: winnerTeamId,
-                loserTeamId: loserTeamId,
-                createdAt: Date().timeIntervalSince1970
-            )
-            
-            do {
-                try dbQueue.write { db in
-                    try result.insert(db)
-                }
-                single(.success(result))
-                
-                TournamentMediator.shared.created(gameResult: result)
-            } catch {
-                single(.failure(error))
-            }
-            
-            return Disposables.create()
-        }
-    }
-
-    func fetchGameResult(gameId: String) -> Single<GameResult?> {
-        Single.create { [weak self] single in
-            guard let self, let dbQueue = self.dbQueue else {
-                single(.failure(ContentError(.notContent)))
-                return Disposables.create()
-            }
-            
-            do {
-                let res = try dbQueue.read { db -> GameResult? in
-                    try GameResult
-                        .filter(Column("gameId") == gameId)
-                        .fetchOne(db)
-                }
-                single(.success(res))
-            } catch {
-                single(.failure(error))
-            }
-            
-            return Disposables.create()
-        }
-    }
-
-    func fetchGamesResults(gamesIds: [String]) -> Single<[GameResult]> {
-        if gamesIds.isEmpty { return .just([]) }
-        
-        return Single.create { [weak self] single in
-            guard let self, let dbQueue = self.dbQueue else {
-                single(.failure(ContentError(.notContent)))
-                return Disposables.create()
-            }
-            
-            do {
-                let results = try dbQueue.read { db -> [GameResult] in
-                    try GameResult
-                        .filter(gamesIds.contains(Column("gameId")))
-                        .order(Column("createdAt").asc)
-                        .fetchAll(db)
-                }
-                single(.success(results))
             } catch {
                 single(.failure(error))
             }
@@ -373,6 +314,313 @@ extension TournamentManager: TournamentManagerProtocol {
                 single(.failure(error))
             }
             
+            return Disposables.create()
+        }
+    }
+    
+    func createSingleEliminationGameResult(
+        gameId: String,
+        winnerTeamId: String,
+        loserTeamId: String?
+    ) -> Single<SingleEliminationGameResult> {
+        Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+            
+            let result = SingleEliminationGameResult(
+                id: UUID().uuidString,
+                gameId: gameId,
+                winnerTeamId: winnerTeamId,
+                loserTeamId: loserTeamId,
+                createdAt: Date().timeIntervalSince1970
+            )
+            
+            do {
+                try dbQueue.write { db in
+                    try result.insert(db)
+                }
+                single(.success(result))
+                
+                TournamentMediator.shared.created(singleEliminationGameResult: result)
+            } catch {
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    func fetchSingleEliminationGamesResults(gamesIds: [String]) -> Single<[SingleEliminationGameResult]> {
+        if gamesIds.isEmpty { return .just([]) }
+        
+        return Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+            
+            do {
+                let results = try dbQueue.read { db -> [SingleEliminationGameResult] in
+                    try SingleEliminationGameResult
+                        .filter(gamesIds.contains(Column("gameId")))
+                        .order(Column("createdAt").asc)
+                        .fetchAll(db)
+                }
+                single(.success(results))
+            } catch {
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
+
+    func createRoundRobin(
+        name: String,
+        teamsIds: [String]
+    ) -> Single<RoundRobin> {
+        Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+
+            let item = RoundRobin(
+                id: UUID().uuidString,
+                name: name,
+                teamsIds: teamsIds,
+                createdAt: Date().timeIntervalSince1970
+            )
+
+            do {
+                try dbQueue.write { db in
+                    try item.insert(db)
+                }
+                single(.success(item))
+                
+                TournamentMediator.shared.created(roundRobin: item)
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    func fetchRoundRobins() -> Single<[RoundRobin]> {
+        Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+
+            do {
+                let items = try dbQueue.read { db -> [RoundRobin] in
+                    try RoundRobin
+                        .order(Column("createdAt").desc)
+                        .fetchAll(db)
+                }
+                single(.success(items))
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    func createRoundRobinGames(
+        roundRobinId: String,
+        gamesIds: [String]
+    ) -> Single<RoundRobinGames> {
+        Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+
+            let item = RoundRobinGames(
+                id: UUID().uuidString,
+                roundRobinId: roundRobinId,
+                gamesIds: gamesIds,
+                createdAt: Date().timeIntervalSince1970
+            )
+
+            do {
+                try dbQueue.write { db in
+                    try item.insert(db)
+                }
+                single(.success(item))
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    func fetchRoundRobinGames(roundRobinId: String) -> Single<RoundRobinGames> {
+        Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+
+            do {
+                let item = try dbQueue.read { db -> RoundRobinGames? in
+                    try RoundRobinGames
+                        .filter(Column("roundRobinId") == roundRobinId)
+                        .fetchOne(db)
+                }
+                if let item { single(.success(item)) }
+                else { single(.failure(ContentError(.notContent))) }
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    func createRoundRobinGameResult(
+        gameId: String,
+        team1GoalsFor: Int,
+        team1GoalsAgainst: Int,
+        team2GoalsFor: Int,
+        team2GoalsAgainst: Int
+    ) -> Single<RoundRobinGameResult> {
+        Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+
+            let res = RoundRobinGameResult(
+                id: UUID().uuidString,
+                gameId: gameId,
+                team1GoalsFor: team1GoalsFor,
+                team1GoalsAgainst: team1GoalsAgainst,
+                team2GoalsFor: team2GoalsFor,
+                team2GoalsAgainst: team2GoalsAgainst,
+                createdAt: Date().timeIntervalSince1970
+            )
+
+            do {
+                try dbQueue.write { db in
+                    try res.insert(db)
+                }
+                single(.success(res))
+                
+                TournamentMediator.shared.created(roundRobinGameResult: res)
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    func fetchRoundRobinGamesResults(gamesIds: [String]) -> Single<[RoundRobinGameResult]> {
+        if gamesIds.isEmpty { return .just([]) }
+
+        return Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+
+            do {
+                let results = try dbQueue.read { db -> [RoundRobinGameResult] in
+                    try RoundRobinGameResult
+                        .filter(gamesIds.contains(Column("gameId")))
+                        .order(Column("createdAt").asc)
+                        .fetchAll(db)
+                }
+                single(.success(results))
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    func create(
+        roundRobinId: String,
+        winner: String
+    ) -> Single<RoundRobinResult> {
+        Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+
+            let result = RoundRobinResult(
+                id: UUID().uuidString,
+                roundRobinId: roundRobinId,
+                winner: winner,
+                createdAt: Date().timeIntervalSince1970
+            )
+
+            do {
+                try dbQueue.write { db in
+                    try result.insert(db)
+                }
+                single(.success(result))
+                
+                TournamentMediator.shared.created(roundRobinResult: result)
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    func fetchRoundRobinResult(roundRobinId: String) -> Single<RoundRobinResult?> {
+        Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+
+            do {
+                let res = try dbQueue.read { db -> RoundRobinResult? in
+                    try RoundRobinResult
+                        .filter(Column("roundRobinId") == roundRobinId)
+                        .fetchOne(db)
+                }
+                single(.success(res))
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    func fetchRoundRobinsResults(roundRobinsIds: [String]) -> Single<[RoundRobinResult]> {
+        if roundRobinsIds.isEmpty { return .just([]) }
+
+        return Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+
+            do {
+                let results = try dbQueue.read { db -> [RoundRobinResult] in
+                    try RoundRobinResult
+                        .filter(roundRobinsIds.contains(Column("roundRobinId")))
+                        .fetchAll(db)
+                }
+                single(.success(results))
+            } catch {
+                single(.failure(error))
+            }
+
             return Disposables.create()
         }
     }

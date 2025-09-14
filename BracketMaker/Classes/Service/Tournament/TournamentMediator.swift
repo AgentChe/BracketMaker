@@ -11,18 +11,22 @@ import RxCocoa
 final class TournamentMediator {
     static let shared = TournamentMediator()
     
-    private lazy var didCreatedGameResultTrigger = PublishRelay<GameResult>()
+    private lazy var didCreatedSingleEliminationGameResultTrigger = PublishRelay<SingleEliminationGameResult>()
     private lazy var didCreatedSingleEliminationTrigger = PublishRelay<SingleElimination>()
     private lazy var didCreatedSingleEliminationResultTrigger = PublishRelay<SingleEliminationResult>()
     private lazy var didCreatedSingleEliminationTournamentRoundTrigger = PublishRelay<SingleEliminationTournamentRound>()
+    
+    private lazy var didCreatedRoundRobinGameResultTrigger = PublishRelay<RoundRobinGameResult>()
+    private lazy var didCreatedRoundRobinTrigger = PublishRelay<RoundRobin>()
+    private lazy var didCreatedRoundRobinResultTrigger = PublishRelay<RoundRobinResult>()
     
     private init() {}
 }
 
 // MARK: Public
 extension TournamentMediator {
-    func created(gameResult: GameResult) {
-        didCreatedGameResultTrigger.accept(gameResult)
+    func created(singleEliminationGameResult: SingleEliminationGameResult) {
+        didCreatedSingleEliminationGameResultTrigger.accept(singleEliminationGameResult)
     }
     
     func created(singleElimination: SingleElimination) {
@@ -37,8 +41,20 @@ extension TournamentMediator {
         didCreatedSingleEliminationTournamentRoundTrigger.accept(singleEliminationTournamentRound)
     }
     
-    var didCreatedGameResult: Signal<GameResult> {
-        didCreatedGameResultTrigger.asSignal()
+    func created(roundRobinGameResult: RoundRobinGameResult) {
+        didCreatedRoundRobinGameResultTrigger.accept(roundRobinGameResult)
+    }
+    
+    func created(roundRobin: RoundRobin) {
+        didCreatedRoundRobinTrigger.accept(roundRobin)
+    }
+    
+    func created(roundRobinResult: RoundRobinResult) {
+        didCreatedRoundRobinResultTrigger.accept(roundRobinResult)
+    }
+    
+    var didCreatedSingleEliminationGameResult: Signal<SingleEliminationGameResult> {
+        didCreatedSingleEliminationGameResultTrigger.asSignal()
     }
     
     var didCreatedSingleElimination: Signal<SingleElimination> {
@@ -51,5 +67,17 @@ extension TournamentMediator {
     
     var didCreatedSingleEliminationTournamentRound: Signal<SingleEliminationTournamentRound> {
         didCreatedSingleEliminationTournamentRoundTrigger.asSignal()
+    }
+    
+    var didCreatedRoundRobinGameResult: Signal<RoundRobinGameResult> {
+        didCreatedRoundRobinGameResultTrigger.asSignal()
+    }
+    
+    var didCreatedRoundRobin: Signal<RoundRobin> {
+        didCreatedRoundRobinTrigger.asSignal()
+    }
+    
+    var didCreatedRoundRobinResult: Signal<RoundRobinResult> {
+        didCreatedRoundRobinResultTrigger.asSignal()
     }
 }
