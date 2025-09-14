@@ -95,6 +95,7 @@
 "Home.Bracket.InProgress" = "In progress";
 "Home.Bracket.Completed" = "Completed";
 "Home.SingleElimination" = "Single Elimination";
+"Home.RoundRobin" = "Round Robin";
 "Home.Winner" = "Winner: %@";
 
 // MARK: CreateBracket

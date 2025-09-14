@@ -42,11 +42,14 @@ struct HomeTableBracketElement {
     
     enum Bracket {
         case singleElimination(SingleElimination)
+        case roundRobin(RoundRobin)
         
         var createdAt: TimeInterval {
             switch self {
             case .singleElimination(let singleElimination):
                 return singleElimination.createdAt
+            case .roundRobin(let roundRobin):
+                return roundRobin.createdAt
             }
         }
     }

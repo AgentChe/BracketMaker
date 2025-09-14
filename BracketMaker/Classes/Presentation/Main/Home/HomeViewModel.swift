@@ -43,9 +43,17 @@ extension HomeViewModel {
             singleEliminationsResults: singleEliminationsResults,
             teams: teams
         )
+        let roundRobins = makeRoundRobins()
+        let roundRobinsResults = makeRoundRobinsResults(roundRobins: roundRobins)
+        let roundRobinsElements = makeRoundRobinsElements(
+            roundRobins: roundRobins,
+            roundRobinsResults: roundRobinsResults,
+            teams: teams
+        )
         let bracketsElements = makeBracketsElements(
             currentFilter: currentFilter,
-            singleEliminationsElements: singleEliminationsElements
+            singleEliminationsElements: singleEliminationsElements,
+            roundRobinsElements: roundRobinsElements
         )
         
         return Output(
@@ -99,12 +107,17 @@ private extension HomeViewModel {
             }
     }
     
-    // TODO: объединить с double eliminations и round robin
+    // TODO: объединить с double eliminations
     func makeBracketsElements(
         currentFilter: Driver<HomeFilterItemButton.Filter>,
-        singleEliminationsElements: Driver<[HomeTableBracketElement]>
+        singleEliminationsElements: Driver<[HomeTableBracketElement]>,
+        roundRobinsElements: Driver<[HomeTableBracketElement]>
     ) -> Driver<[HomeTableBracketElement]> {
-        singleEliminationsElements
+        Driver
+            .combineLatest(
+                singleEliminationsElements,
+                roundRobinsElements
+            ) { $0 + $1 }
             .map { elements -> [HomeTableBracketElement] in
                 elements.sorted(by: { $0.bracket.createdAt < $1.bracket.createdAt})
             }
@@ -139,6 +152,40 @@ private extension HomeViewModel {
                     return HomeTableBracketElement(
                         state: state,
                         bracket: .singleElimination(singleElimination)
+                    )
+                }
+            }
+    }
+    
+    func makeRoundRobinsElements(
+        roundRobins: Driver<[RoundRobin]>,
+        roundRobinsResults: Driver<[RoundRobinResult]>,
+        teams: Driver<[Team]>
+    ) -> Driver<[HomeTableBracketElement]> {
+        Driver
+            .combineLatest(roundRobins, roundRobinsResults)
+            .withLatestFrom(teams) { ($0.0, $0.1, $1) }
+            .map { roundRobins, roundRobinsResults, teams -> [HomeTableBracketElement] in
+                roundRobins.map { roundRobin -> HomeTableBracketElement in
+                    let state: HomeTableBracketElement.State = {
+                        guard let result = roundRobinsResults.first(where: { $0.roundRobinId == roundRobin.id }) else {
+                            return .inProgress
+                        }
+                        
+                        let winner: Team = {
+                            if let winner = teams.first(where: { $0.id == result.winner }) {
+                                return winner
+                            }
+                            
+                            return Team.unknownTeam()
+                        }()
+                        
+                        return .completed(winner)
+                    }()
+                    
+                    return HomeTableBracketElement(
+                        state: state,
+                        bracket: .roundRobin(roundRobin)
                     )
                 }
             }
@@ -214,6 +261,47 @@ private extension HomeViewModel {
                         TournamentMediator.shared
                             .didCreatedSingleEliminationResult
                             .scan(initial) { array, new -> [SingleEliminationResult] in
+                                array + [new]
+                            }
+                            .startWith(initial)
+                            .asDriver(onErrorJustReturn: [])
+                    }
+            }
+    }
+    
+    func makeRoundRobins() -> Driver<[RoundRobin]> {
+        let initial = tournamentManager
+            .fetchRoundRobins()
+            .asDriver(onErrorJustReturn: [])
+        
+        return initial
+            .flatMapLatest { initial -> Driver<[RoundRobin]> in
+                TournamentMediator.shared
+                    .didCreatedRoundRobin
+                    .scan(initial) { array, new -> [RoundRobin] in
+                        array + [new]
+                    }
+                    .startWith(initial)
+                    .asDriver(onErrorJustReturn: [])
+            }
+    }
+    
+    func makeRoundRobinsResults(roundRobins: Driver<[RoundRobin]>) -> Driver<[RoundRobinResult]> {
+        roundRobins
+            .flatMapLatest { [weak self] roundRobins -> Driver<[RoundRobinResult]> in
+                guard let self else { return .never() }
+                
+                let ids = roundRobins.map { $0.id }
+                
+                let initial = tournamentManager
+                    .fetchRoundRobinsResults(roundRobinsIds: ids)
+                    .asDriver(onErrorJustReturn: [])
+                
+                return initial
+                    .flatMapLatest { initial -> Driver<[RoundRobinResult]> in
+                        TournamentMediator.shared
+                            .didCreatedRoundRobinResult
+                            .scan(initial) { array, new -> [RoundRobinResult] in
                                 array + [new]
                             }
                             .startWith(initial)
