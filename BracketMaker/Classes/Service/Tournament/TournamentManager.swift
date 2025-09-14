@@ -14,6 +14,11 @@ protocol TournamentManagerProtocol {
         team2Id: String,
         sort: Int
     ) -> Single<Game>
+    func createGames(array: [
+        (team1Id: String,
+         team2Id: String,
+         sort: Int)
+    ]) -> Single<[Game]>
     func fetchGames(ids: [String]) -> Single<[Game]>
     
     func createSingleElimination(
@@ -64,6 +69,8 @@ protocol TournamentManagerProtocol {
     ) -> Single<RoundRobinResult>
     func fetchRoundRobinResult(roundRobinId: String) -> Single<RoundRobinResult?>
     func fetchRoundRobinsResults(roundRobinsIds: [String]) -> Single<[RoundRobinResult]>
+    
+    func tournamentsTotalCount() -> Single<Int>
 }
 
 final class TournamentManager {
@@ -104,6 +111,44 @@ extension TournamentManager: TournamentManagerProtocol {
         }
     }
 
+    func createGames(array: [
+        (team1Id: String, team2Id: String, sort: Int)
+    ]) -> Single<[Game]> {
+        if array.isEmpty { return .just([]) }
+
+        return Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+
+            let baseTime = Date().timeIntervalSince1970
+            let games: [Game] = array.enumerated().map { idx, item in
+                Game(
+                    id: UUID().uuidString,
+                    team1Id: item.team1Id,
+                    team2Id: item.team2Id,
+                    sort: item.sort,
+                    createdAt: baseTime + TimeInterval(idx) * 1e-6
+                )
+            }
+
+            do {
+                try dbQueue.write { db in
+                    for game in games {
+                        try game.insert(db)
+                    }
+                    // Если в цикле упадёт throw — весь write откатится одной транзакцией.
+                }
+                single(.success(games))
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+    
     func fetchGames(ids: [String]) -> Single<[Game]> {
         if ids.isEmpty { return .just([]) }
         
@@ -617,6 +662,29 @@ extension TournamentManager: TournamentManagerProtocol {
                         .fetchAll(db)
                 }
                 single(.success(results))
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+    
+    // TODO: добавить Double Elimination
+    func tournamentsTotalCount() -> Single<Int> {
+        Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+
+            do {
+                let total = try dbQueue.read { db -> Int in
+                    let seCount = try SingleElimination.fetchCount(db)
+                    let rrCount = try RoundRobin.fetchCount(db)
+                    return seCount + rrCount
+                }
+                single(.success(total))
             } catch {
                 single(.failure(error))
             }

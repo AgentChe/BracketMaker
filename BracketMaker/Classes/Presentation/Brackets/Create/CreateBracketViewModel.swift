@@ -13,9 +13,13 @@ final class CreateBracketViewModel {
         case selectPreset(TournamentPreset)
         case openInfo
         case selectTeam(TeamPosition)
+        case openPaygate
+        case close
     }
     
     private let initialPreset: Driver<TournamentPreset?>
+    
+    private lazy var tournamentManager = TournamentManager()
     
     init(preset: TournamentPreset?) {
         self.initialPreset = BehaviorRelay(value: preset).asDriver()
@@ -34,6 +38,7 @@ extension CreateBracketViewModel {
         let didTapShuffle: Signal<Void>
         let didTapTeamPosition: Signal<TeamPosition>
         let didSelectTeam: Signal<(Team, TeamPosition)>
+        let didTapCreate: Signal<Void>
     }
     
     struct Output {
@@ -69,7 +74,11 @@ extension CreateBracketViewModel {
                 didTapSelectPreset: input.didTapSelectPreset,
                 currentPreset: currentPreset,
                 didTapInfo: input.didTapInfo,
-                didTapTeamPosition: input.didTapTeamPosition
+                didTapTeamPosition: input.didTapTeamPosition,
+                didTapCreate: input.didTapCreate,
+                name: name,
+                currentBracketType: currentBracketType,
+                elements: elements
             ),
             currentBracketType: currentBracketType,
             canCreate: makeCanCreate(
@@ -117,7 +126,11 @@ private extension CreateBracketViewModel {
         didTapSelectPreset: Signal<Void>,
         currentPreset: Driver<TournamentPreset>,
         didTapInfo: Signal<Void>,
-        didTapTeamPosition: Signal<TeamPosition>
+        didTapTeamPosition: Signal<TeamPosition>,
+        didTapCreate: Signal<Void>,
+        name: Driver<String>,
+        currentBracketType: Driver<CBBracketTypeItemButton.BracketType>,
+        elements: Driver<[CBTableElement]>
     ) -> Driver<Action> {
         let selectPreset = didTapSelectPreset
             .asDriver(onErrorDriveWith: .never())
@@ -139,8 +152,36 @@ private extension CreateBracketViewModel {
             }
             .asDriver(onErrorDriveWith: .never())
         
+        let create = didTapCreate
+            .asDriver(onErrorDriveWith: .never())
+            .withLatestFrom(name)
+            .withLatestFrom(currentBracketType) { ($0, $1) }
+            .withLatestFrom(elements) { ($0.0, $0.1, $1) }
+            .flatMapLatest { [weak self] name, bracketType, elements -> Driver<Action> in
+                guard let self else { return .never() }
+                
+                if SessionManager().hasActiveSubscriptions() {
+                    return self.create(
+                        name: name,
+                        bracketType: bracketType,
+                        elements: elements
+                    )
+                }
+                
+                return tournamentManager
+                    .tournamentsTotalCount()
+                    .asDriver(onErrorJustReturn: 0)
+                    .flatMap { tournamentsTotalCount -> Driver<Action> in
+                        tournamentsTotalCount > 0 ? .just(.openPaygate) : self.create(
+                            name: name,
+                            bracketType: bracketType,
+                            elements: elements
+                        )
+                    }
+            }
+        
         return Driver
-            .merge(selectPreset, openInfo, selectTeam)
+            .merge(selectPreset, openInfo, selectTeam, create)
     }
     
     func makeCanCreate(
@@ -407,5 +448,125 @@ private extension CreateBracketViewModel {
                 }
             }
             .map { $0.map { .oneRowTeam($0) } }
+    }
+}
+
+// MARK: Additional
+private extension CreateBracketViewModel {
+    func create(
+        name: String,
+        bracketType: CBBracketTypeItemButton.BracketType,
+        elements: [CBTableElement]
+    ) -> Driver<Action> {
+        switch bracketType {
+        case .singleElimination:
+            let teams = collectTeamsForSE(from: elements)
+            let pairs = buildSingleEliminationPairs(from: elements)
+            
+            return tournamentManager
+                .createSingleElimination(name: name, teamsIds: teams)
+                .asDriver(onErrorDriveWith: .never())
+                .flatMap { [weak self] singleElimination -> Driver<Action> in
+                    guard let self else { return .never() }
+                    
+                    return tournamentManager.createGames(array: pairs)
+                        .flatMap { games in
+                            self.tournamentManager.createSingleEliminationTournamentRound(
+                                singleEliminationId: singleElimination.id,
+                                gamesIds: games.map { $0.id },
+                                round: 1
+                            )
+                        }
+                        .map { _ in Action.close }
+                        .asDriver(onErrorDriveWith: .never())
+                }
+        case .doubleElimination:
+            return .never() // TODO: impl
+        case .roundRobin:
+            let teams = collectTeamsForRR(from: elements)
+            let pairs = buildRoundRobinPairs(from: teams)
+            
+            return tournamentManager
+                .createRoundRobin(name: name, teamsIds: teams)
+                .asDriver(onErrorDriveWith: .never())
+                .flatMap { [weak self] roundRobin in
+                    guard let self else { return .never() }
+                    
+                    return tournamentManager.createGames(array: pairs)
+                        .flatMap { games in
+                            self.tournamentManager.createRoundRobinGames(
+                                roundRobinId: roundRobin.id,
+                                gamesIds: games.map { $0.id }
+                            )
+                        }
+                        .map { _ in Action.close }
+                        .asDriver(onErrorDriveWith: .never())
+                }
+        }
+    }
+    
+    func collectTeamsForSE(from elements: [CBTableElement]) -> [String] {
+        var ids: [String] = []
+        for element in elements {
+            if case let .vsRow(l, r) = element {
+                if let team1Id = l.teamId { ids.append(team1Id) }
+                if let team1Id = r.teamId { ids.append(team1Id) }
+            }
+        }
+        return uniqueOrdered(ids)
+    }
+    
+    func buildSingleEliminationPairs(from elements: [CBTableElement]) -> [(team1Id: String, team2Id: String, sort: Int)] {
+        var pairs: [(String, String, Int)] = []
+        for (idx, element) in elements.enumerated() {
+            if case let .vsRow(team1, team2) = element, let team1Id = team1.teamId, let team2Id = team2.teamId {
+                pairs.append((team1Id, team2Id, idx))
+            }
+        }
+        return pairs
+    }
+    
+    func collectTeamsForRR(from elements: [CBTableElement]) -> [String] {
+        var ids: [String] = []
+        for element in elements {
+            if case let .oneRowTeam(tp) = element, let id = tp.teamId {
+                ids.append(id)
+            }
+        }
+        return uniqueOrdered(ids)
+    }
+    
+    func buildRoundRobinPairs(from teamIds: [String]) -> [(team1Id: String, team2Id: String, sort: Int)] {
+        var out: [(String, String, Int)] = []
+        var s = 0
+        for i in 0..<teamIds.count {
+            for j in (i+1)..<teamIds.count {
+                out.append((teamIds[i], teamIds[j], s))
+                s += 1
+            }
+        }
+        return out
+    }
+    
+    func uniqueOrdered(_ ids: [String]) -> [String] {
+        var seen = Set<String>()
+        var out: [String] = []
+        for id in ids where !seen.contains(id) {
+            seen.insert(id)
+            out.append(id)
+        }
+        return out
+    }
+}
+
+// MARK: Additional
+private extension TeamPosition {
+    var teamId: String? {
+        switch content {
+        case .team(let team):
+            return team.id
+        case .none, .bye:
+            return nil
+        }
     }
 }

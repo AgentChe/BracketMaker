@@ -51,7 +51,8 @@ final class CreateBracketViewController: UIViewController {
                 .asSignal(onErrorSignalWith: .never()),
             didTapShuffle: mainView.teamsHeaderView.shuffleButton.rx.tap.asSignal(),
             didTapTeamPosition: mainView.tableView.didSelect,
-            didSelectTeam: didSelectTeamTrigger.asSignal()
+            didSelectTeam: didSelectTeamTrigger.asSignal(),
+            didTapCreate: mainView.createButton.rx.tap.asSignal()
         ))
         
         output.preset
@@ -136,6 +137,11 @@ private extension CreateBracketViewController {
                 self?.didSelectTeamTrigger.accept((team, teamPosition))
             }
             present(vc, animated: true)
+        case .openPaygate:
+            let vc = PaygateViewController.make()
+            present(vc, animated: true)
+        case .close:
+            navigationController?.popViewController(animated: true)
         }
     }
 }
