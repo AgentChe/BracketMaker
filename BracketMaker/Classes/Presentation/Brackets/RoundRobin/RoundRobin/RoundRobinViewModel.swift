@@ -36,21 +36,23 @@ extension RoundRobinViewModel {
     struct Output {
         let elements: Driver<[RoundRobinTableElement]>
         let action: Driver<Action>
+        let disposable: Disposable
     }
     
     func configure(input: Input) -> Output {
         let teams = makeTeams()
         let games = makeGames(roundRobin: roundRobin)
         let gamesResults = makeGamesResults(games: games)
+        let ptsTeams = makePtsElements(
+            roundRobin: roundRobin,
+            teams: teams,
+            games: games,
+            gamesResults: gamesResults
+        )
         
         return Output(
             elements: makeElements(
-                ptsElements: makePtsElements(
-                    roundRobin: roundRobin,
-                    teams: teams,
-                    games: games,
-                    gamesResults: gamesResults
-                ),
+                ptsElements: ptsTeams,
                 gamesElements: makeGamesElements(
                     teams: teams,
                     games: games,
@@ -62,6 +64,12 @@ extension RoundRobinViewModel {
                 didSelectGameElement: input.didSelectGameElement,
                 didTapDelete: input.didTapDelete,
                 didConfirmDelete: input.didConfirmDelete
+            ),
+            disposable: makeRoundRobinResult(
+                roundRobin: roundRobin,
+                games: games,
+                gamesResults: gamesResults,
+                ptsTeams: ptsTeams
             )
         )
     }
@@ -95,26 +103,24 @@ private extension RoundRobinViewModel {
                 let gameById = Dictionary(uniqueKeysWithValues: games.map { ($0.id, $0) })
 
                 struct Agg { var w = 0, d = 0, l = 0, f = 0, a = 0 }
-                
                 var agg: [String: Agg] = [:]
 
-                for gameResult in gamesResults {
-                    guard let game = gameById[gameResult.gameId], let t2Id = game.team2Id else { continue }
-                    
+                for result in gamesResults {
+                    guard let game = gameById[result.gameId], let t2Id = game.team2Id else { continue }
                     let t1Id = game.team1Id
 
                     var a1 = agg[t1Id] ?? Agg()
                     var a2 = agg[t2Id] ?? Agg()
 
-                    a1.f += gameResult.team1GoalsFor
-                    a1.a += gameResult.team1GoalsAgainst
-                    a2.f += gameResult.team2GoalsFor
-                    a2.a += gameResult.team2GoalsAgainst
+                    a1.f += result.team1GoalsFor
+                    a1.a += result.team1GoalsAgainst
+                    a2.f += result.team2GoalsFor
+                    a2.a += result.team2GoalsAgainst
 
-                    if gameResult.team1GoalsFor > gameResult.team2GoalsFor {
+                    if result.team1GoalsFor > result.team2GoalsFor {
                         a1.w += 1
                         a2.l += 1
-                    } else if gameResult.team1GoalsFor < gameResult.team2GoalsFor {
+                    } else if result.team1GoalsFor < result.team2GoalsFor {
                         a2.w += 1
                         a1.l += 1
                     } else {
@@ -126,28 +132,46 @@ private extension RoundRobinViewModel {
                     agg[t2Id] = a2
                 }
 
-                return orderedTeams.enumerated().map { idx, team in
-                    if let a = agg[team.id] {
-                        return RoundRobinTablePtsTeamElement(
-                            team: team,
-                            w: a.w,
-                            d: a.d,
-                            l: a.l,
-                            f: a.f,
-                            a: a.a,
-                            pts: a.w * 3 + a.d,
-                            style: idx.isMultiple(of: 2) ? .white : .gray
-                        )
-                    } else {
-                        return RoundRobinTablePtsTeamElement(
-                            team: team,
-                            w: nil, d: nil, l: nil, f: nil, a: nil, pts: nil,
-                            style: idx.isMultiple(of: 2) ? .white : .gray
-                        )
+                let idxByTeamId = Dictionary(uniqueKeysWithValues: roundRobin.teamsIds.enumerated().map { ($0.element, $0.offset) })
+
+                let rows: [(team: Team, w: Int?, d: Int?, l: Int?, f: Int?, a: Int?, pts: Int?)] =
+                    orderedTeams.map { team in
+                        if let a = agg[team.id] {
+                            return (team, a.w, a.d, a.l, a.f, a.a, a.w * 3 + a.d)
+                        } else {
+                            return (team, nil, nil, nil, nil, nil, nil)
+                        }
                     }
+
+                let sorted = rows.sorted { lhs, rhs in
+                    switch (lhs.pts, rhs.pts) {
+                    case let (lp?, rp?):
+                        if lp != rp { return lp > rp }
+                        return (idxByTeamId[lhs.team.id] ?? Int.max) < (idxByTeamId[rhs.team.id] ?? Int.max)
+                    case (_?, nil):
+                        return true
+                    case (nil, _?):
+                        return false
+                    case (nil, nil):
+                        return (idxByTeamId[lhs.team.id] ?? Int.max) < (idxByTeamId[rhs.team.id] ?? Int.max)
+                    }
+                }
+
+                return sorted.enumerated().map { idx, row in
+                    RoundRobinTablePtsTeamElement(
+                        team: row.team,
+                        w: row.w,
+                        d: row.d,
+                        l: row.l,
+                        f: row.f,
+                        a: row.a,
+                        pts: row.pts,
+                        style: idx.isMultiple(of: 2) ? .white : .gray
+                    )
                 }
             }
     }
+
     
     func makeGamesElements(
         teams: Driver<[Team]>,
@@ -287,5 +311,57 @@ private extension RoundRobinViewModel {
         
         return Driver
             .merge(createGameResult, requestConfirmDelete, delete)
+    }
+    
+    func makeRoundRobinResult(
+        roundRobin: Driver<RoundRobin>,
+        games: Driver<[Game]>,
+        gamesResults: Driver<[RoundRobinGameResult]>,
+        ptsTeams: Driver<[RoundRobinTablePtsTeamElement]>
+    ) -> Disposable {
+        Driver
+            .combineLatest(roundRobin, games, gamesResults, ptsTeams)
+            .flatMapLatest { [weak self] rr, games, results, pts -> Driver<Void> in
+                guard let self else { return .never() }
+
+                let playableIds = Set(games.compactMap { $0.team2Id == nil ? nil : $0.id })
+                let resultIds = Set(results.map { $0.gameId })
+
+                let allPlayed = !playableIds.isEmpty && playableIds == resultIds
+                guard allPlayed else { return .just(()) }
+
+                let idxByTeamId = Dictionary(uniqueKeysWithValues: rr.teamsIds.enumerated().map { ($0.element, $0.offset) })
+
+                let scored: [(id: String, pts: Int, gd: Int, gf: Int, idx: Int)] = pts.compactMap { e in
+                    guard let pts = e.pts else { return nil }
+                    
+                    let gf = e.f ?? 0
+                    let ga = e.a ?? 0
+                    let idx = idxByTeamId[e.team.id] ?? Int.max
+                    return (id: e.team.id, pts: pts, gd: gf - ga, gf: gf, idx: idx)
+                }
+
+                guard !scored.isEmpty else { return .just(()) }
+
+                let winnerId = scored.sorted {
+                    if $0.pts != $1.pts { return $0.pts > $1.pts }
+                    if $0.gd  != $1.gd  { return $0.gd  > $1.gd  }
+                    if $0.gf  != $1.gf  { return $0.gf  > $1.gf  }
+                    return $0.idx < $1.idx
+                }.first!.id
+ 
+                return tournamentManager
+                    .fetchRoundRobinResult(roundRobinId: rr.id)
+                    .asDriver(onErrorDriveWith: .never())
+                    .flatMapLatest { existing -> Driver<Void> in
+                        guard existing == nil else { return .just(()) }
+                        
+                        return self.tournamentManager
+                            .create(roundRobinId: rr.id, winner: winnerId)
+                            .map { _ in () }
+                            .asDriver(onErrorDriveWith: .never())
+                    }
+            }
+            .drive()
     }
 }

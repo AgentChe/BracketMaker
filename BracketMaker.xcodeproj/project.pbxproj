@@ -725,14 +725,6 @@
 		DED4BD362E796E8F00296BF8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DED4BD372E796F3C00296BF8 /* Views */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		DED4BD372E796F3C00296BF8 /* Views */ = {
-			isa = PBXGroup;
-			children = (
 				DED4BD3A2E7975C600296BF8 /* TableView */,
 				DED4BD382E796F4D00296BF8 /* RoundRobinBottomView.swift */,
 			);

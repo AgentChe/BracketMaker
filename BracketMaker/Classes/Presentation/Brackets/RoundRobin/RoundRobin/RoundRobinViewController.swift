@@ -11,7 +11,6 @@ import RxCocoa
 
 // TODO:
 // 1. Share
-// 4. Create RR Result
 final class RoundRobinViewController: UIViewController {
     private lazy var mainView = RoundRobinView()
     
@@ -54,6 +53,9 @@ final class RoundRobinViewController: UIViewController {
             .drive(Binder(self) { base, action in
                 base.action(action)
             })
+            .disposed(by: disposeBag)
+        
+        output.disposable
             .disposed(by: disposeBag)
     }
 }
