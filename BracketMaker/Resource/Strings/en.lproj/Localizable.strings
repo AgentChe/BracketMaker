@@ -146,3 +146,17 @@
 
 // MARK: SelectTeam
 "SelectTeam.Title" = "Add team";
+
+// MARK: RoundRobin
+"RoundRobin.Share" = "Share";
+"RoundRobin.VS" = "VS";
+
+// MARK: CreateRRGameResult
+"CreateRRGameResult.Title" = "Score";
+"CreateRRGameResult.VS" = "VS";
+
+// MARK: RRConfirmDelete
+"RRConfirmDelete.Title" = "Delete brackets";
+"RRConfirmDelete.SubTitle" = "Are you sure want to delete this brackets?";
+"RRConfirmDelete.Yes" = "Yes";
+"RRConfirmDelete.No" = "No";

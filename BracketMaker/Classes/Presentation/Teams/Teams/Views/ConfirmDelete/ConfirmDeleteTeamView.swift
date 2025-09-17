@@ -81,7 +81,7 @@ private extension ConfirmDeleteTeamView {
         
         NSLayoutConstraint.activate([
             subTitleLabel.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-            subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2.scale)
+            subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8.scale)
         ])
         
         NSLayoutConstraint.activate([

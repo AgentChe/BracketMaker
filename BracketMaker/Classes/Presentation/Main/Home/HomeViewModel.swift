@@ -12,6 +12,8 @@ final class HomeViewModel {
     enum Action {
         case openPaygate
         case createBracket(TournamentPreset?)
+        case openSingleElimination(SingleElimination)
+        case openRoundRobin(RoundRobin)
     }
     
     private lazy var tournamentManager = TournamentManager()
@@ -25,6 +27,7 @@ extension HomeViewModel {
         let didTapPreset: Signal<TournamentPreset>
         let didTapAddFirstBracket: Signal<Void>
         let didChangeFilter: Signal<HomeFilterItemButton.Filter>
+        let didSelectBracket: Signal<HomeTableBracketElement.Bracket>
     }
     
     struct Output {
@@ -64,7 +67,8 @@ extension HomeViewModel {
             action: makeAction(
                 didTapPaygate: input.didTapPaygate,
                 didTapAddFirstBracket: input.didTapAddFirstBracket,
-                didTapPreset: input.didTapPreset
+                didTapPreset: input.didTapPreset,
+                didSelectBracket: input.didSelectBracket
             ),
             activeSubscription: makeActiveSubscription()
         )
@@ -201,7 +205,8 @@ private extension HomeViewModel {
     func makeAction(
         didTapPaygate: Signal<Void>,
         didTapAddFirstBracket: Signal<Void>,
-        didTapPreset: Signal<TournamentPreset>
+        didTapPreset: Signal<TournamentPreset>,
+        didSelectBracket: Signal<HomeTableBracketElement.Bracket>
     ) -> Driver<Action> {
         let openPaygate = didTapPaygate
             .map { Action.openPaygate }
@@ -216,8 +221,19 @@ private extension HomeViewModel {
             )
             .asDriver(onErrorDriveWith: .never())
         
+        let openBracket = didSelectBracket
+            .map { bracket -> Action in
+                switch bracket {
+                case .singleElimination(let singleElimination):
+                    return .openSingleElimination(singleElimination)
+                case .roundRobin(let roundRobin):
+                    return .openRoundRobin(roundRobin)
+                }
+            }
+            .asDriver(onErrorDriveWith: .never())
+        
         return Driver
-            .merge(openPaygate, createBracket)
+            .merge(openPaygate, createBracket, openBracket)
     }
     
     func makeActiveSubscription() -> Driver<Bool> {
@@ -274,12 +290,34 @@ private extension HomeViewModel {
             .fetchRoundRobins()
             .asDriver(onErrorJustReturn: [])
         
+        enum Action {
+            case created(RoundRobin)
+            case deleted(String)
+        }
+        
         return initial
             .flatMapLatest { initial -> Driver<[RoundRobin]> in
-                TournamentMediator.shared
-                    .didCreatedRoundRobin
-                    .scan(initial) { array, new -> [RoundRobin] in
-                        array + [new]
+                let action = Signal
+                    .merge(
+                        TournamentMediator.shared
+                            .didCreatedRoundRobin
+                            .map { Action.created($0) },
+                        
+                        TournamentMediator.shared
+                            .didDeletedRoundRobin
+                            .map { Action.deleted($0) }
+                    )
+                
+                return action
+                    .scan(initial) { array, action -> [RoundRobin] in
+                        switch action {
+                        case .created(let roundRobin):
+                            return array + [roundRobin]
+                        case .deleted(let id):
+                            var result = array
+                            result.removeAll(where: { $0.id == id })
+                            return result
+                        }
                     }
                     .startWith(initial)
                     .asDriver(onErrorJustReturn: [])

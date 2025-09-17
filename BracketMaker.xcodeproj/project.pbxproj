@@ -81,6 +81,23 @@
 		DED4BCF22E76ACA200296BF8 /* RoundRobinGames.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BCF12E76ACA200296BF8 /* RoundRobinGames.swift */; };
 		DED4BCF42E76B1DB00296BF8 /* RoundRobinGameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BCF32E76B1DB00296BF8 /* RoundRobinGameResult.swift */; };
 		DED4BCF62E76B48F00296BF8 /* RoundRobinResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BCF52E76B48F00296BF8 /* RoundRobinResult.swift */; };
+		DED4BD312E796E4100296BF8 /* RoundRobinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD302E796E4100296BF8 /* RoundRobinViewController.swift */; };
+		DED4BD332E796E4700296BF8 /* RoundRobinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD322E796E4700296BF8 /* RoundRobinViewModel.swift */; };
+		DED4BD352E796E4C00296BF8 /* RoundRobinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD342E796E4C00296BF8 /* RoundRobinView.swift */; };
+		DED4BD392E796F4D00296BF8 /* RoundRobinBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD382E796F4D00296BF8 /* RoundRobinBottomView.swift */; };
+		DED4BD3C2E7975D900296BF8 /* RoundRobinTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD3B2E7975D900296BF8 /* RoundRobinTableView.swift */; };
+		DED4BD3E2E7975E000296BF8 /* RoundRobinTableElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD3D2E7975E000296BF8 /* RoundRobinTableElement.swift */; };
+		DED4BD422E7975FE00296BF8 /* RoundRobinTableGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD412E7975FE00296BF8 /* RoundRobinTableGameCell.swift */; };
+		DED4BD442E79763B00296BF8 /* RoundRobinTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD432E79763B00296BF8 /* RoundRobinTeamView.swift */; };
+		DED4BD482E799A9C00296BF8 /* CreateRRGameResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD472E799A9C00296BF8 /* CreateRRGameResultViewController.swift */; };
+		DED4BD4A2E799AA200296BF8 /* CreateRRGameResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD492E799AA200296BF8 /* CreateRRGameResultViewModel.swift */; };
+		DED4BD4C2E799AA700296BF8 /* CreateRRGameResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD4B2E799AA700296BF8 /* CreateRRGameResultView.swift */; };
+		DED4BD4F2E7ABE5D00296BF8 /* CRRGRTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD4E2E7ABE5D00296BF8 /* CRRGRTeamView.swift */; };
+		DED4BD522E7ABF9200296BF8 /* CRRGRTeamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD512E7ABF9200296BF8 /* CRRGRTeamsView.swift */; };
+		DED4BD542E7AC4E500296BF8 /* CRRGRGoalsForItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD532E7AC4E500296BF8 /* CRRGRGoalsForItemView.swift */; };
+		DED4BD572E7AC51200296BF8 /* CRRGRGoalsForView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD562E7AC51200296BF8 /* CRRGRGoalsForView.swift */; };
+		DED4BD5A2E7ADF5500296BF8 /* RRConfirmDeleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD592E7ADF5500296BF8 /* RRConfirmDeleteView.swift */; };
+		DED4BD5C2E7ADF5C00296BF8 /* RRConfirmDeleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD5B2E7ADF5C00296BF8 /* RRConfirmDeleteViewController.swift */; };
 		DEEB11452E6B07010069CE9E /* TournamentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11442E6B07010069CE9E /* TournamentManager.swift */; };
 		DEEB11472E6B07070069CE9E /* TournamentMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11462E6B07070069CE9E /* TournamentMediator.swift */; };
 		DEEB11492E6B07400069CE9E /* SingleElimination.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11482E6B07400069CE9E /* SingleElimination.swift */; };
@@ -243,6 +260,23 @@
 		DED4BCF12E76ACA200296BF8 /* RoundRobinGames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundRobinGames.swift; sourceTree = "<group>"; };
 		DED4BCF32E76B1DB00296BF8 /* RoundRobinGameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundRobinGameResult.swift; sourceTree = "<group>"; };
 		DED4BCF52E76B48F00296BF8 /* RoundRobinResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundRobinResult.swift; sourceTree = "<group>"; };
+		DED4BD302E796E4100296BF8 /* RoundRobinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundRobinViewController.swift; sourceTree = "<group>"; };
+		DED4BD322E796E4700296BF8 /* RoundRobinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundRobinViewModel.swift; sourceTree = "<group>"; };
+		DED4BD342E796E4C00296BF8 /* RoundRobinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundRobinView.swift; sourceTree = "<group>"; };
+		DED4BD382E796F4D00296BF8 /* RoundRobinBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundRobinBottomView.swift; sourceTree = "<group>"; };
+		DED4BD3B2E7975D900296BF8 /* RoundRobinTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundRobinTableView.swift; sourceTree = "<group>"; };
+		DED4BD3D2E7975E000296BF8 /* RoundRobinTableElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundRobinTableElement.swift; sourceTree = "<group>"; };
+		DED4BD412E7975FE00296BF8 /* RoundRobinTableGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundRobinTableGameCell.swift; sourceTree = "<group>"; };
+		DED4BD432E79763B00296BF8 /* RoundRobinTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundRobinTeamView.swift; sourceTree = "<group>"; };
+		DED4BD472E799A9C00296BF8 /* CreateRRGameResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRRGameResultViewController.swift; sourceTree = "<group>"; };
+		DED4BD492E799AA200296BF8 /* CreateRRGameResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRRGameResultViewModel.swift; sourceTree = "<group>"; };
+		DED4BD4B2E799AA700296BF8 /* CreateRRGameResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRRGameResultView.swift; sourceTree = "<group>"; };
+		DED4BD4E2E7ABE5D00296BF8 /* CRRGRTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRRGRTeamView.swift; sourceTree = "<group>"; };
+		DED4BD512E7ABF9200296BF8 /* CRRGRTeamsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRRGRTeamsView.swift; sourceTree = "<group>"; };
+		DED4BD532E7AC4E500296BF8 /* CRRGRGoalsForItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRRGRGoalsForItemView.swift; sourceTree = "<group>"; };
+		DED4BD562E7AC51200296BF8 /* CRRGRGoalsForView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRRGRGoalsForView.swift; sourceTree = "<group>"; };
+		DED4BD592E7ADF5500296BF8 /* RRConfirmDeleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRConfirmDeleteView.swift; sourceTree = "<group>"; };
+		DED4BD5B2E7ADF5C00296BF8 /* RRConfirmDeleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRConfirmDeleteViewController.swift; sourceTree = "<group>"; };
 		DEEB11442E6B07010069CE9E /* TournamentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentManager.swift; sourceTree = "<group>"; };
 		DEEB11462E6B07070069CE9E /* TournamentMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentMediator.swift; sourceTree = "<group>"; };
 		DEEB11482E6B07400069CE9E /* SingleElimination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleElimination.swift; sourceTree = "<group>"; };
@@ -674,6 +708,118 @@
 			path = Inter;
 			sourceTree = "<group>";
 		};
+		DED4BD2F2E796E3500296BF8 /* RoundRobin */ = {
+			isa = PBXGroup;
+			children = (
+				DED4BD582E7ADF4B00296BF8 /* ConfirmDelete */,
+				DED4BD462E799A8800296BF8 /* CreateRRGameResult */,
+				DED4BD452E7999E600296BF8 /* RoundRobin */,
+			);
+			path = RoundRobin;
+			sourceTree = "<group>";
+		};
+		DED4BD362E796E8F00296BF8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DED4BD372E796F3C00296BF8 /* Views */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DED4BD372E796F3C00296BF8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DED4BD3A2E7975C600296BF8 /* TableView */,
+				DED4BD382E796F4D00296BF8 /* RoundRobinBottomView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DED4BD3A2E7975C600296BF8 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				DED4BD3F2E7975E900296BF8 /* Cells */,
+				DED4BD3B2E7975D900296BF8 /* RoundRobinTableView.swift */,
+				DED4BD3D2E7975E000296BF8 /* RoundRobinTableElement.swift */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		DED4BD3F2E7975E900296BF8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				DED4BD402E7975EF00296BF8 /* Game */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		DED4BD402E7975EF00296BF8 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				DED4BD412E7975FE00296BF8 /* RoundRobinTableGameCell.swift */,
+				DED4BD432E79763B00296BF8 /* RoundRobinTeamView.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		DED4BD452E7999E600296BF8 /* RoundRobin */ = {
+			isa = PBXGroup;
+			children = (
+				DED4BD362E796E8F00296BF8 /* Views */,
+				DED4BD302E796E4100296BF8 /* RoundRobinViewController.swift */,
+				DED4BD322E796E4700296BF8 /* RoundRobinViewModel.swift */,
+				DED4BD342E796E4C00296BF8 /* RoundRobinView.swift */,
+			);
+			path = RoundRobin;
+			sourceTree = "<group>";
+		};
+		DED4BD462E799A8800296BF8 /* CreateRRGameResult */ = {
+			isa = PBXGroup;
+			children = (
+				DED4BD4D2E7ABE4E00296BF8 /* Views */,
+				DED4BD472E799A9C00296BF8 /* CreateRRGameResultViewController.swift */,
+				DED4BD492E799AA200296BF8 /* CreateRRGameResultViewModel.swift */,
+				DED4BD4B2E799AA700296BF8 /* CreateRRGameResultView.swift */,
+			);
+			path = CreateRRGameResult;
+			sourceTree = "<group>";
+		};
+		DED4BD4D2E7ABE4E00296BF8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DED4BD552E7AC4FD00296BF8 /* GoalsFor */,
+				DED4BD502E7ABF8100296BF8 /* Teams */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DED4BD502E7ABF8100296BF8 /* Teams */ = {
+			isa = PBXGroup;
+			children = (
+				DED4BD4E2E7ABE5D00296BF8 /* CRRGRTeamView.swift */,
+				DED4BD512E7ABF9200296BF8 /* CRRGRTeamsView.swift */,
+			);
+			path = Teams;
+			sourceTree = "<group>";
+		};
+		DED4BD552E7AC4FD00296BF8 /* GoalsFor */ = {
+			isa = PBXGroup;
+			children = (
+				DED4BD532E7AC4E500296BF8 /* CRRGRGoalsForItemView.swift */,
+				DED4BD562E7AC51200296BF8 /* CRRGRGoalsForView.swift */,
+			);
+			path = GoalsFor;
+			sourceTree = "<group>";
+		};
+		DED4BD582E7ADF4B00296BF8 /* ConfirmDelete */ = {
+			isa = PBXGroup;
+			children = (
+				DED4BD5B2E7ADF5C00296BF8 /* RRConfirmDeleteViewController.swift */,
+				DED4BD592E7ADF5500296BF8 /* RRConfirmDeleteView.swift */,
+			);
+			path = ConfirmDelete;
+			sourceTree = "<group>";
+		};
 		DEEB11422E6B06F20069CE9E /* Tournament */ = {
 			isa = PBXGroup;
 			children = (
@@ -766,6 +912,7 @@
 		DEEB117C2E6C7C630069CE9E /* Brackets */ = {
 			isa = PBXGroup;
 			children = (
+				DED4BD2F2E796E3500296BF8 /* RoundRobin */,
 				DEEB11972E6EEBF20069CE9E /* BracketInfo */,
 				DEEB118C2E6D71D50069CE9E /* Presets */,
 				DEEB117D2E6C7C6B0069CE9E /* Create */,
@@ -1212,17 +1359,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE157DA92E55E18B00365C61 /* UITapGestureRecognizer+Extension.swift in Sources */,
+				DED4BD442E79763B00296BF8 /* RoundRobinTeamView.swift in Sources */,
 				DEF901132E5B2F9900DE5679 /* TeamsViewModel.swift in Sources */,
+				DED4BD482E799A9C00296BF8 /* CreateRRGameResultViewController.swift in Sources */,
 				DE157DAD2E55E18B00365C61 /* IAPActionResult.swift in Sources */,
 				DE157DAE2E55E18B00365C61 /* PaygateActionsView.swift in Sources */,
 				DE157DB62E55E18B00365C61 /* UIView+RxExtension.swift in Sources */,
 				DE157DBC2E55E18B00365C61 /* Fonts.swift in Sources */,
 				DEF900F72E588CDC00DE5679 /* MainTabView.swift in Sources */,
+				DED4BD4A2E799AA200296BF8 /* CreateRRGameResultViewModel.swift in Sources */,
+				DED4BD572E7AC51200296BF8 /* CRRGRGoalsForView.swift in Sources */,
 				DEF900F92E588CE200DE5679 /* MainTabItemButton.swift in Sources */,
 				DE157DC92E55E18B00365C61 /* Appearance.swift in Sources */,
 				DEF901152E5B2F9E00DE5679 /* TeamsView.swift in Sources */,
 				DEEB118E2E6D71E00069CE9E /* PresetsViewController.swift in Sources */,
 				DEEB11AB2E6F00090069CE9E /* CBBracketTypesView.swift in Sources */,
+				DED4BD422E7975FE00296BF8 /* RoundRobinTableGameCell.swift in Sources */,
 				DE157DCA2E55E18B00365C61 /* TakePhoto.swift in Sources */,
 				DEF901242E5B3FEE00DE5679 /* TeamsCreateField.swift in Sources */,
 				DE157DCB2E55E18B00365C61 /* PaygateViewModel.swift in Sources */,
@@ -1237,6 +1389,7 @@
 				DEF900F12E588C9400DE5679 /* MainView.swift in Sources */,
 				DEEB11812E6C7C7F0069CE9E /* CreateBracketViewModel.swift in Sources */,
 				DE157DD02E55E18B00365C61 /* ObservableRetrySingle.swift in Sources */,
+				DED4BD3E2E7975E000296BF8 /* RoundRobinTableElement.swift in Sources */,
 				DE157DD12E55E18B00365C61 /* Collection+Extension.swift in Sources */,
 				DE157DDF2E55E18B00365C61 /* OSlideView.swift in Sources */,
 				DEEB11832E6C7C850069CE9E /* CreateBracketView.swift in Sources */,
@@ -1244,8 +1397,10 @@
 				DEF901222E5B3E6F00DE5679 /* TeamTableTitleCell.swift in Sources */,
 				DEF901292E5B54F900DE5679 /* ConfirmDeleteTeamView.swift in Sources */,
 				DE157DE62E55E18B00365C61 /* PaygateInteractor.swift in Sources */,
+				DED4BD4F2E7ABE5D00296BF8 /* CRRGRTeamView.swift in Sources */,
 				DEEB117F2E6C7C770069CE9E /* CreateBracketViewController.swift in Sources */,
 				DEEB11862E6C80820069CE9E /* CreateBracketPresetButton.swift in Sources */,
+				DED4BD542E7AC4E500296BF8 /* CRRGRGoalsForItemView.swift in Sources */,
 				DE157DE72E55E18B00365C61 /* PaygateBestOfferView.swift in Sources */,
 				DEEB11612E6B4DDF0069CE9E /* HomePaygateButton.swift in Sources */,
 				DE157DEA2E55E18B00365C61 /* AmplitudeManager.swift in Sources */,
@@ -1253,8 +1408,12 @@
 				DEEB115C2E6B4BCB0069CE9E /* HomeView.swift in Sources */,
 				DEEB11772E6C59330069CE9E /* HomeFilterItemButton.swift in Sources */,
 				DEEB11512E6B130D0069CE9E /* SingleEliminationResult.swift in Sources */,
+				DED4BD5C2E7ADF5C00296BF8 /* RRConfirmDeleteViewController.swift in Sources */,
+				DED4BD522E7ABF9200296BF8 /* CRRGRTeamsView.swift in Sources */,
 				DE157DED2E55E18B00365C61 /* SplashViewController.swift in Sources */,
 				DEEB11BC2E7058350069CE9E /* CBShuffleButton.swift in Sources */,
+				DED4BD332E796E4700296BF8 /* RoundRobinViewModel.swift in Sources */,
+				DED4BD3C2E7975D900296BF8 /* RoundRobinTableView.swift in Sources */,
 				DE157DF02E55E18B00365C61 /* UIEdgeInsets+Extension.swift in Sources */,
 				DE157DFB2E55E18B00365C61 /* IAPProduct.swift in Sources */,
 				DE157E012E55E18B00365C61 /* Weak.swift in Sources */,
@@ -1266,6 +1425,7 @@
 				DE157E092E55E18B00365C61 /* NavigationControllerSettings.swift in Sources */,
 				DE157E0B2E55E18B00365C61 /* OnboardingViewController.swift in Sources */,
 				DEEB116B2E6C4FE60069CE9E /* HomeTableAddFirstBracketCell.swift in Sources */,
+				DED4BD352E796E4C00296BF8 /* RoundRobinView.swift in Sources */,
 				DEEB11992E6EEBFC0069CE9E /* BracketInfoViewController.swift in Sources */,
 				DE157E122E55E18B00365C61 /* PurchaseValidationObserver.swift in Sources */,
 				DEEB115A2E6B4BC60069CE9E /* HomeViewModel.swift in Sources */,
@@ -1286,11 +1446,13 @@
 				DE157E292E55E18B00365C61 /* ObservableAndSingle+Extension.swift in Sources */,
 				DEF901182E5B316D00DE5679 /* TeamsPaygateButton.swift in Sources */,
 				DEF901002E58932500DE5679 /* SettingsView.swift in Sources */,
+				DED4BD392E796F4D00296BF8 /* RoundRobinBottomView.swift in Sources */,
 				DEF9011D2E5B333200DE5679 /* TeamsTableCell.swift in Sources */,
 				DEEB11D72E71AE2A0069CE9E /* TeamPosition.swift in Sources */,
 				DEEB11A92E6EFEB10069CE9E /* CBBracketTypeItemButton.swift in Sources */,
 				DEEB11B52E6F09D90069CE9E /* HorizontalNumberPickerCell.swift in Sources */,
 				DEF9011B2E5B332B00DE5679 /* TeamsTableView.swift in Sources */,
+				DED4BD5A2E7ADF5500296BF8 /* RRConfirmDeleteView.swift in Sources */,
 				DEEB11492E6B07400069CE9E /* SingleElimination.swift in Sources */,
 				DEEB11C42E7060850069CE9E /* CBTableTeamCell.swift in Sources */,
 				DE157E2A2E55E18B00365C61 /* SceneDelegate.swift in Sources */,
@@ -1328,11 +1490,13 @@
 				DEF900E92E5878AA00DE5679 /* ORoleView.swift in Sources */,
 				DE157E6E2E55E18B00365C61 /* TapAreaButton.swift in Sources */,
 				DEF901272E5B54F400DE5679 /* ConfirmDeleteTeamViewController.swift in Sources */,
+				DED4BD4C2E799AA700296BF8 /* CreateRRGameResultView.swift in Sources */,
 				DE157E6F2E55E18B00365C61 /* PaygateEnableTrialButton.swift in Sources */,
 				DEEB11B02E6F07060069CE9E /* HorizontalNumberPicker.swift in Sources */,
 				DE157E732E55E18B00365C61 /* AppDelegate.swift in Sources */,
 				DEEB11A02E6EED350069CE9E /* BISingleEliminationView.swift in Sources */,
 				DEEB11692E6B50CB0069CE9E /* HomeTablePresetsCell.swift in Sources */,
+				DED4BD312E796E4100296BF8 /* RoundRobinViewController.swift in Sources */,
 				DE157E762E55E18B00365C61 /* UIDevice+Extension.swift in Sources */,
 				DE157E7B2E55E18B00365C61 /* PaygateInfoCell.swift in Sources */,
 				DEEB117B2E6C76320069CE9E /* HomeTableCompletedBracketCell.swift in Sources */,

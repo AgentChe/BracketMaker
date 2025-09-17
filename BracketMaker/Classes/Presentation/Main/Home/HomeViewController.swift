@@ -26,7 +26,8 @@ final class HomeViewController: UIViewController {
             didTapPaygate: mainView.paygateButton.rx.tap.asSignal(),
             didTapPreset: mainView.tableView.didTapPreset,
             didTapAddFirstBracket: mainView.tableView.didTapAddFirstBracket,
-            didChangeFilter: mainView.tableView.didChangeFilter
+            didChangeFilter: mainView.tableView.didChangeFilter,
+            didSelectBracket: mainView.tableView.didSelectBracket
         ))
         
         output.elements
@@ -82,6 +83,11 @@ private extension HomeViewController {
             present(vc, animated: true)
         case .createBracket(let preset):
             let vc = CreateBracketViewController.make(preset: preset)
+            navigationController?.pushViewController(vc, animated: true)
+        case .openSingleElimination(let singleElimination):
+            return // TODO
+        case .openRoundRobin(let roundRobin):
+            let vc = RoundRobinViewController.make(roundRobin: roundRobin)
             navigationController?.pushViewController(vc, animated: true)
         }
     }

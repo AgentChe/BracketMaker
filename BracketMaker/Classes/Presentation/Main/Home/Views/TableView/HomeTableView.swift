@@ -15,6 +15,7 @@ final class HomeTableView: UITableView {
     private lazy var didTapPresetTrigger = PublishRelay<TournamentPreset>()
     private lazy var didTapAddFirstBracketTrigger = PublishRelay<Void>()
     private lazy var didChangeFilterTrigger = PublishRelay<HomeFilterItemButton.Filter>()
+    private lazy var didSelectBracketTrigger = PublishRelay<HomeTableBracketElement.Bracket>()
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -45,6 +46,10 @@ extension HomeTableView {
     
     var didChangeFilter: Signal<HomeFilterItemButton.Filter> {
         didChangeFilterTrigger.asSignal()
+    }
+    
+    var didSelectBracket: Signal<HomeTableBracketElement.Bracket> {
+        didSelectBracketTrigger.asSignal()
     }
 }
 
@@ -98,6 +103,15 @@ extension HomeTableView: UITableViewDataSource {
 extension HomeTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch elements[indexPath.row] {
+        case .bracket(let element):
+            didSelectBracketTrigger.accept(element.bracket)
+        default:
+            return 
+        }
     }
 }
 

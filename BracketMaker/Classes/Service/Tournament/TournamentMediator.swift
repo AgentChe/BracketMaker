@@ -18,6 +18,7 @@ final class TournamentMediator {
     
     private lazy var didCreatedRoundRobinGameResultTrigger = PublishRelay<RoundRobinGameResult>()
     private lazy var didCreatedRoundRobinTrigger = PublishRelay<RoundRobin>()
+    private lazy var didDeletedRoundRobinTrigger = PublishRelay<String>()
     private lazy var didCreatedRoundRobinResultTrigger = PublishRelay<RoundRobinResult>()
     
     private init() {}
@@ -49,6 +50,10 @@ extension TournamentMediator {
         didCreatedRoundRobinTrigger.accept(roundRobin)
     }
     
+    func deleted(roundRobinId: String) {
+        didDeletedRoundRobinTrigger.accept(roundRobinId)
+    }
+    
     func created(roundRobinResult: RoundRobinResult) {
         didCreatedRoundRobinResultTrigger.accept(roundRobinResult)
     }
@@ -75,6 +80,10 @@ extension TournamentMediator {
     
     var didCreatedRoundRobin: Signal<RoundRobin> {
         didCreatedRoundRobinTrigger.asSignal()
+    }
+    
+    var didDeletedRoundRobin: Signal<String> {
+        didDeletedRoundRobinTrigger.asSignal()
     }
     
     var didCreatedRoundRobinResult: Signal<RoundRobinResult> {

@@ -49,6 +49,7 @@ protocol TournamentManagerProtocol {
         name: String,
         teamsIds: [String]
     ) -> Single<RoundRobin>
+    func delete(roundRobinId: String) -> Single<Void>
     func fetchRoundRobins() -> Single<[RoundRobin]>
     func createRoundRobinGames(
         roundRobinId: String,
@@ -446,6 +447,58 @@ extension TournamentManager: TournamentManagerProtocol {
                 single(.success(item))
                 
                 TournamentMediator.shared.created(roundRobin: item)
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+    
+    func delete(roundRobinId: String) -> Single<Void> {
+        Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+
+            do {
+                try dbQueue.write { db in
+                    let exists = try RoundRobin
+                        .filter(Column("id") == roundRobinId)
+                        .fetchCount(db) > 0
+                    guard exists else { throw ContentError(.notContent) }
+
+                    let rrGames = try RoundRobinGames
+                        .filter(Column("roundRobinId") == roundRobinId)
+                        .fetchOne(db)
+                    let gamesIds = rrGames?.gamesIds ?? []
+
+                    if !gamesIds.isEmpty {
+                        try RoundRobinGameResult
+                            .filter(gamesIds.contains(Column("gameId")))
+                            .deleteAll(db)
+                        try Game
+                            .filter(gamesIds.contains(Column("id")))
+                            .deleteAll(db)
+                    }
+
+                    try RoundRobinGames
+                        .filter(Column("roundRobinId") == roundRobinId)
+                        .deleteAll(db)
+
+                    try RoundRobinResult
+                        .filter(Column("roundRobinId") == roundRobinId)
+                        .deleteAll(db)
+
+                    try RoundRobin
+                        .filter(Column("id") == roundRobinId)
+                        .deleteAll(db)
+                }
+
+                single(.success(()))
+                
+                TournamentMediator.shared.deleted(roundRobinId: roundRobinId)
             } catch {
                 single(.failure(error))
             }
