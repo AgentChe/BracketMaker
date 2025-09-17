@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+// TODO: запретить повтор команд
 final class CreateBracketViewController: UIViewController {
     private lazy var mainView = CreateBracketView()
     

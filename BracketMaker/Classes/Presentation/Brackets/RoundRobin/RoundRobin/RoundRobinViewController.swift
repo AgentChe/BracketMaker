@@ -11,7 +11,6 @@ import RxCocoa
 
 // TODO:
 // 1. Share
-// 3. Table PTS
 // 4. Create RR Result
 final class RoundRobinViewController: UIViewController {
     private lazy var mainView = RoundRobinView()

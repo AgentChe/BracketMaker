@@ -45,6 +45,12 @@ extension RoundRobinViewModel {
         
         return Output(
             elements: makeElements(
+                ptsElements: makePtsElements(
+                    roundRobin: roundRobin,
+                    teams: teams,
+                    games: games,
+                    gamesResults: gamesResults
+                ),
                 gamesElements: makeGamesElements(
                     teams: teams,
                     games: games,
@@ -63,8 +69,84 @@ extension RoundRobinViewModel {
 
 // MARK: Private
 private extension RoundRobinViewModel {
-    func makeElements(gamesElements: Driver<[RoundRobinTableGameElement]>) -> Driver<[RoundRobinTableElement]> {
-        gamesElements.map { $0.map { .game($0) } }
+    func makeElements(
+        ptsElements: Driver<[RoundRobinTablePtsTeamElement]>,
+        gamesElements: Driver<[RoundRobinTableGameElement]>
+    ) -> Driver<[RoundRobinTableElement]> {
+        Driver
+            .combineLatest(ptsElements, gamesElements)
+            .map { ptsElements, gamesElements -> [RoundRobinTableElement] in
+                [.ptsHeader] + ptsElements.map { .ptsTeam($0) } + gamesElements.map { .game($0) }
+            }
+    }
+    
+    func makePtsElements(
+        roundRobin: Driver<RoundRobin>,
+        teams: Driver<[Team]>,
+        games: Driver<[Game]>,
+        gamesResults: Driver<[RoundRobinGameResult]>
+    ) -> Driver<[RoundRobinTablePtsTeamElement]> {
+        Driver
+            .combineLatest(roundRobin, teams, games, gamesResults)
+            .map { roundRobin, teams, games, gamesResults -> [RoundRobinTablePtsTeamElement] in
+                let teamById = Dictionary(uniqueKeysWithValues: teams.map { ($0.id, $0) })
+                let orderedTeams = roundRobin.teamsIds.compactMap { teamById[$0] }
+
+                let gameById = Dictionary(uniqueKeysWithValues: games.map { ($0.id, $0) })
+
+                struct Agg { var w = 0, d = 0, l = 0, f = 0, a = 0 }
+                
+                var agg: [String: Agg] = [:]
+
+                for gameResult in gamesResults {
+                    guard let game = gameById[gameResult.gameId], let t2Id = game.team2Id else { continue }
+                    
+                    let t1Id = game.team1Id
+
+                    var a1 = agg[t1Id] ?? Agg()
+                    var a2 = agg[t2Id] ?? Agg()
+
+                    a1.f += gameResult.team1GoalsFor
+                    a1.a += gameResult.team1GoalsAgainst
+                    a2.f += gameResult.team2GoalsFor
+                    a2.a += gameResult.team2GoalsAgainst
+
+                    if gameResult.team1GoalsFor > gameResult.team2GoalsFor {
+                        a1.w += 1
+                        a2.l += 1
+                    } else if gameResult.team1GoalsFor < gameResult.team2GoalsFor {
+                        a2.w += 1
+                        a1.l += 1
+                    } else {
+                        a1.d += 1
+                        a2.d += 1
+                    }
+
+                    agg[t1Id] = a1
+                    agg[t2Id] = a2
+                }
+
+                return orderedTeams.enumerated().map { idx, team in
+                    if let a = agg[team.id] {
+                        return RoundRobinTablePtsTeamElement(
+                            team: team,
+                            w: a.w,
+                            d: a.d,
+                            l: a.l,
+                            f: a.f,
+                            a: a.a,
+                            pts: a.w * 3 + a.d,
+                            style: idx.isMultiple(of: 2) ? .white : .gray
+                        )
+                    } else {
+                        return RoundRobinTablePtsTeamElement(
+                            team: team,
+                            w: nil, d: nil, l: nil, f: nil, a: nil, pts: nil,
+                            style: idx.isMultiple(of: 2) ? .white : .gray
+                        )
+                    }
+                }
+            }
     }
     
     func makeGamesElements(

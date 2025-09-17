@@ -98,6 +98,8 @@
 		DED4BD572E7AC51200296BF8 /* CRRGRGoalsForView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD562E7AC51200296BF8 /* CRRGRGoalsForView.swift */; };
 		DED4BD5A2E7ADF5500296BF8 /* RRConfirmDeleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD592E7ADF5500296BF8 /* RRConfirmDeleteView.swift */; };
 		DED4BD5C2E7ADF5C00296BF8 /* RRConfirmDeleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD5B2E7ADF5C00296BF8 /* RRConfirmDeleteViewController.swift */; };
+		DED4BD5F2E7AE37800296BF8 /* RoundRobinTablePtsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD5E2E7AE37800296BF8 /* RoundRobinTablePtsCell.swift */; };
+		DED4BD612E7AE45A00296BF8 /* RoundRobinTablePtsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD602E7AE45A00296BF8 /* RoundRobinTablePtsHeaderCell.swift */; };
 		DEEB11452E6B07010069CE9E /* TournamentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11442E6B07010069CE9E /* TournamentManager.swift */; };
 		DEEB11472E6B07070069CE9E /* TournamentMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11462E6B07070069CE9E /* TournamentMediator.swift */; };
 		DEEB11492E6B07400069CE9E /* SingleElimination.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11482E6B07400069CE9E /* SingleElimination.swift */; };
@@ -277,6 +279,8 @@
 		DED4BD562E7AC51200296BF8 /* CRRGRGoalsForView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRRGRGoalsForView.swift; sourceTree = "<group>"; };
 		DED4BD592E7ADF5500296BF8 /* RRConfirmDeleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRConfirmDeleteView.swift; sourceTree = "<group>"; };
 		DED4BD5B2E7ADF5C00296BF8 /* RRConfirmDeleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRConfirmDeleteViewController.swift; sourceTree = "<group>"; };
+		DED4BD5E2E7AE37800296BF8 /* RoundRobinTablePtsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundRobinTablePtsCell.swift; sourceTree = "<group>"; };
+		DED4BD602E7AE45A00296BF8 /* RoundRobinTablePtsHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundRobinTablePtsHeaderCell.swift; sourceTree = "<group>"; };
 		DEEB11442E6B07010069CE9E /* TournamentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentManager.swift; sourceTree = "<group>"; };
 		DEEB11462E6B07070069CE9E /* TournamentMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentMediator.swift; sourceTree = "<group>"; };
 		DEEB11482E6B07400069CE9E /* SingleElimination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleElimination.swift; sourceTree = "<group>"; };
@@ -748,6 +752,7 @@
 		DED4BD3F2E7975E900296BF8 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				DED4BD5D2E7AE36500296BF8 /* Pts */,
 				DED4BD402E7975EF00296BF8 /* Game */,
 			);
 			path = Cells;
@@ -818,6 +823,15 @@
 				DED4BD592E7ADF5500296BF8 /* RRConfirmDeleteView.swift */,
 			);
 			path = ConfirmDelete;
+			sourceTree = "<group>";
+		};
+		DED4BD5D2E7AE36500296BF8 /* Pts */ = {
+			isa = PBXGroup;
+			children = (
+				DED4BD602E7AE45A00296BF8 /* RoundRobinTablePtsHeaderCell.swift */,
+				DED4BD5E2E7AE37800296BF8 /* RoundRobinTablePtsCell.swift */,
+			);
+			path = Pts;
 			sourceTree = "<group>";
 		};
 		DEEB11422E6B06F20069CE9E /* Tournament */ = {
@@ -1397,6 +1411,7 @@
 				DEF901222E5B3E6F00DE5679 /* TeamTableTitleCell.swift in Sources */,
 				DEF901292E5B54F900DE5679 /* ConfirmDeleteTeamView.swift in Sources */,
 				DE157DE62E55E18B00365C61 /* PaygateInteractor.swift in Sources */,
+				DED4BD612E7AE45A00296BF8 /* RoundRobinTablePtsHeaderCell.swift in Sources */,
 				DED4BD4F2E7ABE5D00296BF8 /* CRRGRTeamView.swift in Sources */,
 				DEEB117F2E6C7C770069CE9E /* CreateBracketViewController.swift in Sources */,
 				DEEB11862E6C80820069CE9E /* CreateBracketPresetButton.swift in Sources */,
@@ -1510,6 +1525,7 @@
 				DEEB119D2E6EEC080069CE9E /* BracketInfoView.swift in Sources */,
 				DE157E8D2E55E18B00365C61 /* Currency.swift in Sources */,
 				DE157E932E55E18B00365C61 /* ScreenSize.swift in Sources */,
+				DED4BD5F2E7AE37800296BF8 /* RoundRobinTablePtsCell.swift in Sources */,
 				DEF900FC2E58931900DE5679 /* SettingsViewController.swift in Sources */,
 				DEEB11A42E6EF7690069CE9E /* BIRoundRobinView.swift in Sources */,
 				DE157E942E55E18B00365C61 /* PaygateView.swift in Sources */,

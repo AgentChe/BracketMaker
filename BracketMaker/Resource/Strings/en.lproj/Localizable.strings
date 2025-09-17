@@ -150,6 +150,7 @@
 // MARK: RoundRobin
 "RoundRobin.Share" = "Share";
 "RoundRobin.VS" = "VS";
+"RoundRobin.Pts.Title" = "Team";
 
 // MARK: CreateRRGameResult
 "CreateRRGameResult.Title" = "Score";
