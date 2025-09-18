@@ -11,7 +11,6 @@ import RxCocoa
 
 // TODO:
 // 1. Share
-// 2. Список сортировка
 final class RoundRobinViewController: UIViewController {
     private lazy var mainView = RoundRobinView()
     

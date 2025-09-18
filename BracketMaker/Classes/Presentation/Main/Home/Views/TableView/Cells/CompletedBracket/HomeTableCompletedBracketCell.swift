@@ -82,7 +82,7 @@ private extension HomeTableCompletedBracketCell {
         
         NSLayoutConstraint.activate([
             tournamentLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 20.scale),
-            tournamentLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -110.scale),
+            tournamentLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -122.scale),
             tournamentLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 16.scale)
         ])
         
@@ -99,7 +99,7 @@ private extension HomeTableCompletedBracketCell {
         ])
         
         NSLayoutConstraint.activate([
-            markLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.scale),
+            markLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32.scale),
             markLabel.centerYAnchor.constraint(equalTo: tournamentLabel.centerYAnchor)
         ])
     }
@@ -107,15 +107,9 @@ private extension HomeTableCompletedBracketCell {
 
 // MARK: Lazy initialization
 private extension HomeTableCompletedBracketCell {
-    // TODO: gradient border
-    func makeContainer() -> UIView {
-        let view = UIView()
-        view.backgroundColor = Appearance.mono200
-        view.layer.cornerRadius = 24.scale
-        view.layer.shadowColor = Appearance.mono200.withAlphaComponent(0.4).cgColor
-        view.layer.shadowOpacity = 0.1
-        view.layer.shadowOffset = .zero
-        view.layer.shadowRadius = 4.scale
+    func makeContainer() -> GradientBorderView {
+        let view = GradientBorderView()
+        view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
         return view

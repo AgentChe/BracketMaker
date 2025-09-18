@@ -541,15 +541,31 @@ private extension CreateBracketViewModel {
     }
     
     func buildRoundRobinPairs(from teamIds: [String]) -> [(team1Id: String, team2Id: String, sort: Int)] {
-        var out: [(String, String, Int)] = []
-        var s = 0
-        for i in 0..<teamIds.count {
-            for j in (i+1)..<teamIds.count {
-                out.append((teamIds[i], teamIds[j], s))
-                s += 1
+        guard teamIds.count >= 2 else { return [] }
+        
+        var ids: [String?] = teamIds
+        if ids.count % 2 == 1 { ids.append(nil) }
+        
+        let n = ids.count
+        let rounds = n - 1
+        var out: [(String, String)] = []
+        
+        for _ in 0..<rounds {
+            for i in 0..<(n / 2) {
+                if let a = ids[i], let b = ids[n - 1 - i] {
+                    out.append((a, b))
+                }
             }
+            
+            let fixed = ids[0]
+            var rest = Array(ids.dropFirst())
+            if let last = rest.popLast() {
+                rest.insert(last, at: 0)
+            }
+            ids = [fixed] + rest
         }
-        return out
+        
+        return out.enumerated().map { (i, p) in (team1Id: p.0, team2Id: p.1, sort: i) }
     }
     
     func uniqueOrdered(_ ids: [String]) -> [String] {

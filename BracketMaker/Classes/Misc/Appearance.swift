@@ -23,7 +23,7 @@ struct Appearance {
     static let main600 = UIColor(integralRed: 245, green: 245, blue: 245)
     static let main700 = UIColor(integralRed: 232, green: 232, blue: 232)
     static let main800 = [
-        UIColor(integralRed: 249, green: 238, blue: 217, alpha: 0),
+        UIColor(integralRed: 249, green: 238, blue: 217),
         UIColor(integralRed: 58, green: 95, blue: 193)
     ]
 }

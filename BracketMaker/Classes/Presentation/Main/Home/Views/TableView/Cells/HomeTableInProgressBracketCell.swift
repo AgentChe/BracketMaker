@@ -73,7 +73,7 @@ private extension HomeTableInProgressBracketCell {
         
         NSLayoutConstraint.activate([
             tournamentLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 20.scale),
-            tournamentLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -110.scale),
+            tournamentLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -122.scale),
             tournamentLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 16.scale)
         ])
         
@@ -84,7 +84,7 @@ private extension HomeTableInProgressBracketCell {
         ])
         
         NSLayoutConstraint.activate([
-            markLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.scale),
+            markLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32.scale),
             markLabel.centerYAnchor.constraint(equalTo: tournamentLabel.centerYAnchor)
         ])
     }

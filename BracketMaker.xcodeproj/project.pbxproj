@@ -103,6 +103,7 @@
 		DED4BD672E7BDDE600296BF8 /* SelectTeamTableElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD662E7BDDE600296BF8 /* SelectTeamTableElement.swift */; };
 		DED4BD692E7BDDEE00296BF8 /* SelectTeamTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD682E7BDDEE00296BF8 /* SelectTeamTableView.swift */; };
 		DED4BD6C2E7BDDFC00296BF8 /* SelectTeamTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD6B2E7BDDFC00296BF8 /* SelectTeamTableCell.swift */; };
+		DED4BD712E7BE96100296BF8 /* GradientBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD702E7BE96100296BF8 /* GradientBorderView.swift */; };
 		DEEB11452E6B07010069CE9E /* TournamentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11442E6B07010069CE9E /* TournamentManager.swift */; };
 		DEEB11472E6B07070069CE9E /* TournamentMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11462E6B07070069CE9E /* TournamentMediator.swift */; };
 		DEEB11492E6B07400069CE9E /* SingleElimination.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11482E6B07400069CE9E /* SingleElimination.swift */; };
@@ -287,6 +288,7 @@
 		DED4BD662E7BDDE600296BF8 /* SelectTeamTableElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTeamTableElement.swift; sourceTree = "<group>"; };
 		DED4BD682E7BDDEE00296BF8 /* SelectTeamTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTeamTableView.swift; sourceTree = "<group>"; };
 		DED4BD6B2E7BDDFC00296BF8 /* SelectTeamTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTeamTableCell.swift; sourceTree = "<group>"; };
+		DED4BD702E7BE96100296BF8 /* GradientBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBorderView.swift; sourceTree = "<group>"; };
 		DEEB11442E6B07010069CE9E /* TournamentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentManager.swift; sourceTree = "<group>"; };
 		DEEB11462E6B07070069CE9E /* TournamentMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentMediator.swift; sourceTree = "<group>"; };
 		DEEB11482E6B07400069CE9E /* SingleElimination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleElimination.swift; sourceTree = "<group>"; };
@@ -850,6 +852,15 @@
 			path = TableView;
 			sourceTree = "<group>";
 		};
+		DED4BD6F2E7BE95000296BF8 /* CompletedBracket */ = {
+			isa = PBXGroup;
+			children = (
+				DEEB117A2E6C76320069CE9E /* HomeTableCompletedBracketCell.swift */,
+				DED4BD702E7BE96100296BF8 /* GradientBorderView.swift */,
+			);
+			path = CompletedBracket;
+			sourceTree = "<group>";
+		};
 		DEEB11422E6B06F20069CE9E /* Tournament */ = {
 			isa = PBXGroup;
 			children = (
@@ -910,13 +921,13 @@
 		DEEB11672E6B50790069CE9E /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				DED4BD6F2E7BE95000296BF8 /* CompletedBracket */,
 				DEEB11732E6C59140069CE9E /* Filter */,
 				DEEB116E2E6C547E0069CE9E /* Demo */,
 				DEEB11682E6B50CB0069CE9E /* HomeTablePresetsCell.swift */,
 				DEEB116A2E6C4FE60069CE9E /* HomeTableAddFirstBracketCell.swift */,
 				DEEB116C2E6C52E70069CE9E /* HomeTableTitleCell.swift */,
 				DEEB11782E6C737E0069CE9E /* HomeTableInProgressBracketCell.swift */,
-				DEEB117A2E6C76320069CE9E /* HomeTableCompletedBracketCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1503,6 +1514,7 @@
 				DE157E372E55E18B00365C61 /* ContentError.swift in Sources */,
 				DEEB11642E6B506F0069CE9E /* HomeTableView.swift in Sources */,
 				DE157E392E55E18B00365C61 /* String+Extension.swift in Sources */,
+				DED4BD712E7BE96100296BF8 /* GradientBorderView.swift in Sources */,
 				DEEB11A62E6EF9780069CE9E /* BIPresetsView.swift in Sources */,
 				DE157E422E55E18B00365C61 /* RxActivityIndicator.swift in Sources */,
 				DEEB114F2E6B0D480069CE9E /* SingleEliminationTournamentRound.swift in Sources */,
