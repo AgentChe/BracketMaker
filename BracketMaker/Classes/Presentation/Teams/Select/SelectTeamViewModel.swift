@@ -15,6 +15,12 @@ final class SelectTeamViewModel {
     }
     
     private lazy var teamManager = TeamManager()
+    
+    private let disableTeams: Driver<[String]>
+    
+    init(disableTeams: [String]) {
+        self.disableTeams = BehaviorRelay(value: disableTeams).asDriver()
+    }
 }
 
 // MARK: Public
@@ -27,7 +33,7 @@ extension SelectTeamViewModel {
     
     struct Output {
         let action: Driver<Action>
-        let elements: Driver<[TeamTableElement]>
+        let elements: Driver<[SelectTeamTableElement]>
         let canCreateTeam: Driver<Bool>
     }
     
@@ -39,7 +45,10 @@ extension SelectTeamViewModel {
                 didAttemptCreateWhenLockPaygate: input.didAttemptCreateWhenLockPaygate,
                 didSelectTeam: input.didSelectTeam
             ),
-            elements: makeElements(teams: teams),
+            elements: makeElements(
+                teams: teams,
+                disableTeams: disableTeams
+            ),
             canCreateTeam: makeCanCreateTeam(
                 activeSubscription:  makeActiveSubscription(),
                 teams: teams
@@ -81,14 +90,24 @@ private extension SelectTeamViewModel {
             .merge(openPaygate, selectedTeam)
     }
     
-    func makeElements(teams: Driver<[Team]>) -> Driver<[TeamTableElement]> {
-        teams
-            .map { teams -> [TeamTableElement] in
+    func makeElements(
+        teams: Driver<[Team]>,
+        disableTeams: Driver<[String]>
+    ) -> Driver<[SelectTeamTableElement]> {
+        Driver
+            .combineLatest(teams, disableTeams)
+            .map { teams, disableTeams -> [SelectTeamTableElement] in
                 guard !teams.isEmpty else {
                     return []
                 }
                 
-                return [.title] + teams.map { .team($0) }
+                return [.title] + teams.map { team -> SelectTeamTableElement in
+                    let element = SelectTeamTableTeamElement(
+                        team: team,
+                        canSelect: !disableTeams.contains(team.id)
+                    )
+                    return .team(element)
+                }
             }
     }
     

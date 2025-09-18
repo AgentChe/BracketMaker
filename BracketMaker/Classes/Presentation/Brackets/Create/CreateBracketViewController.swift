@@ -9,7 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-// TODO: запретить повтор команд
 final class CreateBracketViewController: UIViewController {
     private lazy var mainView = CreateBracketView()
     
@@ -133,8 +132,10 @@ private extension CreateBracketViewController {
         case .openInfo:
             let vc = BracketInfoViewController.make()
             navigationController?.pushViewController(vc, animated: true)
-        case .selectTeam(let teamPosition):
-            let vc = SelectTeamViewController.make { [weak self] team in
+        case .selectTeam(let args):
+            let (teamPosition, teamsIds) = args
+            
+            let vc = SelectTeamViewController.make(disableTeams: teamsIds) { [weak self] team in
                 self?.didSelectTeamTrigger.accept((team, teamPosition))
             }
             present(vc, animated: true)

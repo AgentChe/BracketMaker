@@ -80,9 +80,8 @@ private extension SelectTeamView {
         return view
     }
     
-    func makeTableView() -> TeamsTableView {
-        let view = TeamsTableView()
-        view.canDelete = false
+    func makeTableView() -> SelectTeamTableView {
+        let view = SelectTeamTableView()
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

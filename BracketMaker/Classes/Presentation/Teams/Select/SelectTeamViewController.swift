@@ -12,7 +12,7 @@ import RxCocoa
 final class SelectTeamViewController: UIViewController {
     private lazy var mainView = SelectTeamView()
     
-    private lazy var viewModel = SelectTeamViewModel()
+    private let viewModel: SelectTeamViewModel
     
     private lazy var disposeBag = DisposeBag()
     
@@ -20,8 +20,9 @@ final class SelectTeamViewController: UIViewController {
     
     private let selected: (Team) -> Void
     
-    private init(selected: @escaping (Team) -> Void) {
+    private init(selected: @escaping (Team) -> Void, disableTeams: [String]) {
         self.selected = selected
+        self.viewModel = SelectTeamViewModel(disableTeams: disableTeams)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -70,8 +71,8 @@ final class SelectTeamViewController: UIViewController {
 
 // MARK: Public
 extension SelectTeamViewController {
-    static func make(selected: @escaping (Team) -> Void) -> SelectTeamViewController {
-        SelectTeamViewController(selected: selected)
+    static func make(disableTeams: [String], selected: @escaping (Team) -> Void) -> SelectTeamViewController {
+        SelectTeamViewController(selected: selected, disableTeams: disableTeams)
     }
 }
 

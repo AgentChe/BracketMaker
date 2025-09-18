@@ -10,8 +10,6 @@ import RxSwift
 import RxCocoa
 
 final class TeamsTableView: UITableView {
-    var canDelete = true
-    
     private lazy var elements = [TeamTableElement]()
     
     private lazy var didDeleteTrigger = PublishRelay<String>()
@@ -70,7 +68,7 @@ extension TeamsTableView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard canDelete, case .team = elements[indexPath.row] else { return nil }
+        guard case .team = elements[indexPath.row] else { return nil }
         
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] action, view, completion in
             guard let self else { return }

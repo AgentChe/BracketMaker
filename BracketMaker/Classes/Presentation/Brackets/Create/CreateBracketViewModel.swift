@@ -12,7 +12,7 @@ final class CreateBracketViewModel {
     enum Action {
         case selectPreset(TournamentPreset)
         case openInfo
-        case selectTeam(TeamPosition)
+        case selectTeam((TeamPosition, [String]))
         case openPaygate
         case close
     }
@@ -142,15 +142,19 @@ private extension CreateBracketViewModel {
             .asDriver(onErrorDriveWith: .never())
         
         let selectTeam = didTapTeamPosition
-            .compactMap { teamPosition -> Action? in
+            .asDriver(onErrorDriveWith: .never())
+            .withLatestFrom(elements) { ($0, $1) }
+            .compactMap { [weak self] teamPosition, elements -> Action? in
+                guard let self else { return nil }
+                
                 switch teamPosition.content {
                 case .none, .team:
-                    return Action.selectTeam(teamPosition)
+                    let teamsIds = collectTeamsIds(elements: elements)
+                    return Action.selectTeam((teamPosition, teamsIds))
                 case .bye:
                     return nil
                 }
             }
-            .asDriver(onErrorDriveWith: .never())
         
         let create = didTapCreate
             .asDriver(onErrorDriveWith: .never())
@@ -556,6 +560,20 @@ private extension CreateBracketViewModel {
             out.append(id)
         }
         return out
+    }
+    
+    func collectTeamsIds(elements: [CBTableElement]) -> [String] {
+        var ids: [String] = []
+        for e in elements {
+            switch e {
+            case .oneRowTeam(let tp):
+                if let id = tp.teamId { ids.append(id) }
+            case .vsRow(let l, let r):
+                if let id = l.teamId { ids.append(id) }
+                if let id = r.teamId { ids.append(id) }
+            }
+        }
+        return uniqueOrdered(ids)
     }
 }
 
