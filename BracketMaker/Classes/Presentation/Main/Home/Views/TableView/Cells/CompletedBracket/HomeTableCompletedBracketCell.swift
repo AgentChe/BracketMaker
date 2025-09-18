@@ -28,7 +28,7 @@ final class HomeTableCompletedBracketCell: UITableViewCell {
         .textColor(Appearance.main100)
         .font(Fonts.Inter.regular(size: 16.scale))
         .textAlignment(.left)
-        .lineBreakMode(.byTruncatingTail)
+        .lineBreakMode(.byTruncatingMiddle)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -54,8 +54,7 @@ extension HomeTableCompletedBracketCell {
             nameLabel.attributedText = roundRobin.name.attributed(with: nameAttrs)
         }
         
-        let winnerLocalized = String(format: "Home.Winner".localized, winner.name)
-        winnerLabel.attributedText = winnerLocalized.attributed(with: winnerAttrs)
+        winnerLabel.attributedText = winnerAttributedText(teamName: winner.name)
     }
 }
 
@@ -66,7 +65,34 @@ private extension HomeTableCompletedBracketCell {
         contentView.backgroundColor = UIColor.clear
         
         selectionStyle = .none
+        
+        winnerLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        winnerLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     }
+    
+    func winnerAttributedText(teamName: String) -> NSAttributedString {
+        let s = NSMutableAttributedString(
+            string: String(format: "Home.Winner".localized, teamName) + " ",
+            attributes: winnerAttrs.dictionary
+        )
+        guard let base = UIImage(named: "Home.Bracket.Winner") else { return s }
+
+        let img = base.withTintColor(Appearance.main100, renderingMode: .alwaysOriginal)
+        let size: CGFloat = 24.scale
+
+        let font = Fonts.Inter.regular(size: 16.scale)
+        let midline = (font.ascender + font.descender) / 2.0
+        let y = midline - size / 2.0
+
+        let att = NSTextAttachment()
+        att.image = img
+        att.bounds = CGRect(x: 0, y: y, width: size, height: size)
+
+        let icon = NSAttributedString(attachment: att)
+        s.append(icon)
+        return s
+    }
+
 }
 
 // MARK: Make constraints
