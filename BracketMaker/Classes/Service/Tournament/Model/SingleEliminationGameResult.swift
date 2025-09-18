@@ -2,7 +2,7 @@
 //  SingleEliminationGameResult.swift
 //  BracketMaker
 //
-//  Created by Андрей Чернышев on 05.09.2025.
+//  Created by Андрей Чернышев on 18.09.2025.
 //
 
 import GRDB
@@ -12,5 +12,4 @@ struct SingleEliminationGameResult: Codable, Identifiable, FetchableRecord, Pers
     let gameId: String
     let winnerTeamId: String
     let loserTeamId: String?
-    let createdAt: TimeInterval
 }

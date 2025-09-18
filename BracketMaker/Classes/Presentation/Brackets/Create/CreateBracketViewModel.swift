@@ -464,23 +464,17 @@ private extension CreateBracketViewModel {
     ) -> Driver<Action> {
         switch bracketType {
         case .singleElimination:
-            let teams = collectTeamsForSE(from: elements)
-            let pairs = buildSingleEliminationPairs(from: elements)
-            
             return tournamentManager
-                .createSingleElimination(name: name, teamsIds: teams)
+                .createSingleElimination(name: name)
                 .asDriver(onErrorDriveWith: .never())
                 .flatMap { [weak self] singleElimination -> Driver<Action> in
                     guard let self else { return .never() }
                     
-                    return tournamentManager.createGames(array: pairs)
-                        .flatMap { games in
-                            self.tournamentManager.createSingleEliminationTournamentRound(
-                                singleEliminationId: singleElimination.id,
-                                gamesIds: games.map { $0.id },
-                                round: 1
-                            )
-                        }
+                    return tournamentManager
+                        .createSingleEliminationGames(
+                            singleEliminationId: singleElimination.id,
+                            initialTeams: collectTeamsForSE(from: elements)
+                        )
                         .map { _ in Action.close }
                         .asDriver(onErrorDriveWith: .never())
                 }
@@ -518,16 +512,6 @@ private extension CreateBracketViewModel {
             }
         }
         return uniqueOrdered(ids)
-    }
-    
-    func buildSingleEliminationPairs(from elements: [CBTableElement]) -> [(team1Id: String, team2Id: String, sort: Int)] {
-        var pairs: [(String, String, Int)] = []
-        for (idx, element) in elements.enumerated() {
-            if case let .vsRow(team1, team2) = element, let team1Id = team1.teamId, let team2Id = team2.teamId {
-                pairs.append((team1Id, team2Id, idx))
-            }
-        }
-        return pairs
     }
     
     func collectTeamsForRR(from elements: [CBTableElement]) -> [String] {

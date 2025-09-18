@@ -21,29 +21,19 @@ protocol TournamentManagerProtocol {
     ]) -> Single<[Game]>
     func fetchGames(ids: [String]) -> Single<[Game]>
     
-    func createSingleElimination(
-        name: String,
-        teamsIds: [String]
-    ) -> Single<SingleElimination>
+    func createSingleElimination(name: String) -> Single<SingleElimination>
     func fetchSingleEliminations() -> Single<[SingleElimination]>
-    func createSingleEliminationResult(
+    func createSingleEliminationGames(
         singleEliminationId: String,
-        winner: String
-    ) -> Single<SingleEliminationResult>
+        initialTeams: [String]
+    ) -> Single<[SingleEliminationGame]>
+    func fetchSingleEliminationGames(singleEliminationId: String) -> Single<[SingleEliminationGame]>
+    func setWinnerForSingleEliminationGame(
+        gameId: String,
+        winnerTeamId: String
+    ) -> Single<SingleEliminationGameResult>
     func fetchSingleEliminationResult(singleEliminationId: String) -> Single<SingleEliminationResult?>
     func fetchSingleEliminationsResults(singleEliminationsIds: [String]) -> Single<[SingleEliminationResult]>
-    func createSingleEliminationTournamentRound(
-        singleEliminationId: String,
-        gamesIds: [String],
-        round: Int
-    ) -> Single<SingleEliminationTournamentRound>
-    func fetchSingleEliminationTournamentRounds(singleEliminationId: String) -> Single<[SingleEliminationTournamentRound]>
-    func createSingleEliminationGameResult(
-        gameId: String,
-        winnerTeamId: String,
-        loserTeamId: String?
-    ) -> Single<SingleEliminationGameResult>
-    func fetchSingleEliminationGamesResults(gamesIds: [String]) -> Single<[SingleEliminationGameResult]>
     
     func createRoundRobin(
         name: String,
@@ -139,7 +129,6 @@ extension TournamentManager: TournamentManagerProtocol {
                     for game in games {
                         try game.insert(db)
                     }
-                    // Если в цикле упадёт throw — весь write откатится одной транзакцией.
                 }
                 single(.success(games))
             } catch {
@@ -174,35 +163,31 @@ extension TournamentManager: TournamentManagerProtocol {
             return Disposables.create()
         }
     }
-
-    func createSingleElimination(
-        name: String,
-        teamsIds: [String],
-    ) -> Single<SingleElimination> {
+    
+    func createSingleElimination(name: String) -> Single<SingleElimination> {
         Single.create { [weak self] single in
             guard let self, let dbQueue = self.dbQueue else {
                 single(.failure(ContentError(.notContent)))
                 return Disposables.create()
             }
             
-            let tournament = SingleElimination(
+            let item = SingleElimination(
                 id: UUID().uuidString,
                 name: name,
-                teamsIds: teamsIds,
                 createdAt: Date().timeIntervalSince1970
             )
             
             do {
                 try dbQueue.write { db in
-                    try tournament.insert(db)
+                    try item.insert(db)
                 }
-                single(.success(tournament))
                 
-                TournamentMediator.shared.created(singleElimination: tournament)
+                single(.success(item))
+                
+                TournamentMediator.shared.created(singleElimination: item)
             } catch {
                 single(.failure(error))
             }
-            
             return Disposables.create()
         }
     }
@@ -215,70 +200,204 @@ extension TournamentManager: TournamentManagerProtocol {
             }
             
             do {
-                let items = try dbQueue.read { db -> [SingleElimination] in
-                    try SingleElimination
-                        .order(Column("createdAt").desc)
-                        .fetchAll(db)
+                let items = try dbQueue.read { db in
+                    try SingleElimination.order(Column("createdAt").desc).fetchAll(db)
                 }
                 single(.success(items))
             } catch {
                 single(.failure(error))
             }
-            
             return Disposables.create()
         }
     }
 
-    func createSingleEliminationResult(
+    func createSingleEliminationGames(
         singleEliminationId: String,
-        winner: String
-    ) -> Single<SingleEliminationResult> {
+        initialTeams: [String]
+    ) -> Single<[SingleEliminationGame]> {
         Single.create { [weak self] single in
             guard let self, let dbQueue = self.dbQueue else {
                 single(.failure(ContentError(.notContent)))
                 return Disposables.create()
             }
-            
-            let result = SingleEliminationResult(
-                id: UUID().uuidString,
-                singleEliminationId: singleEliminationId,
-                winner: winner,
-                createdAt: Date().timeIntervalSince1970
-            )
-            
+
+            func nextPow2(_ n: Int) -> Int {
+                var p = 1
+                while p < max(1,n) {
+                    p <<= 1
+                }
+                return p
+            }
+            let slots = nextPow2(initialTeams.count)
+            let byes = max(0, slots - initialTeams.count)
+            let participants: [SingleEliminationGame.Team] = initialTeams.map { .team($0) } + Array(repeating: .bye, count: byes)
+
+            let now = Date().timeIntervalSince1970
+            var games: [SingleEliminationGame] = []
+
+            var sort = 0
+            for i in stride(from: 0, to: slots, by: 2) {
+                games.append(SingleEliminationGame(
+                    id: UUID().uuidString,
+                    singleEliminationId: singleEliminationId,
+                    sort: sort,
+                    round: 0,
+                    team1: participants[i],
+                    team2: participants[i+1],
+                    createdAt: now + TimeInterval(sort) * 1e-6
+                ))
+                sort += 1
+            }
+
+            var gamesInRound = slots / 4
+            var round = 1
+            while gamesInRound > 0 {
+                for j in 0..<gamesInRound {
+                    games.append(SingleEliminationGame(
+                        id: UUID().uuidString,
+                        singleEliminationId: singleEliminationId,
+                        sort: j,
+                        round: round,
+                        team1: .scheduled,
+                        team2: .scheduled,
+                        createdAt: now + 10 + TimeInterval(round*100 + j) * 1e-6
+                    ))
+                }
+                round += 1
+                gamesInRound >>= 1
+            }
+
             do {
                 try dbQueue.write { db in
-                    try result.insert(db)
+                    for g in games { try g.insert(db) }
+                    try self.autoAdvanceByes(db: db, singleEliminationId: singleEliminationId)
                 }
-                single(.success(result))
-                
-                TournamentMediator.shared.created(singleEliminationResult: result)
+                single(.success(games.sorted { ($0.round,$0.sort) < ($1.round,$1.sort) }))
             } catch {
                 single(.failure(error))
             }
+            return Disposables.create()
+        }
+    }
+
+    func fetchSingleEliminationGames(singleEliminationId: String) -> Single<[SingleEliminationGame]> {
+        Single.create { [weak self] s in
+            guard let self, let dbQueue = self.dbQueue else {
+                s(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+            do {
+                let items = try dbQueue.read { db in
+                    try SingleEliminationGame
+                        .filter(Column("singleEliminationId") == singleEliminationId)
+                        .order(Column("round").asc, Column("sort").asc)
+                        .fetchAll(db)
+                }
+                s(.success(items))
+            } catch { s(.failure(error)) }
+            return Disposables.create()
+        }
+    }
+
+    func setWinnerForSingleEliminationGame(
+        gameId: String,
+        winnerTeamId: String
+    ) -> Single<SingleEliminationGameResult> {
+        Single.create { [weak self] s in
+            guard let self, let dbQueue = self.dbQueue else {
+                s(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
             
+            do {
+                let result: SingleEliminationGameResult = try dbQueue.write { db in
+                    if let exists: SingleEliminationGameResult = try SingleEliminationGameResult
+                        .filter(Column("gameId") == gameId).fetchOne(db) {
+                        return exists
+                    }
+
+                    guard var game = try SingleEliminationGame.fetchOne(db, key: gameId) else {
+                        throw ContentError(.notContent)
+                    }
+
+                    func id(from team: SingleEliminationGame.Team) -> String? {
+                        if case let .team(x) = team { return x } else { return nil }
+                    }
+                    guard let t1 = id(from: game.team1) ?? id(from: game.team2) else {
+                        throw ContentError(.notContent)
+                    }
+                    let bothTeams = (id(from: game.team1), id(from: game.team2))
+                    guard bothTeams.0 != nil && bothTeams.1 != nil else {
+                        throw ContentError(.notContent)
+                    }
+
+                    let loserId: String = {
+                        if id(from: game.team1) == winnerTeamId {
+                            return id(from: game.team2)!
+                        } else { return id(from: game.team1)! }
+                    }()
+
+                    let res = SingleEliminationGameResult(
+                        id: UUID().uuidString,
+                        gameId: game.id,
+                        winnerTeamId: winnerTeamId,
+                        loserTeamId: loserId
+                    )
+                    try res.insert(db)
+                    TournamentMediator.shared.created(singleEliminationGameResult: res)
+
+                    let parentRound = game.round + 1
+                    if let parent = try SingleEliminationGame
+                        .filter(Column("singleEliminationId") == game.singleEliminationId &&
+                                Column("round") == parentRound &&
+                                Column("sort") == game.sort / 2)
+                        .fetchOne(db) {
+
+                        let putToTeam1 = (game.sort % 2 == 0)
+                        let updated = SingleEliminationGame(
+                            id: parent.id,
+                            singleEliminationId: parent.singleEliminationId,
+                            sort: parent.sort,
+                            round: parent.round,
+                            team1: putToTeam1 ? .team(winnerTeamId) : parent.team1,
+                            team2: putToTeam1 ? parent.team2 : .team(winnerTeamId),
+                            createdAt: parent.createdAt
+                        )
+                        try updated.update(db)
+                    } else {
+                        let tournamentRes = SingleEliminationResult(
+                            id: UUID().uuidString,
+                            singleEliminationId: game.singleEliminationId,
+                            winner: winnerTeamId
+                        )
+                        try tournamentRes.insert(db)
+                        TournamentMediator.shared.created(singleEliminationResult: tournamentRes)
+                    }
+                    return res
+                }
+                s(.success(result))
+            } catch {
+                s(.failure(error))
+            }
             return Disposables.create()
         }
     }
 
     func fetchSingleEliminationResult(singleEliminationId: String) -> Single<SingleEliminationResult?> {
-        Single.create { [weak self] single in
+        Single.create { [weak self] s in
             guard let self, let dbQueue = self.dbQueue else {
-                single(.failure(ContentError(.notContent)))
+                s(.failure(ContentError(.notContent)))
                 return Disposables.create()
             }
             
             do {
-                let res = try dbQueue.read { db -> SingleEliminationResult? in
+                let res = try dbQueue.read { db in
                     try SingleEliminationResult
                         .filter(Column("singleEliminationId") == singleEliminationId)
                         .fetchOne(db)
                 }
-                single(.success(res))
-            } catch {
-                single(.failure(error))
-            }
-            
+                s(.success(res))
+            } catch { s(.failure(error)) }
             return Disposables.create()
         }
     }
@@ -286,139 +405,22 @@ extension TournamentManager: TournamentManagerProtocol {
     func fetchSingleEliminationsResults(singleEliminationsIds: [String]) -> Single<[SingleEliminationResult]> {
         if singleEliminationsIds.isEmpty { return .just([]) }
         
-        return Single.create { [weak self] single in
+        return Single.create { [weak self] s in
             guard let self, let dbQueue = self.dbQueue else {
-                single(.failure(ContentError(.notContent)))
+                s(.failure(ContentError(.notContent)))
                 return Disposables.create()
             }
             
             do {
-                let results = try dbQueue.read { db -> [SingleEliminationResult] in
+                let results = try dbQueue.read { db in
                     try SingleEliminationResult
                         .filter(singleEliminationsIds.contains(Column("singleEliminationId")))
                         .fetchAll(db)
                 }
-                single(.success(results))
+                s(.success(results))
             } catch {
-                single(.failure(error))
+                s(.failure(error))
             }
-            
-            return Disposables.create()
-        }
-    }
-
-    func createSingleEliminationTournamentRound(
-        singleEliminationId: String,
-        gamesIds: [String],
-        round: Int
-    ) -> Single<SingleEliminationTournamentRound> {
-        Single.create { [weak self] single in
-            guard let self, let dbQueue = self.dbQueue else {
-                single(.failure(ContentError(.notContent)))
-                return Disposables.create()
-            }
-            
-            let roundItem = SingleEliminationTournamentRound(
-                id: UUID().uuidString,
-                singleEliminationId: singleEliminationId,
-                gamesIds: gamesIds,
-                round: round,
-                createdAt: Date().timeIntervalSince1970
-            )
-            
-            do {
-                try dbQueue.write { db in
-                    try roundItem.insert(db)
-                }
-                single(.success(roundItem))
-                
-                TournamentMediator.shared.created(singleEliminationTournamentRound: roundItem)
-            } catch {
-                single(.failure(error))
-            }
-            
-            return Disposables.create()
-        }
-    }
-
-    func fetchSingleEliminationTournamentRounds(singleEliminationId: String) -> Single<[SingleEliminationTournamentRound]> {
-        Single.create { [weak self] single in
-            guard let self, let dbQueue = self.dbQueue else {
-                single(.failure(ContentError(.notContent)))
-                return Disposables.create()
-            }
-            
-            do {
-                let rounds = try dbQueue.read { db -> [SingleEliminationTournamentRound] in
-                    try SingleEliminationTournamentRound
-                        .filter(Column("singleEliminationId") == singleEliminationId)
-                        .order(Column("round").asc, Column("createdAt").asc)
-                        .fetchAll(db)
-                }
-                single(.success(rounds))
-            } catch {
-                single(.failure(error))
-            }
-            
-            return Disposables.create()
-        }
-    }
-    
-    func createSingleEliminationGameResult(
-        gameId: String,
-        winnerTeamId: String,
-        loserTeamId: String?
-    ) -> Single<SingleEliminationGameResult> {
-        Single.create { [weak self] single in
-            guard let self, let dbQueue = self.dbQueue else {
-                single(.failure(ContentError(.notContent)))
-                return Disposables.create()
-            }
-            
-            let result = SingleEliminationGameResult(
-                id: UUID().uuidString,
-                gameId: gameId,
-                winnerTeamId: winnerTeamId,
-                loserTeamId: loserTeamId,
-                createdAt: Date().timeIntervalSince1970
-            )
-            
-            do {
-                try dbQueue.write { db in
-                    try result.insert(db)
-                }
-                single(.success(result))
-                
-                TournamentMediator.shared.created(singleEliminationGameResult: result)
-            } catch {
-                single(.failure(error))
-            }
-            
-            return Disposables.create()
-        }
-    }
-    
-    func fetchSingleEliminationGamesResults(gamesIds: [String]) -> Single<[SingleEliminationGameResult]> {
-        if gamesIds.isEmpty { return .just([]) }
-        
-        return Single.create { [weak self] single in
-            guard let self, let dbQueue = self.dbQueue else {
-                single(.failure(ContentError(.notContent)))
-                return Disposables.create()
-            }
-            
-            do {
-                let results = try dbQueue.read { db -> [SingleEliminationGameResult] in
-                    try SingleEliminationGameResult
-                        .filter(gamesIds.contains(Column("gameId")))
-                        .order(Column("createdAt").asc)
-                        .fetchAll(db)
-                }
-                single(.success(results))
-            } catch {
-                single(.failure(error))
-            }
-            
             return Disposables.create()
         }
     }
@@ -744,5 +746,64 @@ extension TournamentManager: TournamentManagerProtocol {
 
             return Disposables.create()
         }
+    }
+}
+
+// MARK: Additional
+private extension TournamentManager {
+    func autoAdvanceByes(db: GRDB.Database, singleEliminationId: String) throws {
+        let firstRound = try SingleEliminationGame
+            .filter(Column("singleEliminationId") == singleEliminationId && Column("round") == 0)
+            .order(Column("sort").asc)
+            .fetchAll(db)
+
+        for game in firstRound {
+            switch (game.team1, game.team2) {
+            case (.team(let t1), .bye):
+                try advanceByeWinner(db: db, game: game, winnerId: t1)
+            case (.bye, .team(let t2)):
+                try advanceByeWinner(db: db, game: game, winnerId: t2)
+            default:
+                break
+            }
+        }
+    }
+
+    func advanceByeWinner(db: GRDB.Database, game: SingleEliminationGame, winnerId: String) throws {
+        if try SingleEliminationGameResult
+            .filter(Column("gameId") == game.id)
+            .fetchOne(db) == nil
+        {
+            let res = SingleEliminationGameResult(
+                id: UUID().uuidString,
+                gameId: game.id,
+                winnerTeamId: winnerId,
+                loserTeamId: "BYE"
+            )
+            try res.insert(db)
+            TournamentMediator.shared.created(singleEliminationGameResult: res)
+        }
+
+        let parentRound = game.round + 1
+        let parentSort = game.sort / 2
+
+        guard let parent = try SingleEliminationGame
+            .filter(Column("singleEliminationId") == game.singleEliminationId &&
+                    Column("round") == parentRound &&
+                    Column("sort") == parentSort)
+            .fetchOne(db)
+        else { return }
+
+        let putToTeam1 = (game.sort % 2 == 0)
+        let updatedParent = SingleEliminationGame(
+            id: parent.id,
+            singleEliminationId: parent.singleEliminationId,
+            sort: parent.sort,
+            round: parent.round,
+            team1: putToTeam1 ? .team(winnerId) : parent.team1,
+            team2: putToTeam1 ? parent.team2 : .team(winnerId),
+            createdAt: parent.createdAt
+        )
+        try updatedParent.update(db)
     }
 }

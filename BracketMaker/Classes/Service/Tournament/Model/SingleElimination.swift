@@ -2,7 +2,7 @@
 //  SingleElimination.swift
 //  BracketMaker
 //
-//  Created by Андрей Чернышев on 05.09.2025.
+//  Created by Андрей Чернышев on 18.09.2025.
 //
 
 import GRDB
@@ -10,6 +10,5 @@ import GRDB
 struct SingleElimination: Codable, Identifiable, FetchableRecord, PersistableRecord {
     let id: String
     let name: String
-    let teamsIds: [String]
     let createdAt: TimeInterval
 }

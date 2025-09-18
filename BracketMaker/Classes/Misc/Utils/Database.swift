@@ -33,6 +33,46 @@ private extension Database {
     var migrator: DatabaseMigrator {
         var migrator = DatabaseMigrator()
         migrator.registerMigration("createTables") { db in
+            try db.create(table: "SingleElimination") { t in
+                t.column("id", .text).primaryKey()
+                t.column("name", .text).notNull()
+                t.column("createdAt", .double).notNull()
+            }
+
+            try db.create(table: "SingleEliminationGame") { t in
+                t.column("id", .text).primaryKey()
+                t.column("singleEliminationId", .text).notNull()
+                t.column("sort", .integer).notNull()
+                t.column("round", .integer).notNull()
+                t.column("team1", .blob).notNull()
+                t.column("team2", .blob).notNull()
+                t.column("createdAt", .double).notNull()
+            }
+            try db.create(index: "idx_SEGame_tournament_round_sort",
+                          on: "SingleEliminationGame",
+                          columns: ["singleEliminationId","round","sort"])
+
+            try db.create(table: "SingleEliminationGameResult") { t in
+                t.column("id", .text).primaryKey()
+                t.column("gameId", .text).notNull()
+                t.column("winnerTeamId", .text).notNull()
+                t.column("loserTeamId", .text)
+            }
+            try db.create(index: "uq_SEGameResult_gameId",
+                          on: "SingleEliminationGameResult",
+                          columns: ["gameId"],
+                          unique: true)
+
+            try db.create(table: "SingleEliminationResult") { t in
+                t.column("id", .text).primaryKey()
+                t.column("singleEliminationId", .text).notNull()
+                t.column("winner", .text).notNull()
+            }
+            try db.create(index: "uq_SEResult_singleEliminationId",
+                          on: "SingleEliminationResult",
+                          columns: ["singleEliminationId"],
+                          unique: true)
+            
             try db.create(table: "Team") { t in
                 t.column("id", .text).primaryKey()
                 t.column("name", .text).notNull()
@@ -49,51 +89,6 @@ private extension Database {
             try db.create(index: "idx_Game_sort_createdAt",
                           on: "Game",
                           columns: ["sort", "createdAt"])
-            
-            try db.create(table: "SingleEliminationGameResult") { t in
-                t.column("id", .text).primaryKey()
-                t.column("gameId", .text).notNull()
-                t.column("winnerTeamId", .text).notNull()
-                t.column("loserTeamId", .text)
-                t.column("createdAt", .double).notNull()
-            }
-            try db.create(index: "uq_SingleEliminationGameResult_gameId",
-                          on: "SingleEliminationGameResult",
-                          columns: ["gameId"],
-                          unique: true)
-            
-            try db.create(table: "SingleElimination") { t in
-                t.column("id", .text).primaryKey()
-                t.column("name", .text).notNull()
-                t.column("teamsIds", .blob).notNull()
-                t.column("createdAt", .double).notNull()
-            }
-            
-            try db.create(table: "SingleEliminationResult") { t in
-                t.column("id", .text).primaryKey()
-                t.column("singleEliminationId", .text).notNull()
-                t.column("winner", .text).notNull()
-                t.column("createdAt", .double).notNull()
-            }
-            try db.create(index: "uq_SingleEliminationResult_singleEliminationId",
-                          on: "SingleEliminationResult",
-                          columns: ["singleEliminationId"],
-                          unique: true)
-            
-            try db.create(table: "SingleEliminationTournamentRound") { t in
-                t.column("id", .text).primaryKey()
-                t.column("singleEliminationId", .text).notNull()
-                t.column("gamesIds", .blob).notNull() 
-                t.column("round", .integer).notNull()
-                t.column("createdAt", .double).notNull()
-            }
-            try db.create(index: "uq_SingleEliminationTournamentRound_singleEliminationId_round",
-                          on: "SingleEliminationTournamentRound",
-                          columns: ["singleEliminationId", "round"],
-                          unique: true)
-            try db.create(index: "idx_SingleEliminationTournamentRound_singleEliminationId",
-                          on: "SingleEliminationTournamentRound",
-                          columns: ["singleEliminationId"])
             
             try db.create(table: "RoundRobin") { t in
                 t.column("id", .text).primaryKey()
