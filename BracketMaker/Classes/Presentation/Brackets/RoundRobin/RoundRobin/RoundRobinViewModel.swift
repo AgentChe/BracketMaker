@@ -13,6 +13,7 @@ final class RoundRobinViewModel {
         case createGameResult(String)
         case requestConfirmDelete
         case close
+        case share(URL)
     }
     
     private let roundRobin: Driver<RoundRobin>
@@ -31,6 +32,7 @@ extension RoundRobinViewModel {
         let didSelectGameElement: Signal<RoundRobinTableGameElement>
         let didTapDelete: Signal<Void>
         let didConfirmDelete: Signal<Void>
+        let didTapShare: Signal<Void>
     }
     
     struct Output {
@@ -49,21 +51,24 @@ extension RoundRobinViewModel {
             games: games,
             gamesResults: gamesResults
         )
+        let elements = makeElements(
+            ptsElements: ptsTeams,
+            gamesElements: makeGamesElements(
+                teams: teams,
+                games: games,
+                gamesResults: gamesResults
+            )
+        )
         
         return Output(
-            elements: makeElements(
-                ptsElements: ptsTeams,
-                gamesElements: makeGamesElements(
-                    teams: teams,
-                    games: games,
-                    gamesResults: gamesResults
-                )
-            ),
+            elements: elements,
             action: makeAction(
                 roundRobin: roundRobin,
                 didSelectGameElement: input.didSelectGameElement,
                 didTapDelete: input.didTapDelete,
-                didConfirmDelete: input.didConfirmDelete
+                didConfirmDelete: input.didConfirmDelete,
+                didTapShare: input.didTapShare,
+                elements: elements
             ),
             disposable: makeRoundRobinResult(
                 roundRobin: roundRobin,
@@ -285,7 +290,9 @@ private extension RoundRobinViewModel {
         roundRobin: Driver<RoundRobin>,
         didSelectGameElement: Signal<RoundRobinTableGameElement>,
         didTapDelete: Signal<Void>,
-        didConfirmDelete: Signal<Void>
+        didConfirmDelete: Signal<Void>,
+        didTapShare: Signal<Void>,
+        elements: Driver<[RoundRobinTableElement]>
     ) -> Driver<Action> {
         let createGameResult = didSelectGameElement
             .asDriver(onErrorDriveWith: .never())
@@ -309,8 +316,20 @@ private extension RoundRobinViewModel {
                     .asDriver(onErrorDriveWith: .never())
             }
         
+        let sharePDF = didTapShare
+            .asDriver(onErrorDriveWith: .never())
+            .withLatestFrom(roundRobin)
+            .withLatestFrom(elements) { ($0, $1) }
+            .map { roundRobin, elements -> URL in
+                RoundRobinPDFRenderer(
+                    roundRobinName: roundRobin.name,
+                    elements: elements
+                ).makePDF()
+            }
+            .map { Action.share($0) }
+        
         return Driver
-            .merge(createGameResult, requestConfirmDelete, delete)
+            .merge(createGameResult, requestConfirmDelete, delete, sharePDF)
     }
     
     func makeRoundRobinResult(

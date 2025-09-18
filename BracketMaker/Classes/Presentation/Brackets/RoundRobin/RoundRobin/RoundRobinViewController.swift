@@ -9,8 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-// TODO:
-// 1. Share
 final class RoundRobinViewController: UIViewController {
     private lazy var mainView = RoundRobinView()
     
@@ -40,7 +38,8 @@ final class RoundRobinViewController: UIViewController {
         let output = viewModel.configure(input: RoundRobinViewModel.Input(
             didSelectGameElement: mainView.tableView.didSelectGameElement,
             didTapDelete: mainView.bottomView.deleteButton.rx.tap.asSignal(),
-            didConfirmDelete: didConfirmDeleteTrigger.asSignal()
+            didConfirmDelete: didConfirmDeleteTrigger.asSignal(),
+            didTapShare: mainView.bottomView.shareButton.rx.tap.asSignal()
         ))
         
         output.elements
@@ -85,6 +84,9 @@ private extension RoundRobinViewController {
             present(vc, animated: false)
         case .close:
             navigationController?.popViewController(animated: true)
+        case .share(let url):
+            let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+            present(vc, animated: true)
         }
     }
 }
