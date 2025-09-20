@@ -84,7 +84,7 @@ private extension SEGameView {
 private extension SEGameView.Game {
     var canSelect: Bool {
         guard let team1, let team2 else { return false }
-        
-        return (team1.isWinner == nil) && (team2.isWinner == nil)
+        guard team1.isWinner == nil, team2.isWinner == nil else { return false }
+        return !team1.isBye && !team2.isBye
     }
 }

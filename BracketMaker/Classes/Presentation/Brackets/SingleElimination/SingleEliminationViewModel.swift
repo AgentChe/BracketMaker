@@ -9,7 +9,6 @@ import RxSwift
 import RxCocoa
 
 // TODO:
-// 2. bye если команды нет
 // 3. round games - позиционирование игр
 // 4. шаринг
 // 5. placeholder с тапом для выбора победителя
@@ -106,7 +105,8 @@ private extension SingleEliminationViewModel {
                         SETeamView.Team(
                             teamId: tournamentResult.winner,
                             teamName: teams.first(where: { $0.id == tournamentResult.winner })?.name ?? tournamentResult.winner,
-                            isWinner: true
+                            isWinner: true,
+                            isBye: false
                         )
                     }
                 return SETournamentView.Tournament(rounds: rounds, winner: winner)
@@ -233,8 +233,11 @@ private extension SingleEliminationViewModel {
                 if r.loserTeamId == teamId { return false }
                 return nil
             }()
-            return SETeamView.Team(teamId: teamId, teamName: name, isWinner: isWinner)
-        case .bye, .scheduled:
+            return SETeamView.Team(teamId: teamId, teamName: name, isWinner: isWinner, isBye: false)
+
+        case .bye:
+            return SETeamView.Team(teamId: "bye", teamName: "SingleElimination.Bye".localized, isWinner: nil, isBye: true)
+        case .scheduled:
             return nil
         }
     }

@@ -12,6 +12,7 @@ final class SETeamView: UIButton {
         let teamId: String
         let teamName: String
         let isWinner: Bool?
+        let isBye: Bool
     }
     
     lazy var teamNameLabel = makeLabel()

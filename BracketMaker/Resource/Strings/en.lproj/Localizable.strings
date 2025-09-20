@@ -165,3 +165,4 @@
 
 // MARK: SingleElimination
 "SingleElimination.Winner" = "Winner";
+"SingleElimination.Bye" = "bye";
