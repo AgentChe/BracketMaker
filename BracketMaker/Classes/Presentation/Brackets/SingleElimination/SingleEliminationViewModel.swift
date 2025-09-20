@@ -11,7 +11,6 @@ import RxCocoa
 // TODO:
 // 3. round games - позиционирование игр
 // 4. шаринг
-// 5. placeholder с тапом для выбора победителя
 final class SingleEliminationViewModel {
     enum Action {
         case requestConfirmDelete
@@ -39,6 +38,7 @@ extension SingleEliminationViewModel {
     struct Output {
         let action: Driver<Action>
         let tournament: Driver<SETournamentView.Tournament>
+        let selectWinnerPlaceholderHidden: Driver<Bool>
     }
     
     func configure(input: Input) -> Output {
@@ -57,13 +57,21 @@ extension SingleEliminationViewModel {
                 teams: makeTeams(),
                 gamesAndResults: gamesAndResults,
                 tournamentResult: makeTournamentResult(singleElimination: singleElimination)
-            )
+            ),
+            selectWinnerPlaceholderHidden: makeSelectWinnerPlaceholderHidden(gamesAndResults: gamesAndResults)
         )
     }
 }
 
 // MARK: Private
 private extension SingleEliminationViewModel {
+    func makeSelectWinnerPlaceholderHidden(gamesAndResults: Driver<([SingleEliminationGame], [SingleEliminationGameResult])>) -> Driver<Bool> {
+        gamesAndResults
+            .map { (games, gamesResults) -> Bool in
+                !gamesResults.isEmpty
+            }
+    }
+    
     func makeAction(
         singleElimination: Driver<SingleElimination>,
         didTapDelete: Signal<Void>,

@@ -52,6 +52,11 @@ final class SingleEliminationViewController: UIViewController {
                 base.setup(tournament: tournament)
             })
             .disposed(by: disposeBag)
+        
+        output
+            .selectWinnerPlaceholderHidden
+            .drive(mainView.selectWinnerPlaceholder.rx.isHidden)
+            .disposed(by: disposeBag)
     }
 }
 

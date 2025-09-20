@@ -9,6 +9,7 @@ import UIKit
 
 final class SingleEliminationView: GradientView {
     lazy var tournamentView = makeTournamentView()
+    lazy var selectWinnerPlaceholder = makeSelectWinnerPlaceholder()
     lazy var bottomView = makeBottomView()
     
     override init(frame: CGRect) {
@@ -43,6 +44,11 @@ private extension SingleEliminationView {
         ])
         
         NSLayoutConstraint.activate([
+            selectWinnerPlaceholder.centerXAnchor.constraint(equalTo: centerXAnchor),
+            selectWinnerPlaceholder.bottomAnchor.constraint(equalTo: bottomView.topAnchor, constant: -16.scale)
+        ])
+        
+        NSLayoutConstraint.activate([
             bottomView.leadingAnchor.constraint(equalTo: leadingAnchor),
             bottomView.trailingAnchor.constraint(equalTo: trailingAnchor),
             bottomView.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -55,6 +61,13 @@ private extension SingleEliminationView {
 private extension SingleEliminationView {
     func makeTournamentView() -> SETournamentView {
         let view = SETournamentView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
+    func makeSelectWinnerPlaceholder() -> SESelectWinnerPlaceholderView {
+        let view = SESelectWinnerPlaceholderView()
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
