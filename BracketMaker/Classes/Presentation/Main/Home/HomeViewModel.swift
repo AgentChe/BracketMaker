@@ -249,12 +249,34 @@ private extension HomeViewModel {
             .fetchSingleEliminations()
             .asDriver(onErrorJustReturn: [])
         
+        enum Action {
+            case created(SingleElimination)
+            case deleted(String)
+        }
+        
         return initial
             .flatMapLatest { initial -> Driver<[SingleElimination]> in
-                TournamentMediator.shared
-                    .didCreatedSingleElimination
-                    .scan(initial) { array, new -> [SingleElimination] in
-                        array + [new]
+                let action = Signal
+                    .merge(
+                        TournamentMediator.shared
+                            .didCreatedSingleElimination
+                            .map { Action.created($0) },
+                        
+                        TournamentMediator.shared
+                            .didDeletedSingleElimination
+                            .map { Action.deleted($0) }
+                    )
+                
+                return action
+                    .scan(initial) { array, action -> [SingleElimination] in
+                        switch action {
+                        case .created(let singleElimination):
+                            return array + [singleElimination]
+                        case .deleted(let id):
+                            var result = array
+                            result.removeAll(where: { $0.id == id })
+                            return result
+                        }
                     }
                     .startWith(initial)
                     .asDriver(onErrorJustReturn: [])

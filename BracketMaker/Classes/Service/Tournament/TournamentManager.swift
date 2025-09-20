@@ -22,6 +22,7 @@ protocol TournamentManagerProtocol {
     func fetchGames(ids: [String]) -> Single<[Game]>
     
     func createSingleElimination(name: String) -> Single<SingleElimination>
+    func delete(singleEliminationId: String) -> Single<Void>
     func fetchSingleEliminations() -> Single<[SingleElimination]>
     func createSingleEliminationGames(
         singleEliminationId: String,
@@ -31,7 +32,8 @@ protocol TournamentManagerProtocol {
     func setWinnerForSingleEliminationGame(
         gameId: String,
         winnerTeamId: String
-    ) -> Single<SingleEliminationGameResult>
+    ) -> Single<(SingleEliminationGameResult, SingleEliminationResult?)>
+    func fetchSingleEliminationGamesResults(gamesIds: [String]) -> Single<[SingleEliminationGameResult]>
     func fetchSingleEliminationResult(singleEliminationId: String) -> Single<SingleEliminationResult?>
     func fetchSingleEliminationsResults(singleEliminationsIds: [String]) -> Single<[SingleEliminationResult]>
     
@@ -191,6 +193,54 @@ extension TournamentManager: TournamentManagerProtocol {
             return Disposables.create()
         }
     }
+    
+    func delete(singleEliminationId: String) -> Single<Void> {
+        Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+
+            do {
+                try dbQueue.write { db in
+                    let exists = try SingleElimination
+                        .filter(Column("id") == singleEliminationId)
+                        .fetchCount(db) > 0
+                    guard exists else { throw ContentError(.notContent) }
+
+                    let gameIds = try SingleEliminationGame
+                        .filter(Column("singleEliminationId") == singleEliminationId)
+                        .fetchAll(db)
+                        .map { $0.id }
+
+                    if !gameIds.isEmpty {
+                        try SingleEliminationGameResult
+                            .filter(gameIds.contains(Column("gameId")))
+                            .deleteAll(db)
+                    }
+
+                    try SingleEliminationGame
+                        .filter(Column("singleEliminationId") == singleEliminationId)
+                        .deleteAll(db)
+
+                    try SingleEliminationResult
+                        .filter(Column("singleEliminationId") == singleEliminationId)
+                        .deleteAll(db)
+
+                    try SingleElimination
+                        .filter(Column("id") == singleEliminationId)
+                        .deleteAll(db)
+                }
+
+                single(.success(()))
+                TournamentMediator.shared.deleted(singleEliminationId: singleEliminationId)
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
 
     func fetchSingleEliminations() -> Single<[SingleElimination]> {
         Single.create { [weak self] single in
@@ -302,40 +352,40 @@ extension TournamentManager: TournamentManagerProtocol {
     func setWinnerForSingleEliminationGame(
         gameId: String,
         winnerTeamId: String
-    ) -> Single<SingleEliminationGameResult> {
+    ) -> Single<(SingleEliminationGameResult, SingleEliminationResult?)> {
         Single.create { [weak self] s in
             guard let self, let dbQueue = self.dbQueue else {
                 s(.failure(ContentError(.notContent)))
                 return Disposables.create()
             }
-            
+
+            var createdNew = false
+            var tournamentResToNotify: SingleEliminationResult? = nil
+
             do {
-                let result: SingleEliminationGameResult = try dbQueue.write { db in
+                let tuple = try dbQueue.write { db -> (SingleEliminationGameResult, SingleEliminationResult?) in
                     if let exists: SingleEliminationGameResult = try SingleEliminationGameResult
-                        .filter(Column("gameId") == gameId).fetchOne(db) {
-                        return exists
+                        .filter(Column("gameId") == gameId)
+                        .fetchOne(db) {
+                        return (exists, nil)
                     }
 
-                    guard var game = try SingleEliminationGame.fetchOne(db, key: gameId) else {
+                    guard let game = try SingleEliminationGame.fetchOne(db, key: gameId) else {
                         throw ContentError(.notContent)
                     }
 
-                    func id(from team: SingleEliminationGame.Team) -> String? {
-                        if case let .team(x) = team { return x } else { return nil }
+                    func id(from t: SingleEliminationGame.Team) -> String? {
+                        if case let .team(x) = t { return x } else { return nil }
                     }
-                    guard let t1 = id(from: game.team1) ?? id(from: game.team2) else {
+                    guard let team1Id = id(from: game.team1),
+                          let team2Id = id(from: game.team2) else {
                         throw ContentError(.notContent)
                     }
-                    let bothTeams = (id(from: game.team1), id(from: game.team2))
-                    guard bothTeams.0 != nil && bothTeams.1 != nil else {
+                    guard winnerTeamId == team1Id || winnerTeamId == team2Id else {
                         throw ContentError(.notContent)
                     }
 
-                    let loserId: String = {
-                        if id(from: game.team1) == winnerTeamId {
-                            return id(from: game.team2)!
-                        } else { return id(from: game.team1)! }
-                    }()
+                    let loserId = (winnerTeamId == team1Id) ? team2Id : team1Id
 
                     let res = SingleEliminationGameResult(
                         id: UUID().uuidString,
@@ -344,17 +394,19 @@ extension TournamentManager: TournamentManagerProtocol {
                         loserTeamId: loserId
                     )
                     try res.insert(db)
-                    TournamentMediator.shared.created(singleEliminationGameResult: res)
+                    createdNew = true
 
                     let parentRound = game.round + 1
+                    let parentSort = game.sort / 2
+
                     if let parent = try SingleEliminationGame
                         .filter(Column("singleEliminationId") == game.singleEliminationId &&
                                 Column("round") == parentRound &&
-                                Column("sort") == game.sort / 2)
+                                Column("sort") == parentSort)
                         .fetchOne(db) {
 
                         let putToTeam1 = (game.sort % 2 == 0)
-                        let updated = SingleEliminationGame(
+                        let updatedParent = SingleEliminationGame(
                             id: parent.id,
                             singleEliminationId: parent.singleEliminationId,
                             sort: parent.sort,
@@ -363,7 +415,9 @@ extension TournamentManager: TournamentManagerProtocol {
                             team2: putToTeam1 ? parent.team2 : .team(winnerTeamId),
                             createdAt: parent.createdAt
                         )
-                        try updated.update(db)
+                        try updatedParent.update(db)
+
+                        return (res, nil)
                     } else {
                         let tournamentRes = SingleEliminationResult(
                             id: UUID().uuidString,
@@ -371,11 +425,20 @@ extension TournamentManager: TournamentManagerProtocol {
                             winner: winnerTeamId
                         )
                         try tournamentRes.insert(db)
-                        TournamentMediator.shared.created(singleEliminationResult: tournamentRes)
+                        tournamentResToNotify = tournamentRes
+                        return (res, tournamentRes)
                     }
-                    return res
                 }
-                s(.success(result))
+
+                s(.success(tuple)) 
+
+                // затем уведомления
+                if createdNew {
+                    TournamentMediator.shared.created(singleEliminationGameResult: tuple.0)
+                    if let tr = tournamentResToNotify {
+                        TournamentMediator.shared.created(singleEliminationResult: tr)
+                    }
+                }
             } catch {
                 s(.failure(error))
             }
@@ -383,6 +446,30 @@ extension TournamentManager: TournamentManagerProtocol {
         }
     }
 
+    func fetchSingleEliminationGamesResults(gamesIds: [String]) -> Single<[SingleEliminationGameResult]> {
+        if gamesIds.isEmpty { return .just([]) }
+
+        return Single.create { [weak self] single in
+            guard let self, let dbQueue = self.dbQueue else {
+                single(.failure(ContentError(.notContent)))
+                return Disposables.create()
+            }
+
+            do {
+                let results = try dbQueue.read { db -> [SingleEliminationGameResult] in
+                    try SingleEliminationGameResult
+                        .filter(gamesIds.contains(Column("gameId")))
+                        .fetchAll(db)
+                }
+                single(.success(results))
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+    
     func fetchSingleEliminationResult(singleEliminationId: String) -> Single<SingleEliminationResult?> {
         Single.create { [weak self] s in
             guard let self, let dbQueue = self.dbQueue else {

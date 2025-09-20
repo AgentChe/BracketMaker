@@ -85,7 +85,8 @@ private extension HomeViewController {
             let vc = CreateBracketViewController.make(preset: preset)
             navigationController?.pushViewController(vc, animated: true)
         case .openSingleElimination(let singleElimination):
-            return // TODO
+            let vc = SingleEliminationViewController.make(singleElimination: singleElimination)
+            navigationController?.pushViewController(vc, animated: true)
         case .openRoundRobin(let roundRobin):
             let vc = RoundRobinViewController.make(roundRobin: roundRobin)
             navigationController?.pushViewController(vc, animated: true)

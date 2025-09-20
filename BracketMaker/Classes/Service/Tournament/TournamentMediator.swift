@@ -12,6 +12,7 @@ final class TournamentMediator {
     static let shared = TournamentMediator()
     
     private lazy var didCreatedSingleEliminationTrigger = PublishRelay<SingleElimination>()
+    private lazy var didDeletedSingleEliminationTrigger = PublishRelay<String>()
     private lazy var didCreatedSingleEliminationGameResultTrigger = PublishRelay<SingleEliminationGameResult>()
     private lazy var didCreatedSingleEliminationResultTrigger = PublishRelay<SingleEliminationResult>()
     
@@ -31,6 +32,10 @@ extension TournamentMediator {
     
     func created(singleElimination: SingleElimination) {
         didCreatedSingleEliminationTrigger.accept(singleElimination)
+    }
+    
+    func deleted(singleEliminationId: String) {
+        didDeletedSingleEliminationTrigger.accept(singleEliminationId)
     }
     
     func created(singleEliminationResult: SingleEliminationResult) {
@@ -59,6 +64,10 @@ extension TournamentMediator {
     
     var didCreatedSingleElimination: Signal<SingleElimination> {
         didCreatedSingleEliminationTrigger.asSignal()
+    }
+    
+    var didDeletedSingleElimination: Signal<String> {
+        didDeletedSingleEliminationTrigger.asSignal()
     }
     
     var didCreatedSingleEliminationResult: Signal<SingleEliminationResult> {
