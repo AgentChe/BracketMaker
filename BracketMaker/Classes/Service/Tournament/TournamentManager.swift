@@ -1148,10 +1148,12 @@ extension TournamentManager: TournamentManagerProtocol {
     ) -> Single<(DoubleEliminationGameResult, DoubleEliminationResult?)> {
         Single.create { [weak self] s in
             guard let self, let dbQueue = self.dbQueue else {
-                s(.failure(ContentError(.notContent))); return Disposables.create()
+                s(.failure(ContentError(.notContent)))
+                return Disposables.create()
             }
             var createdNew = false
             var tournamentResToNotify: DoubleEliminationResult? = nil
+
             do {
                 let tuple = try dbQueue.write { db -> (DoubleEliminationGameResult, DoubleEliminationResult?) in
                     if let existed: DoubleEliminationGameResult = try DoubleEliminationGameResult
@@ -1160,6 +1162,14 @@ extension TournamentManager: TournamentManagerProtocol {
                     guard let game = try DoubleEliminationGame.fetchOne(db, key: gameId) else {
                         throw ContentError(.notContent)
                     }
+
+                    // Проверяем, есть ли куда идти победителю — ДО propagate
+                    let hasNextWinnerRef = try self.de_hasWinnerReference(
+                        db: db,
+                        doubleEliminationId: game.doubleEliminationId,
+                        gameId: game.id
+                    )
+
                     func teamId(from slot: DoubleEliminationGame.DoubleEliminationSlot) -> String? {
                         if case let .team(id) = slot { return id } else { return nil }
                     }
@@ -1177,12 +1187,16 @@ extension TournamentManager: TournamentManagerProtocol {
                     try res.insert(db)
                     createdNew = true
 
-                    try self.de_propagate(db: db, doubleEliminationId: game.doubleEliminationId,
-                                          sourceGameId: game.id,
-                                          winnerTeamId: winnerTeamId,
-                                          loserTeamId: loserId)
+                    // Теперь раскладываем по сетке
+                    try self.de_propagate(
+                        db: db,
+                        doubleEliminationId: game.doubleEliminationId,
+                        sourceGameId: game.id,
+                        winnerTeamId: winnerTeamId,
+                        loserTeamId: loserId
+                    )
 
-                    let hasNextWinnerRef = try self.de_hasWinnerReference(db: db, gameId: game.id)
+                    // Если для победителя НЕ было следующей ссылки — это Grand Final
                     if !hasNextWinnerRef {
                         let tr = DoubleEliminationResult(
                             id: UUID().uuidString,
@@ -1193,8 +1207,10 @@ extension TournamentManager: TournamentManagerProtocol {
                         tournamentResToNotify = tr
                         return (res, tr)
                     }
+
                     return (res, nil)
                 }
+
                 s(.success(tuple))
                 if createdNew {
                     TournamentMediator.shared.created(doubleEliminationGameResult: tuple.0)
@@ -1402,17 +1418,18 @@ private extension TournamentManager {
         }
     }
 
-    func de_hasWinnerReference(db: GRDB.Database, gameId: String) throws -> Bool {
-        let all = try DoubleEliminationGame.fetchAll(db)
+    func de_hasWinnerReference(
+        db: GRDB.Database,
+        doubleEliminationId: String,
+        gameId: String
+    ) throws -> Bool {
+        let all = try DoubleEliminationGame
+            .filter(Column("doubleEliminationId") == doubleEliminationId)
+            .fetchAll(db)
+
         return all.contains { g in
-            switch g.slot1 {
-            case .winnerOf(let id): if id == gameId { return true }
-            default: break
-            }
-            switch g.slot2 {
-            case .winnerOf(let id): if id == gameId { return true }
-            default: break
-            }
+            if case .winnerOf(let id) = g.slot1, id == gameId { return true }
+            if case .winnerOf(let id) = g.slot2, id == gameId { return true }
             return false
         }
     }

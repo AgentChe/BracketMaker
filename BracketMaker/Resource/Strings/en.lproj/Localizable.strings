@@ -169,3 +169,7 @@
 "SingleElimination.Bye" = "bye";
 "SingleElimination.SelectWinner" = "Tap on the name to select the winner";
 "SingleElimination.PDFTitle" = "Single Elimination";
+
+// MARK: DoubleElimination
+"DoubleElimination.WinnersBracket" = "Winner’s bracket";
+"DoubleElimination.LosersBracket" = "Looser’s bracket";

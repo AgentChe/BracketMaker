@@ -88,7 +88,8 @@ private extension HomeViewController {
             let vc = SingleEliminationViewController.make(singleElimination: singleElimination)
             navigationController?.pushViewController(vc, animated: true)
         case .openDoubleElimination(let doubleElimination):
-            break // TODO
+            let vc = DoubleEliminationViewController.make(doubleElimination: doubleElimination)
+            navigationController?.pushViewController(vc, animated: true)
         case .openRoundRobin(let roundRobin):
             let vc = RoundRobinViewController.make(roundRobin: roundRobin)
             navigationController?.pushViewController(vc, animated: true)
