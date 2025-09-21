@@ -38,7 +38,8 @@ final class SingleEliminationViewController: UIViewController {
         let output = viewModel.configure(input: SingleEliminationViewModel.Input(
             didTapDelete: mainView.bottomView.deleteButton.rx.tap.asSignal(),
             didConfirmDelete: didConfirmDeleteTrigger.asSignal(),
-            didSelectWinner: mainView.tournamentView.didSelectWinner
+            didSelectWinner: mainView.tournamentView.didSelectWinner,
+            didTapShare: mainView.bottomView.shareButton.rx.tap.asSignal()
         ))
         
         output.action
@@ -82,6 +83,9 @@ private extension SingleEliminationViewController {
             present(vc, animated: false)
         case .close:
             navigationController?.popViewController(animated: true)
+        case .share(let url):
+            let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+            present(vc, animated: true)
         }
     }
 }

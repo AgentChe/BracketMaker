@@ -8,13 +8,11 @@
 import RxSwift
 import RxCocoa
 
-// TODO:
-// 3. round games - позиционирование игр
-// 4. шаринг
 final class SingleEliminationViewModel {
     enum Action {
         case requestConfirmDelete
         case close
+        case share(URL)
     }
     
     private let singleElimination: Driver<SingleElimination>
@@ -33,6 +31,7 @@ extension SingleEliminationViewModel {
         let didTapDelete: Signal<Void>
         let didConfirmDelete: Signal<Void>
         let didSelectWinner: Signal<(gameId: String, teamId: String)>
+        let didTapShare: Signal<Void>
     }
     
     struct Output {
@@ -42,21 +41,27 @@ extension SingleEliminationViewModel {
     }
     
     func configure(input: Input) -> Output {
+        let teams = makeTeams()
         let gamesAndResults = makeGamesAndResults(
             singleElimination: singleElimination,
             didSelectWinner: input.didSelectWinner
         )
+        let tournamentResult = makeTournamentResult(singleElimination: singleElimination)
         
         return Output(
             action: makeAction(
                 singleElimination: singleElimination,
+                teams: teams,
+                gamesAndResults: gamesAndResults,
+                tournamentResult: tournamentResult,
                 didTapDelete: input.didTapDelete,
-                didConfirmDelete: input.didConfirmDelete
+                didConfirmDelete: input.didConfirmDelete,
+                didTapShare: input.didTapShare
             ),
             tournament: makeTournament(
-                teams: makeTeams(),
+                teams: teams,
                 gamesAndResults: gamesAndResults,
-                tournamentResult: makeTournamentResult(singleElimination: singleElimination)
+                tournamentResult: tournamentResult
             ),
             selectWinnerPlaceholderHidden: makeSelectWinnerPlaceholderHidden(gamesAndResults: gamesAndResults)
         )
@@ -74,8 +79,12 @@ private extension SingleEliminationViewModel {
     
     func makeAction(
         singleElimination: Driver<SingleElimination>,
+        teams: Driver<[Team]>,
+        gamesAndResults: Driver<([SingleEliminationGame], [SingleEliminationGameResult])>,
+        tournamentResult: Driver<SingleEliminationResult?>,
         didTapDelete: Signal<Void>,
-        didConfirmDelete: Signal<Void>
+        didConfirmDelete: Signal<Void>,
+        didTapShare: Signal<Void>
     ) -> Driver<Action> {
         let requestConfirmDelete = didTapDelete
             .map { Action.requestConfirmDelete }
@@ -93,8 +102,27 @@ private extension SingleEliminationViewModel {
                     .asDriver(onErrorDriveWith: .never())
             }
         
+        let share = didTapShare
+            .asDriver(onErrorDriveWith: .never())
+            .withLatestFrom(singleElimination)
+            .withLatestFrom(teams) { ($0, $1) }
+            .withLatestFrom(gamesAndResults) { ($0.0, $0.1, $1) }
+            .withLatestFrom(tournamentResult) { ($0.0, $0.1, $0.2, $1) }
+            .map { singleElimination, teams, gamesAndResults, tournamentResult -> Action in
+                let input = SingleEliminationPDFGenerator.Input(
+                    title: singleElimination.name,
+                    subtitle: "SingleElimination.PDFTitle".localized,
+                    teams: teams,
+                    games: gamesAndResults.0,
+                    gameResults: gamesAndResults.1,
+                    tournamentResult: tournamentResult
+                )
+                let url = SingleEliminationPDFGenerator().makePDF(input)
+                return .share(url)
+            }
+        
         return Driver
-            .merge(requestConfirmDelete, delete)
+            .merge(requestConfirmDelete, delete, share)
     }
     
     func makeTournament(

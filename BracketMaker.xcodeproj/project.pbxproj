@@ -118,6 +118,7 @@
 		DED4BD902E7D859200296BF8 /* SETournamentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD8F2E7D859200296BF8 /* SETournamentView.swift */; };
 		DED4BD922E7D88F000296BF8 /* SEWinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD912E7D88F000296BF8 /* SEWinnerView.swift */; };
 		DED4BD942E7EEA5200296BF8 /* SESelectWinnerPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD932E7EEA5200296BF8 /* SESelectWinnerPlaceholderView.swift */; };
+		DED4BD972E7FFDA300296BF8 /* SingleEliminationPDFGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD962E7FFDA300296BF8 /* SingleEliminationPDFGenerator.swift */; };
 		DEEB11452E6B07010069CE9E /* TournamentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11442E6B07010069CE9E /* TournamentManager.swift */; };
 		DEEB11472E6B07070069CE9E /* TournamentMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11462E6B07070069CE9E /* TournamentMediator.swift */; };
 		DEEB114B2E6B09F40069CE9E /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB114A2E6B09F10069CE9E /* Game.swift */; };
@@ -313,6 +314,7 @@
 		DED4BD8F2E7D859200296BF8 /* SETournamentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SETournamentView.swift; sourceTree = "<group>"; };
 		DED4BD912E7D88F000296BF8 /* SEWinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEWinnerView.swift; sourceTree = "<group>"; };
 		DED4BD932E7EEA5200296BF8 /* SESelectWinnerPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SESelectWinnerPlaceholderView.swift; sourceTree = "<group>"; };
+		DED4BD962E7FFDA300296BF8 /* SingleEliminationPDFGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleEliminationPDFGenerator.swift; sourceTree = "<group>"; };
 		DEEB11442E6B07010069CE9E /* TournamentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentManager.swift; sourceTree = "<group>"; };
 		DEEB11462E6B07070069CE9E /* TournamentMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentMediator.swift; sourceTree = "<group>"; };
 		DEEB114A2E6B09F10069CE9E /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
@@ -893,6 +895,7 @@
 		DED4BD812E7C83E100296BF8 /* SingleElimination */ = {
 			isa = PBXGroup;
 			children = (
+				DED4BD952E7FFD9C00296BF8 /* Utils */,
 				DED4BD882E7D4F7700296BF8 /* Views */,
 				DED4BD822E7C83EC00296BF8 /* SingleEliminationViewController.swift */,
 				DED4BD842E7C83F200296BF8 /* SingleEliminationViewModel.swift */,
@@ -912,6 +915,14 @@
 				DED4BD932E7EEA5200296BF8 /* SESelectWinnerPlaceholderView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		DED4BD952E7FFD9C00296BF8 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				DED4BD962E7FFDA300296BF8 /* SingleEliminationPDFGenerator.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		DEEB11422E6B06F20069CE9E /* Tournament */ = {
@@ -1466,6 +1477,7 @@
 				DED4BD4A2E799AA200296BF8 /* CreateRRGameResultViewModel.swift in Sources */,
 				DED4BD8A2E7D500700296BF8 /* SETeamView.swift in Sources */,
 				DED4BD572E7AC51200296BF8 /* CRRGRGoalsForView.swift in Sources */,
+				DED4BD972E7FFDA300296BF8 /* SingleEliminationPDFGenerator.swift in Sources */,
 				DEF900F92E588CE200DE5679 /* MainTabItemButton.swift in Sources */,
 				DE157DC92E55E18B00365C61 /* Appearance.swift in Sources */,
 				DEF901152E5B2F9E00DE5679 /* TeamsView.swift in Sources */,

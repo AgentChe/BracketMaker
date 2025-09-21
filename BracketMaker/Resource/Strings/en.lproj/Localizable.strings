@@ -167,3 +167,4 @@
 "SingleElimination.Winner" = "Winner";
 "SingleElimination.Bye" = "bye";
 "SingleElimination.SelectWinner" = "Tap on the name to select the winner";
+"SingleElimination.PDFTitle" = "Single Elimination";
