@@ -172,4 +172,6 @@
 
 // MARK: DoubleElimination
 "DoubleElimination.WinnersBracket" = "Winner’s bracket";
-"DoubleElimination.LosersBracket" = "Looser’s bracket";
+"DoubleElimination.LosersBracket" = "Loser’s bracket";
+"DoubleElimination.Bye" = "bye";
+"DoubleElimination.PDFTttle" = "Double Elimination";

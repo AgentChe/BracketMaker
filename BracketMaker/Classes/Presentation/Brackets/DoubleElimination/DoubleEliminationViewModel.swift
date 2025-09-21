@@ -51,6 +51,9 @@ extension DoubleEliminationViewModel {
         return Output(
             action: makeAction(
                 doubleElimination: doubleElimination,
+                teams: teams,
+                gamesAndResults: gamesAndResults,
+                tournamentResult: tournamentResult,
                 didTapDelete: input.didTapDelete,
                 didConfirmDelete: input.didConfirmDelete,
                 didTapShare: input.didTapShare
@@ -75,6 +78,9 @@ private extension DoubleEliminationViewModel {
     
     func makeAction(
         doubleElimination: Driver<DoubleElimination>,
+        teams: Driver<[Team]>,
+        gamesAndResults: Driver<([DoubleEliminationGame], [DoubleEliminationGameResult])>,
+        tournamentResult: Driver<DoubleEliminationResult?>,
         didTapDelete: Signal<Void>,
         didConfirmDelete: Signal<Void>,
         didTapShare: Signal<Void>
@@ -94,12 +100,27 @@ private extension DoubleEliminationViewModel {
                     .asDriver(onErrorDriveWith: .never())
             }
         
-        // share пока не генерируем PDF — игнор
         let share = didTapShare
             .asDriver(onErrorDriveWith: .never())
-            .flatMapLatest { _ in Driver<Action>.empty() }
+            .withLatestFrom(doubleElimination)
+            .withLatestFrom(teams) { ($0, $1) }
+            .withLatestFrom(gamesAndResults) { ($0.0, $0.1, $1) }
+            .withLatestFrom(tournamentResult) { ($0.0, $0.1, $0.2, $1) }
+            .map { doubleElimination, teams, gamesAndResults, tournamentResult -> Action in
+                let input = DoubleEliminationPDFGenerator.Input(
+                    title: doubleElimination.name,
+                    subtitle: "DoubleElimination.PDFTttle".localized,
+                    teams: teams,
+                    games: gamesAndResults.0,
+                    gameResults: gamesAndResults.1,
+                    tournamentResult: tournamentResult
+                )
+                let url = DoubleEliminationPDFGenerator().makePDF(input)
+                return .share(url)
+            }
         
-        return Driver.merge(requestConfirmDelete, delete, share)
+        return Driver
+            .merge(requestConfirmDelete, delete, share)
     }
     
     func makeTournament(
@@ -113,7 +134,6 @@ private extension DoubleEliminationViewModel {
                 let (games, results) = pair
                 let byGame = Dictionary(uniqueKeysWithValues: results.map { ($0.gameId, $0) })
                 
-                // разнесем по сеткам
                 let winners = games.filter { $0.bracket == .winner }
                 let losers  = games.filter { $0.bracket == .loser }
                 
@@ -149,27 +169,33 @@ private extension DoubleEliminationViewModel {
                         .fetchDoubleEliminationGames(doubleEliminationId: de.id)
                         .asDriver(onErrorJustReturn: [])
                 }
+            
             let select = didSelectWinner
                 .asDriver(onErrorDriveWith: .never())
                 .withLatestFrom(doubleElimination) { ($0, $1) }
                 .flatMapLatest { [weak self] args -> Driver<[DoubleEliminationGame]> in
                     guard let self else { return .never() }
+                    
                     let ((gameId, teamId), de) = args
+                    
                     return tournamentManager
                         .setWinnerForDoubleEliminationGame(gameId: gameId, winnerTeamId: teamId)
                         .asDriver(onErrorDriveWith: .never())
-                        .flatMap { _ in
+                        .flatMap { _ -> Driver<[DoubleEliminationGame]> in
                             self.tournamentManager
                                 .fetchDoubleEliminationGames(doubleEliminationId: de.id)
                                 .asDriver(onErrorJustReturn: [])
                         }
                 }
-            return Driver.merge(initial, select)
+            
+            return Driver
+                .merge(initial, select)
         }()
         
         return games
             .flatMapLatest { [weak self] games -> Driver<([DoubleEliminationGame], [DoubleEliminationGameResult])> in
                 guard let self else { return .never() }
+                
                 return tournamentManager
                     .fetchDoubleEliminationGamesResults(gamesIds: games.map { $0.id })
                     .asDriver(onErrorJustReturn: [])
@@ -183,6 +209,7 @@ private extension DoubleEliminationViewModel {
         let initial = doubleElimination
             .flatMapLatest { [weak self] de -> Driver<DoubleEliminationResult?> in
                 guard let self else { return .never() }
+                
                 return tournamentManager
                     .fetchDoubleEliminationResult(doubleEliminationId: de.id)
                     .asDriver(onErrorJustReturn: nil)
@@ -192,15 +219,18 @@ private extension DoubleEliminationViewModel {
             .asDriver(onErrorDriveWith: .never())
             .map { res -> DoubleEliminationResult? in res }
         
-        return Driver.merge(initial, created)
+        return Driver
+            .merge(initial, created)
     }
     
     func makeTeams() -> Driver<[Team]> {
-        teamManager.fetchTeams().asDriver(onErrorJustReturn: [])
+        teamManager
+            .fetchTeams()
+            .asDriver(onErrorJustReturn: [])
     }
 }
 
-// MARK: Mapping
+// MARK: Additional
 private extension DoubleEliminationViewModel {
     static func buildRounds(
         from games: [DoubleEliminationGame],
@@ -208,10 +238,13 @@ private extension DoubleEliminationViewModel {
         resByGame: [String: DoubleEliminationGameResult]
     ) -> [SERoundGamesView.Round] {
         guard !games.isEmpty else { return [] }
+        
         let grouped = Dictionary(grouping: games, by: { $0.round })
         let keys = grouped.keys.sorted()
+        
         return keys.map { r in
             let roundGames = (grouped[r] ?? []).sorted { $0.sort < $1.sort }
+            
             return SERoundGamesView.Round(
                 games: roundGames.map { mapGame($0, teams: teams, resByGame: resByGame) },
                 round: r
@@ -231,7 +264,6 @@ private extension DoubleEliminationViewModel {
         )
     }
     
-    // resolve slot -> visible team
     static func mapSlot(
         _ slot: DoubleEliminationGame.DoubleEliminationSlot,
         teams: [Team],
@@ -272,7 +304,7 @@ private extension DoubleEliminationViewModel {
         case .bye:
             return SETeamView.Team(
                 teamId: "bye",
-                teamName: "SingleElimination.Bye".localized,
+                teamName: "DoubleElimination.Bye".localized,
                 isWinner: nil,
                 isBye: true
             )

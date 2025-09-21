@@ -128,6 +128,7 @@
 		DED4BDA82E804AE500296BF8 /* DoubleEliminationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BDA72E804AE500296BF8 /* DoubleEliminationViewModel.swift */; };
 		DED4BDAA2E804AEA00296BF8 /* DoubleEliminationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BDA92E804AEA00296BF8 /* DoubleEliminationView.swift */; };
 		DED4BDAD2E804CD100296BF8 /* DETournamentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BDAC2E804CD100296BF8 /* DETournamentView.swift */; };
+		DED4BDB02E8062A400296BF8 /* DoubleEliminationPDFGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BDAF2E8062A400296BF8 /* DoubleEliminationPDFGenerator.swift */; };
 		DEEB11452E6B07010069CE9E /* TournamentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11442E6B07010069CE9E /* TournamentManager.swift */; };
 		DEEB11472E6B07070069CE9E /* TournamentMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11462E6B07070069CE9E /* TournamentMediator.swift */; };
 		DEEB114B2E6B09F40069CE9E /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB114A2E6B09F10069CE9E /* Game.swift */; };
@@ -333,6 +334,7 @@
 		DED4BDA72E804AE500296BF8 /* DoubleEliminationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleEliminationViewModel.swift; sourceTree = "<group>"; };
 		DED4BDA92E804AEA00296BF8 /* DoubleEliminationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleEliminationView.swift; sourceTree = "<group>"; };
 		DED4BDAC2E804CD100296BF8 /* DETournamentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DETournamentView.swift; sourceTree = "<group>"; };
+		DED4BDAF2E8062A400296BF8 /* DoubleEliminationPDFGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleEliminationPDFGenerator.swift; sourceTree = "<group>"; };
 		DEEB11442E6B07010069CE9E /* TournamentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentManager.swift; sourceTree = "<group>"; };
 		DEEB11462E6B07070069CE9E /* TournamentMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentMediator.swift; sourceTree = "<group>"; };
 		DEEB114A2E6B09F10069CE9E /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
@@ -946,6 +948,7 @@
 		DED4BDA42E804AD000296BF8 /* DoubleElimination */ = {
 			isa = PBXGroup;
 			children = (
+				DED4BDAE2E80629700296BF8 /* Utils */,
 				DED4BDAB2E804CB400296BF8 /* Views */,
 				DED4BDA52E804ADE00296BF8 /* DoubleEliminationViewController.swift */,
 				DED4BDA72E804AE500296BF8 /* DoubleEliminationViewModel.swift */,
@@ -960,6 +963,14 @@
 				DED4BDAC2E804CD100296BF8 /* DETournamentView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		DED4BDAE2E80629700296BF8 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				DED4BDAF2E8062A400296BF8 /* DoubleEliminationPDFGenerator.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		DEEB11422E6B06F20069CE9E /* Tournament */ = {
@@ -1547,6 +1558,7 @@
 				DE157DDF2E55E18B00365C61 /* OSlideView.swift in Sources */,
 				DEEB11832E6C7C850069CE9E /* CreateBracketView.swift in Sources */,
 				DE157DE52E55E18B00365C61 /* PaygateProductButton.swift in Sources */,
+				DED4BDB02E8062A400296BF8 /* DoubleEliminationPDFGenerator.swift in Sources */,
 				DEF901222E5B3E6F00DE5679 /* TeamTableTitleCell.swift in Sources */,
 				DEF901292E5B54F900DE5679 /* ConfirmDeleteTeamView.swift in Sources */,
 				DE157DE62E55E18B00365C61 /* PaygateInteractor.swift in Sources */,

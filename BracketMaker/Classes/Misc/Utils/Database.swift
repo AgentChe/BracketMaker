@@ -135,10 +135,7 @@ private extension Database {
                           on: "RoundRobinResult",
                           columns: ["roundRobinId"],
                           unique: true)
-        }
-        
-        // TODO: перенести в createTables
-        migrator.registerMigration("addDoubleElimination") { db in
+            
             try db.create(table: "DoubleElimination") { t in
                 t.column("id", .text).primaryKey()
                 t.column("name", .text).notNull()
