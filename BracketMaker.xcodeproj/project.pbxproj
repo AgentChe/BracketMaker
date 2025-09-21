@@ -119,6 +119,11 @@
 		DED4BD922E7D88F000296BF8 /* SEWinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD912E7D88F000296BF8 /* SEWinnerView.swift */; };
 		DED4BD942E7EEA5200296BF8 /* SESelectWinnerPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD932E7EEA5200296BF8 /* SESelectWinnerPlaceholderView.swift */; };
 		DED4BD972E7FFDA300296BF8 /* SingleEliminationPDFGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD962E7FFDA300296BF8 /* SingleEliminationPDFGenerator.swift */; };
+		DED4BD992E8035A000296BF8 /* DoubleElimination.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD982E80359F00296BF8 /* DoubleElimination.swift */; };
+		DED4BD9B2E8035AA00296BF8 /* DoubleEliminationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD9A2E8035AA00296BF8 /* DoubleEliminationResult.swift */; };
+		DED4BD9D2E8035C200296BF8 /* DoubleEliminationGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD9C2E8035C200296BF8 /* DoubleEliminationGame.swift */; };
+		DED4BD9F2E8035CC00296BF8 /* DoubleEliminationGameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BD9E2E8035CC00296BF8 /* DoubleEliminationGameResult.swift */; };
+		DED4BDA32E8039A400296BF8 /* DoubleEliminationParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BDA22E8039A400296BF8 /* DoubleEliminationParticipant.swift */; };
 		DEEB11452E6B07010069CE9E /* TournamentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11442E6B07010069CE9E /* TournamentManager.swift */; };
 		DEEB11472E6B07070069CE9E /* TournamentMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB11462E6B07070069CE9E /* TournamentMediator.swift */; };
 		DEEB114B2E6B09F40069CE9E /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEB114A2E6B09F10069CE9E /* Game.swift */; };
@@ -315,6 +320,11 @@
 		DED4BD912E7D88F000296BF8 /* SEWinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEWinnerView.swift; sourceTree = "<group>"; };
 		DED4BD932E7EEA5200296BF8 /* SESelectWinnerPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SESelectWinnerPlaceholderView.swift; sourceTree = "<group>"; };
 		DED4BD962E7FFDA300296BF8 /* SingleEliminationPDFGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleEliminationPDFGenerator.swift; sourceTree = "<group>"; };
+		DED4BD982E80359F00296BF8 /* DoubleElimination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleElimination.swift; sourceTree = "<group>"; };
+		DED4BD9A2E8035AA00296BF8 /* DoubleEliminationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleEliminationResult.swift; sourceTree = "<group>"; };
+		DED4BD9C2E8035C200296BF8 /* DoubleEliminationGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleEliminationGame.swift; sourceTree = "<group>"; };
+		DED4BD9E2E8035CC00296BF8 /* DoubleEliminationGameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleEliminationGameResult.swift; sourceTree = "<group>"; };
+		DED4BDA22E8039A400296BF8 /* DoubleEliminationParticipant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleEliminationParticipant.swift; sourceTree = "<group>"; };
 		DEEB11442E6B07010069CE9E /* TournamentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentManager.swift; sourceTree = "<group>"; };
 		DEEB11462E6B07070069CE9E /* TournamentMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentMediator.swift; sourceTree = "<group>"; };
 		DEEB114A2E6B09F10069CE9E /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
@@ -948,6 +958,11 @@
 				DED4BD7B2E7C6B4300296BF8 /* SingleEliminationGameResult.swift */,
 				DED4BD7D2E7C6B5600296BF8 /* SingleElimination.swift */,
 				DED4BD7F2E7C6B6900296BF8 /* SingleEliminationResult.swift */,
+				DED4BD982E80359F00296BF8 /* DoubleElimination.swift */,
+				DED4BD9A2E8035AA00296BF8 /* DoubleEliminationResult.swift */,
+				DED4BD9C2E8035C200296BF8 /* DoubleEliminationGame.swift */,
+				DED4BD9E2E8035CC00296BF8 /* DoubleEliminationGameResult.swift */,
+				DED4BDA22E8039A400296BF8 /* DoubleEliminationParticipant.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1517,6 +1532,7 @@
 				DEEB11612E6B4DDF0069CE9E /* HomePaygateButton.swift in Sources */,
 				DED4BD852E7C83F200296BF8 /* SingleEliminationViewModel.swift in Sources */,
 				DE157DEA2E55E18B00365C61 /* AmplitudeManager.swift in Sources */,
+				DED4BD9B2E8035AA00296BF8 /* DoubleEliminationResult.swift in Sources */,
 				DED4BD942E7EEA5200296BF8 /* SESelectWinnerPlaceholderView.swift in Sources */,
 				DED4BD8E2E7D7F9700296BF8 /* SERoundGamesView.swift in Sources */,
 				DE157DEB2E55E18B00365C61 /* IAPErrorHelper.swift in Sources */,
@@ -1542,6 +1558,7 @@
 				DE157E0B2E55E18B00365C61 /* OnboardingViewController.swift in Sources */,
 				DEEB116B2E6C4FE60069CE9E /* HomeTableAddFirstBracketCell.swift in Sources */,
 				DED4BD352E796E4C00296BF8 /* RoundRobinView.swift in Sources */,
+				DED4BD9D2E8035C200296BF8 /* DoubleEliminationGame.swift in Sources */,
 				DEEB11992E6EEBFC0069CE9E /* BracketInfoViewController.swift in Sources */,
 				DE157E122E55E18B00365C61 /* PurchaseValidationObserver.swift in Sources */,
 				DEEB115A2E6B4BC60069CE9E /* HomeViewModel.swift in Sources */,
@@ -1563,6 +1580,7 @@
 				DED4BCF22E76ACA200296BF8 /* RoundRobinGames.swift in Sources */,
 				DEEB11A22E6EF4B30069CE9E /* BIDoubleEliminationView.swift in Sources */,
 				DE157E292E55E18B00365C61 /* ObservableAndSingle+Extension.swift in Sources */,
+				DED4BD992E8035A000296BF8 /* DoubleElimination.swift in Sources */,
 				DEF901182E5B316D00DE5679 /* TeamsPaygateButton.swift in Sources */,
 				DEF901002E58932500DE5679 /* SettingsView.swift in Sources */,
 				DED4BD392E796F4D00296BF8 /* RoundRobinBottomView.swift in Sources */,
@@ -1582,6 +1600,7 @@
 				DEEB11D22E71A4400069CE9E /* SelectTeamViewModel.swift in Sources */,
 				DEEB11582E6B4BC10069CE9E /* HomeViewController.swift in Sources */,
 				DED4BD902E7D859200296BF8 /* SETournamentView.swift in Sources */,
+				DED4BDA32E8039A400296BF8 /* DoubleEliminationParticipant.swift in Sources */,
 				DEF9010E2E5B2D1D00DE5679 /* TeamMediator.swift in Sources */,
 				DED4BCF62E76B48F00296BF8 /* RoundRobinResult.swift in Sources */,
 				DEEB11C12E7060780069CE9E /* CBTableElement.swift in Sources */,
@@ -1593,6 +1612,7 @@
 				DED4BD712E7BE96100296BF8 /* GradientBorderView.swift in Sources */,
 				DEEB11A62E6EF9780069CE9E /* BIPresetsView.swift in Sources */,
 				DE157E422E55E18B00365C61 /* RxActivityIndicator.swift in Sources */,
+				DED4BD9F2E8035CC00296BF8 /* DoubleEliminationGameResult.swift in Sources */,
 				DED4BD672E7BDDE600296BF8 /* SelectTeamTableElement.swift in Sources */,
 				DE157E4A2E55E18B00365C61 /* OnboardingView.swift in Sources */,
 				DE157E502E55E18B00365C61 /* ChoosePhotoFromGallery.swift in Sources */,

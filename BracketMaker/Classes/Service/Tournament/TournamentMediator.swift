@@ -16,6 +16,11 @@ final class TournamentMediator {
     private lazy var didCreatedSingleEliminationGameResultTrigger = PublishRelay<SingleEliminationGameResult>()
     private lazy var didCreatedSingleEliminationResultTrigger = PublishRelay<SingleEliminationResult>()
     
+    private lazy var didCreatedDoubleEliminationTrigger = PublishRelay<DoubleElimination>()
+    private lazy var didDeletedDoubleEliminationTrigger = PublishRelay<String>()
+    private lazy var didCreatedDoubleEliminationGameResultTrigger = PublishRelay<DoubleEliminationGameResult>()
+    private lazy var didCreatedDoubleEliminationResultTrigger = PublishRelay<DoubleEliminationResult>()
+    
     private lazy var didCreatedRoundRobinGameResultTrigger = PublishRelay<RoundRobinGameResult>()
     private lazy var didCreatedRoundRobinTrigger = PublishRelay<RoundRobin>()
     private lazy var didDeletedRoundRobinTrigger = PublishRelay<String>()
@@ -40,6 +45,22 @@ extension TournamentMediator {
     
     func created(singleEliminationResult: SingleEliminationResult) {
         didCreatedSingleEliminationResultTrigger.accept(singleEliminationResult)
+    }
+    
+    func created(doubleElimination: DoubleElimination) {
+        didCreatedDoubleEliminationTrigger.accept(doubleElimination)
+    }
+    
+    func deleted(doubleEliminationId: String) {
+        didDeletedDoubleEliminationTrigger.accept(doubleEliminationId)
+    }
+    
+    func created(doubleEliminationGameResult: DoubleEliminationGameResult) {
+        didCreatedDoubleEliminationGameResultTrigger.accept(doubleEliminationGameResult)
+    }
+    
+    func created(doubleEliminationResult: DoubleEliminationResult) {
+        didCreatedDoubleEliminationResultTrigger.accept(doubleEliminationResult)
     }
     
     func created(roundRobinGameResult: RoundRobinGameResult) {
@@ -72,6 +93,22 @@ extension TournamentMediator {
     
     var didCreatedSingleEliminationResult: Signal<SingleEliminationResult> {
         didCreatedSingleEliminationResultTrigger.asSignal()
+    }
+    
+    var didCreatedDoubleElimination: Signal<DoubleElimination> {
+        didCreatedDoubleEliminationTrigger.asSignal()
+    }
+    
+    var didDeletedDoubleElimination: Signal<String> {
+        didDeletedDoubleEliminationTrigger.asSignal()
+    }
+    
+    var didCreatedDoubleEliminationGameResult: Signal<DoubleEliminationGameResult> {
+        didCreatedDoubleEliminationGameResultTrigger.asSignal()
+    }
+    
+    var didCreatedDoubleEliminationResult: Signal<DoubleEliminationResult> {
+        didCreatedDoubleEliminationResultTrigger.asSignal()
     }
     
     var didCreatedRoundRobinGameResult: Signal<RoundRobinGameResult> {

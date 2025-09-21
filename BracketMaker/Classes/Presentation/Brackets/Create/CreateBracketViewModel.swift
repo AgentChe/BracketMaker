@@ -479,7 +479,23 @@ private extension CreateBracketViewModel {
                         .asDriver(onErrorDriveWith: .never())
                 }
         case .doubleElimination:
-            return .never() // TODO: impl
+            return tournamentManager
+                .createDoubleElimination(name: name)
+                .asDriver(onErrorDriveWith: .never())
+                .flatMap { [weak self] de -> Driver<Action> in
+                    guard let self else { return .never() }
+                    
+                    return self.tournamentManager
+                        .createDoubleEliminationParticipants(
+                            doubleEliminationId: de.id,
+                            teamsIds: collectTeamsForDE(from: elements)
+                        )
+                        .flatMap { _ in
+                            self.tournamentManager.createDoubleEliminationGames(doubleEliminationId: de.id)
+                        }
+                        .map { _ in Action.close }
+                        .asDriver(onErrorDriveWith: .never())
+                }
         case .roundRobin:
             let teams = collectTeamsForRR(from: elements)
             let pairs = buildRoundRobinPairs(from: teams)
@@ -509,6 +525,17 @@ private extension CreateBracketViewModel {
             if case let .vsRow(l, r) = element {
                 if let team1Id = l.teamId { ids.append(team1Id) }
                 if let team1Id = r.teamId { ids.append(team1Id) }
+            }
+        }
+        return uniqueOrdered(ids)
+    }
+    
+    func collectTeamsForDE(from elements: [CBTableElement]) -> [String] {
+        var ids: [String] = []
+        for element in elements {
+            if case let .vsRow(l, r) = element {
+                if let id = l.teamId { ids.append(id) }
+                if let id = r.teamId { ids.append(id) }
             }
         }
         return uniqueOrdered(ids)

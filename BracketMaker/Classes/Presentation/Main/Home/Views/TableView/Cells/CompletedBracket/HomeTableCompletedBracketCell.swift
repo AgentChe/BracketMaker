@@ -49,6 +49,9 @@ extension HomeTableCompletedBracketCell {
         case .singleElimination(let singleElimination):
             tournamentLabel.attributedText = "Home.SingleElimination".localized.attributed(with: tournamentAttrs)
             nameLabel.attributedText = singleElimination.name.attributed(with: nameAttrs)
+        case .doubleElimination(let doubleElimination):
+            tournamentLabel.attributedText = "Home.DoubleElimination".localized.attributed(with: tournamentAttrs)
+            nameLabel.attributedText = doubleElimination.name.attributed(with: nameAttrs)
         case .roundRobin(let roundRobin):
             tournamentLabel.attributedText = "Home.RoundRobin".localized.attributed(with: tournamentAttrs)
             nameLabel.attributedText = roundRobin.name.attributed(with: nameAttrs)

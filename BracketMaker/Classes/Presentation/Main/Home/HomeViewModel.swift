@@ -13,6 +13,7 @@ final class HomeViewModel {
         case openPaygate
         case createBracket(TournamentPreset?)
         case openSingleElimination(SingleElimination)
+        case openDoubleElimination(DoubleElimination)
         case openRoundRobin(RoundRobin)
     }
     
@@ -46,6 +47,13 @@ extension HomeViewModel {
             singleEliminationsResults: singleEliminationsResults,
             teams: teams
         )
+        let doubleEliminations = makeDoubleEliminations()
+        let doubleEliminationsResults = makeDoubleEliminationsResults(doubleEliminations: doubleEliminations)
+        let doubleEliminationsElements = makeDoubleEliminationsElements(
+            doubleEliminations: doubleEliminations,
+            doubleEliminationsResults: doubleEliminationsResults,
+            teams: teams
+        )
         let roundRobins = makeRoundRobins()
         let roundRobinsResults = makeRoundRobinsResults(roundRobins: roundRobins)
         let roundRobinsElements = makeRoundRobinsElements(
@@ -56,6 +64,7 @@ extension HomeViewModel {
         let bracketsElements = makeBracketsElements(
             currentFilter: currentFilter,
             singleEliminationsElements: singleEliminationsElements,
+            doubleEliminationsElements: doubleEliminationsElements,
             roundRobinsElements: roundRobinsElements
         )
         
@@ -111,17 +120,18 @@ private extension HomeViewModel {
             }
     }
     
-    // TODO: объединить с double eliminations
     func makeBracketsElements(
         currentFilter: Driver<HomeFilterItemButton.Filter>,
         singleEliminationsElements: Driver<[HomeTableBracketElement]>,
+        doubleEliminationsElements: Driver<[HomeTableBracketElement]>,
         roundRobinsElements: Driver<[HomeTableBracketElement]>
     ) -> Driver<[HomeTableBracketElement]> {
         Driver
             .combineLatest(
                 singleEliminationsElements,
+                doubleEliminationsElements,
                 roundRobinsElements
-            ) { $0 + $1 }
+            ) { $0 + $1 + $2 }
             .map { elements -> [HomeTableBracketElement] in
                 elements.sorted(by: { $0.bracket.createdAt < $1.bracket.createdAt})
             }
@@ -156,6 +166,40 @@ private extension HomeViewModel {
                     return HomeTableBracketElement(
                         state: state,
                         bracket: .singleElimination(singleElimination)
+                    )
+                }
+            }
+    }
+    
+    func makeDoubleEliminationsElements(
+        doubleEliminations: Driver<[DoubleElimination]>,
+        doubleEliminationsResults: Driver<[DoubleEliminationResult]>,
+        teams: Driver<[Team]>
+    ) -> Driver<[HomeTableBracketElement]> {
+        Driver
+            .combineLatest(doubleEliminations, doubleEliminationsResults)
+            .withLatestFrom(teams) { ($0.0, $0.1, $1) }
+            .map { doubleEliminations, doubleEliminationsResults, teams -> [HomeTableBracketElement] in
+                doubleEliminations.map { doubleElimination -> HomeTableBracketElement in
+                    let state: HomeTableBracketElement.State = {
+                        guard let result = doubleEliminationsResults.first(where: { $0.doubleEliminationId == doubleElimination.id }) else {
+                            return .inProgress
+                        }
+                        
+                        let winner: Team = {
+                            if let winner = teams.first(where: { $0.id == result.winner }) {
+                                return winner
+                            }
+                            
+                            return Team.unknownTeam()
+                        }()
+                        
+                        return .completed(winner)
+                    }()
+                    
+                    return HomeTableBracketElement(
+                        state: state,
+                        bracket: .doubleElimination(doubleElimination)
                     )
                 }
             }
@@ -226,6 +270,8 @@ private extension HomeViewModel {
                 switch bracket {
                 case .singleElimination(let singleElimination):
                     return .openSingleElimination(singleElimination)
+                case .doubleElimination(let doubleElimination):
+                    return .openDoubleElimination(doubleElimination)
                 case .roundRobin(let roundRobin):
                     return .openRoundRobin(roundRobin)
                 }
@@ -299,6 +345,69 @@ private extension HomeViewModel {
                         TournamentMediator.shared
                             .didCreatedSingleEliminationResult
                             .scan(initial) { array, new -> [SingleEliminationResult] in
+                                array + [new]
+                            }
+                            .startWith(initial)
+                            .asDriver(onErrorJustReturn: [])
+                    }
+            }
+    }
+    
+    func makeDoubleEliminations() -> Driver<[DoubleElimination]> {
+        let initial = tournamentManager
+            .fetchDoubleEliminations()
+            .asDriver(onErrorJustReturn: [])
+        
+        enum Action {
+            case created(DoubleElimination)
+            case deleted(String)
+        }
+        
+        return initial
+            .flatMapLatest { initial -> Driver<[DoubleElimination]> in
+                let action = Signal
+                    .merge(
+                        TournamentMediator.shared
+                            .didCreatedDoubleElimination
+                            .map { Action.created($0) },
+                        
+                        TournamentMediator.shared
+                            .didDeletedDoubleElimination
+                            .map { Action.deleted($0) }
+                    )
+                
+                return action
+                    .scan(initial) { array, action -> [DoubleElimination] in
+                        switch action {
+                        case .created(let doubleElimination):
+                            return array + [doubleElimination]
+                        case .deleted(let id):
+                            var result = array
+                            result.removeAll(where: { $0.id == id })
+                            return result
+                        }
+                    }
+                    .startWith(initial)
+                    .asDriver(onErrorJustReturn: [])
+            }
+    }
+    
+    func makeDoubleEliminationsResults(doubleEliminations: Driver<[DoubleElimination]>) -> Driver<[DoubleEliminationResult]> {
+        doubleEliminations
+            .flatMapLatest { [weak self] doubleEliminations -> Driver<[DoubleEliminationResult]> in
+                guard let self else { return .never() }
+                
+                let ids = doubleEliminations.map { $0.id }
+                
+                let initial = tournamentManager
+                    .fetchDoubleEliminationsResults(doubleEliminationsIds: ids)
+                    .asDriver(onErrorJustReturn: [])
+                
+                return initial
+                    .flatMapLatest { initial -> Driver<[DoubleEliminationResult]> in
+                        TournamentMediator.shared
+                            .didCreatedDoubleEliminationResult
+                            .scan(initial) { array, new -> [DoubleEliminationResult] in
                                 array + [new]
                             }
                             .startWith(initial)

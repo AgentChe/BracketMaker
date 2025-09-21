@@ -136,6 +136,62 @@ private extension Database {
                           columns: ["roundRobinId"],
                           unique: true)
         }
+        
+        // TODO: перенести в createTables
+        migrator.registerMigration("addDoubleElimination") { db in
+            try db.create(table: "DoubleElimination") { t in
+                t.column("id", .text).primaryKey()
+                t.column("name", .text).notNull()
+                t.column("createdAt", .double).notNull()
+            }
+
+            try db.create(table: "DoubleEliminationParticipant") { t in
+                t.column("id", .text).primaryKey()
+                t.column("doubleEliminationId", .text).notNull()
+                t.column("teamId", .text).notNull()
+                t.column("seed", .integer).notNull()
+                t.column("createdAt", .double).notNull()
+            }
+            try db.create(index: "idx_DEParticipant_tournament_seed",
+                          on: "DoubleEliminationParticipant",
+                          columns: ["doubleEliminationId","seed"])
+
+            try db.create(table: "DoubleEliminationGame") { t in
+                t.column("id", .text).primaryKey()
+                t.column("doubleEliminationId", .text).notNull()
+                t.column("sort", .integer).notNull()
+                t.column("round", .integer).notNull()
+                t.column("bracket", .text).notNull()
+                t.column("slot1", .blob).notNull()
+                t.column("slot2", .blob).notNull()
+                t.column("createdAt", .double).notNull()
+            }
+            try db.create(index: "idx_DEGame_tournament_bracket_round_sort",
+                          on: "DoubleEliminationGame",
+                          columns: ["doubleEliminationId","bracket","round","sort"])
+
+            try db.create(table: "DoubleEliminationGameResult") { t in
+                t.column("id", .text).primaryKey()
+                t.column("gameId", .text).notNull()
+                t.column("winnerTeamId", .text).notNull()
+                t.column("loserTeamId", .text)
+            }
+            try db.create(index: "uq_DEGameResult_gameId",
+                          on: "DoubleEliminationGameResult",
+                          columns: ["gameId"],
+                          unique: true)
+
+            try db.create(table: "DoubleEliminationResult") { t in
+                t.column("id", .text).primaryKey()
+                t.column("doubleEliminationId", .text).notNull()
+                t.column("winner", .text).notNull()
+            }
+            try db.create(index: "uq_DEResult_doubleEliminationId",
+                          on: "DoubleEliminationResult",
+                          columns: ["doubleEliminationId"],
+                          unique: true)
+        }
+        
         return migrator
     }
 }
