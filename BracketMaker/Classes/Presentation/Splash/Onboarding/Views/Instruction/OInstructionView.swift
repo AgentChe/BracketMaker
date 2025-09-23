@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RiveRuntime
 
 final class OInstructionView: OSlideView {
     enum Instruction {
@@ -14,18 +15,30 @@ final class OInstructionView: OSlideView {
         case organized
     }
     
-    lazy var imageView = makeImageView()
+    lazy var animationView = makeAnimationView()
     lazy var titleLabel = makeTitleLabel()
     lazy var subTitleLabel = makeSubTitleLabel()
     lazy var continueButton = makeContinueButton()
     
     private let onContinue: () -> Void
     
+    private let animationVM: RiveViewModel
+    
     private let instruction: Instruction
     
     init(instruction: Instruction, onContinue: @escaping () -> Void) {
         self.instruction = instruction
         self.onContinue = onContinue
+        self.animationVM = RiveViewModel(fileName: {
+            switch instruction {
+            case .tournament:
+                return "OTournament"
+            case .teams:
+                return "OTeams"
+            case .organized:
+                return "OOrganized"
+            }
+        }())
         
         super.init(frame: .zero)
         
@@ -35,6 +48,12 @@ final class OInstructionView: OSlideView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func moveToThis() {
+        super.moveToThis()
+        
+        animationVM.setView(animationView)
     }
 }
 
@@ -68,10 +87,10 @@ private extension OInstructionView {
         ])
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 24.scale),
-            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 390.scale),
-            imageView.heightAnchor.constraint(equalToConstant: 390.scale)
+            animationView.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 24.scale),
+            animationView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            animationView.widthAnchor.constraint(equalToConstant: 390.scale),
+            animationView.heightAnchor.constraint(equalToConstant: 390.scale)
         ])
         
         NSLayoutConstraint.activate([
@@ -85,20 +104,8 @@ private extension OInstructionView {
 
 // MARK: Lazy initialization
 private extension OInstructionView {
-    func makeImageView() -> UIImageView {
-        let image: UIImage? = {
-            switch instruction {
-            case .tournament:
-                return UIImage(named: "Onboarding.Instruction.Tournament")
-            case .teams:
-                return UIImage(named: "Onboarding.Instruction.Teams")
-            case .organized:
-                return UIImage(named: "Onboarding.Instruction.Organized")
-            }
-        }()
-        
-        let view = UIImageView()
-        view.image = image
+    func makeAnimationView() -> RiveView {
+        let view = RiveView()
         view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)

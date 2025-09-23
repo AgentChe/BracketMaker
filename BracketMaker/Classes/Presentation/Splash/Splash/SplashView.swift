@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import RiveRuntime
 
 final class SplashView: GradientView {
-    lazy var imageView = makeImageView()
+    lazy var animationView = makeAnimationView()
+    
+    private lazy var animationVM = RiveViewModel(fileName: "Splash.Animate")
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,6 +31,8 @@ private extension SplashView {
         gradientLayer.colors = Appearance.mono900.map { $0.cgColor }
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+        
+        animationVM.setView(animationView)
     }
 }
 
@@ -35,21 +40,19 @@ private extension SplashView {
 private extension SplashView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 390.scale),
-            imageView.heightAnchor.constraint(equalToConstant: 390.scale)
+            animationView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            animationView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            animationView.widthAnchor.constraint(equalToConstant: 390.scale),
+            animationView.heightAnchor.constraint(equalToConstant: 390.scale)
         ])
     }
 }
 
 // MARK: Lazy initialization
 private extension SplashView {
-    func makeImageView() -> UIImageView {
-        let view = UIImageView()
-        view.contentMode = .scaleAspectFill
-        view.clipsToBounds = true
-        view.image = UIImage(named: "Splash.Image")
+    func makeAnimationView() -> RiveView {
+        let view = RiveView()
+        view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

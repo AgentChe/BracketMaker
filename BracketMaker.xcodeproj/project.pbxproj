@@ -77,6 +77,10 @@
 		DE157EA92E55E71600365C61 /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE157EA82E55E71600365C61 /* Inter-Medium.otf */; };
 		DE157EAB2E55E71800365C61 /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE157EAA2E55E71800365C61 /* Inter-Regular.otf */; };
 		DE157EAD2E55E71A00365C61 /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE157EAC2E55E71A00365C61 /* Inter-SemiBold.otf */; };
+		DEAC5BDB2E83005C009A4EA1 /* Splash.Animate.riv in Resources */ = {isa = PBXBuildFile; fileRef = DEAC5BDA2E83005C009A4EA1 /* Splash.Animate.riv */; };
+		DEAC5BDF2E830153009A4EA1 /* OTournament.riv in Resources */ = {isa = PBXBuildFile; fileRef = DEAC5BDE2E830153009A4EA1 /* OTournament.riv */; };
+		DEAC5BE12E83016F009A4EA1 /* OTeams.riv in Resources */ = {isa = PBXBuildFile; fileRef = DEAC5BE02E83016F009A4EA1 /* OTeams.riv */; };
+		DEAC5BE32E830186009A4EA1 /* OOrganized.riv in Resources */ = {isa = PBXBuildFile; fileRef = DEAC5BE22E830186009A4EA1 /* OOrganized.riv */; };
 		DED4BCF02E76AB9200296BF8 /* RoundRobin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BCEF2E76AB9200296BF8 /* RoundRobin.swift */; };
 		DED4BCF22E76ACA200296BF8 /* RoundRobinGames.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BCF12E76ACA200296BF8 /* RoundRobinGames.swift */; };
 		DED4BCF42E76B1DB00296BF8 /* RoundRobinGameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BCF32E76B1DB00296BF8 /* RoundRobinGameResult.swift */; };
@@ -283,6 +287,10 @@
 		DE157EA82E55E71600365C61 /* Inter-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.otf"; sourceTree = "<group>"; };
 		DE157EAA2E55E71800365C61 /* Inter-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.otf"; sourceTree = "<group>"; };
 		DE157EAC2E55E71A00365C61 /* Inter-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.otf"; sourceTree = "<group>"; };
+		DEAC5BDA2E83005C009A4EA1 /* Splash.Animate.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = Splash.Animate.riv; sourceTree = "<group>"; };
+		DEAC5BDE2E830153009A4EA1 /* OTournament.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = OTournament.riv; sourceTree = "<group>"; };
+		DEAC5BE02E83016F009A4EA1 /* OTeams.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = OTeams.riv; sourceTree = "<group>"; };
+		DEAC5BE22E830186009A4EA1 /* OOrganized.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = OOrganized.riv; sourceTree = "<group>"; };
 		DED4BCEF2E76AB9200296BF8 /* RoundRobin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundRobin.swift; sourceTree = "<group>"; };
 		DED4BCF12E76ACA200296BF8 /* RoundRobinGames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundRobinGames.swift; sourceTree = "<group>"; };
 		DED4BCF32E76B1DB00296BF8 /* RoundRobinGameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundRobinGameResult.swift; sourceTree = "<group>"; };
@@ -600,8 +608,8 @@
 		DE157D2F2E55E18A00365C61 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DEAC5BDD2E83013C009A4EA1 /* Instruction */,
 				DE157D2C2E55E18A00365C61 /* OWelcomeView.swift */,
-				DE157D262E55E18A00365C61 /* OInstructionView.swift */,
 				DEF900E82E5878AA00DE5679 /* ORoleView.swift */,
 				DE157D2E2E55E18A00365C61 /* OSlideView.swift */,
 			);
@@ -664,6 +672,7 @@
 		DE157D462E55E18A00365C61 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
+				DEAC5BD72E830019009A4EA1 /* Source */,
 				DE157D422E55E18A00365C61 /* Utils */,
 				DE157D442E55E18A00365C61 /* SplashViewController.swift */,
 				DE157D432E55E18A00365C61 /* SplashView.swift */,
@@ -760,6 +769,25 @@
 				DE157EA42E55E70D00365C61 /* Inter-Bold.otf */,
 			);
 			path = Inter;
+			sourceTree = "<group>";
+		};
+		DEAC5BD72E830019009A4EA1 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				DEAC5BDA2E83005C009A4EA1 /* Splash.Animate.riv */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		DEAC5BDD2E83013C009A4EA1 /* Instruction */ = {
+			isa = PBXGroup;
+			children = (
+				DEAC5BDE2E830153009A4EA1 /* OTournament.riv */,
+				DEAC5BE02E83016F009A4EA1 /* OTeams.riv */,
+				DEAC5BE22E830186009A4EA1 /* OOrganized.riv */,
+				DE157D262E55E18A00365C61 /* OInstructionView.swift */,
+			);
+			path = Instruction;
 			sourceTree = "<group>";
 		};
 		DED4BD2F2E796E3500296BF8 /* RoundRobin */ = {
@@ -1439,9 +1467,13 @@
 				DE157EAD2E55E71A00365C61 /* Inter-SemiBold.otf in Resources */,
 				DE157EA52E55E70D00365C61 /* Inter-Bold.otf in Resources */,
 				DE157C212E55DD9500365C61 /* LaunchScreen.storyboard in Resources */,
+				DEAC5BDF2E830153009A4EA1 /* OTournament.riv in Resources */,
 				DE157EA72E55E71200365C61 /* Inter-ExtraBold.otf in Resources */,
 				DE157EA92E55E71600365C61 /* Inter-Medium.otf in Resources */,
+				DEAC5BE32E830186009A4EA1 /* OOrganized.riv in Resources */,
 				DE157C382E55E18500365C61 /* Localizable.strings in Resources */,
+				DEAC5BE12E83016F009A4EA1 /* OTeams.riv in Resources */,
+				DEAC5BDB2E83005C009A4EA1 /* Splash.Animate.riv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
