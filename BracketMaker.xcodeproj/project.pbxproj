@@ -26,7 +26,6 @@
 		DE157DE52E55E18B00365C61 /* PaygateProductButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D3B2E55E18A00365C61 /* PaygateProductButton.swift */; };
 		DE157DE62E55E18B00365C61 /* PaygateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D342E55E18A00365C61 /* PaygateInteractor.swift */; };
 		DE157DE72E55E18B00365C61 /* PaygateBestOfferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D372E55E18A00365C61 /* PaygateBestOfferView.swift */; };
-		DE157DEA2E55E18B00365C61 /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C392E55E18A00365C61 /* AmplitudeManager.swift */; };
 		DE157DEB2E55E18B00365C61 /* IAPErrorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D902E55E18A00365C61 /* IAPErrorHelper.swift */; };
 		DE157DED2E55E18B00365C61 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157D442E55E18A00365C61 /* SplashViewController.swift */; };
 		DE157DF02E55E18B00365C61 /* UIEdgeInsets+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE157C512E55E18A00365C61 /* UIEdgeInsets+Extension.swift */; };
@@ -221,7 +220,6 @@
 		DE157C142E55DD9500365C61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE157C152E55DD9500365C61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE157C352E55E18500365C61 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		DE157C392E55E18A00365C61 /* AmplitudeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeManager.swift; sourceTree = "<group>"; };
 		DE157C3C2E55E18A00365C61 /* ChoosePhotoFromGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePhotoFromGallery.swift; sourceTree = "<group>"; };
 		DE157C3D2E55E18A00365C61 /* RequestReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReview.swift; sourceTree = "<group>"; };
 		DE157C3E2E55E18A00365C61 /* RxActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxActivityIndicator.swift; sourceTree = "<group>"; };
@@ -506,14 +504,6 @@
 			path = Strings;
 			sourceTree = "<group>";
 		};
-		DE157C3B2E55E18A00365C61 /* Analytics */ = {
-			isa = PBXGroup;
-			children = (
-				DE157C392E55E18A00365C61 /* AmplitudeManager.swift */,
-			);
-			path = Analytics;
-			sourceTree = "<group>";
-		};
 		DE157C402E55E18A00365C61 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -592,7 +582,6 @@
 		DE157C6A2E55E18A00365C61 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				DE157C3B2E55E18A00365C61 /* Analytics */,
 				DE157C402E55E18A00365C61 /* Components */,
 				DE157C4A2E55E18A00365C61 /* CustomViews */,
 				DE157C542E55E18A00365C61 /* Extension */,
@@ -1603,7 +1592,6 @@
 				DE157DE72E55E18B00365C61 /* PaygateBestOfferView.swift in Sources */,
 				DEEB11612E6B4DDF0069CE9E /* HomePaygateButton.swift in Sources */,
 				DED4BD852E7C83F200296BF8 /* SingleEliminationViewModel.swift in Sources */,
-				DE157DEA2E55E18B00365C61 /* AmplitudeManager.swift in Sources */,
 				DED4BD9B2E8035AA00296BF8 /* DoubleEliminationResult.swift in Sources */,
 				DED4BD942E7EEA5200296BF8 /* SESelectWinnerPlaceholderView.swift in Sources */,
 				DED4BD8E2E7D7F9700296BF8 /* SERoundGamesView.swift in Sources */,

@@ -7,20 +7,16 @@
 
 import Foundation
 
-// TODO
 final class GlobalDefinitions {
     static let otterScaleHost = "https://api.korrekted.com"
-    static let otterScaleApiKey = "8prKTwQ1BWlqc4Hq"
+    static let otterScaleApiKey = "pmboxHN6XAoXEsbT"
     
-    static let applicationTag = "INVENTORY_MANAGEMENT"
-    static let amplitudeApiKey = "d4ad5c33d23d7a891e9c68de9471f36b"
-    
-    static let termsOfServiceUrl = URL(string: "https://sergei-mobile.com/eula.html")!
-    static let privacyPolicyUrl = URL(string: "https://sergei-mobile.com/policy.html")!
-    static let contactUsUrl = URL(string: "https://sergei-mobile.com/contact.html")!
+    static let termsOfServiceUrl = URL(string: "https://maria-apps.com/terms")!
+    static let privacyPolicyUrl = URL(string: "https://maria-apps.com/policy")!
+    static let contactUsUrl = URL(string: "https://maria-apps.com/contact")!
     
     enum Paygate {
         static let yearly = "bracketmaker.yearly"
-        static let weekly = "bracketmaker.weekly1"
+        static let weekly = "bracketmaker.weekly"
     }
 }
