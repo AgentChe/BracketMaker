@@ -1,5 +1,4 @@
 PODS:
-  - Amplitude-iOS (4.10.0)
   - GRDB.swift (6.24.1):
     - GRDB.swift/standard (= 6.24.1)
   - GRDB.swift/standard (6.24.1)
@@ -16,7 +15,6 @@ PODS:
   - Toast-Swift (5.1.1)
 
 DEPENDENCIES:
-  - Amplitude-iOS
   - GRDB.swift
   - Kingfisher
   - OtterScaleiOS (from `https://github.com/AgentChe/OtterScaleiOS.git`)
@@ -28,7 +26,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - Amplitude-iOS
     - GRDB.swift
     - Kingfisher
     - RiveRuntime
@@ -48,7 +45,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/AgentChe/OtterScaleiOS.git
 
 SPEC CHECKSUMS:
-  Amplitude-iOS: 7d8cdc3408ba35c2e68368fc7c692cd104606b94
   GRDB.swift: 136dcb5d8dddca50aae3ba7d77475f79e7232cd8
   Kingfisher: ff0d31a1f07bdff6a1ebb3ba08b8e6e567b6500c
   OtterScaleiOS: 7797bb943c69572cd25a6118939ddb7c4684f03c
@@ -59,6 +55,6 @@ SPEC CHECKSUMS:
   SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
   Toast-Swift: 7a03a532afe3a560d4044bc7c237e2864d295173
 
-PODFILE CHECKSUM: 31a15525d0084c2d77f58d39c16915a3cc0ad342
+PODFILE CHECKSUM: 4229cef632b26b717426f8e21fd1c6dff1afb4e6
 
 COCOAPODS: 1.16.2

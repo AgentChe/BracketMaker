@@ -11,9 +11,9 @@ final class GlobalDefinitions {
     static let otterScaleHost = "https://api.korrekted.com"
     static let otterScaleApiKey = "pmboxHN6XAoXEsbT"
     
-    static let termsOfServiceUrl = URL(string: "https://maria-apps.com/terms")!
-    static let privacyPolicyUrl = URL(string: "https://maria-apps.com/policy")!
-    static let contactUsUrl = URL(string: "https://maria-apps.com/contact")!
+    static let termsOfServiceUrl = URL(string: "https://thinkaboutapps.com/terms")!
+    static let privacyPolicyUrl = URL(string: "https://thinkaboutapps.com/policy")!
+    static let contactUsUrl = URL(string: "https://thinkaboutapps.com/contact")!
     
     enum Paygate {
         static let yearly = "bracketmaker.yearly"
